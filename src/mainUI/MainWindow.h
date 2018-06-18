@@ -51,6 +51,7 @@ private:
 
 
 	QString		m_LastFolderOpen;
+	QString		m_CSVFileName;
 
 
     Ui::MainWindow *ui;

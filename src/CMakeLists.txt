@@ -24,6 +24,8 @@ set( MAIN_FILES
 set( MAINUI_FILES 
 	mainUI/MainWindow.h
 	mainUI/MainWindow.cpp
+	mainUI/SPCSVManager.h
+	mainUI/SPCSVManager.cpp
 )
 
 set( MISC_FILES 

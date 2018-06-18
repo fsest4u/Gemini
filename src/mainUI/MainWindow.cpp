@@ -13,9 +13,10 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 
-#include "Misc/LimitDate.h"
+#include "misc/LimitDate.h"
 #include "misc/SettingData.h"
 
+#include "SPCSVManager.h"
 #include "mainwindow.h"
 #include "ui_MainWindow.h"
 
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 	, m_LastFolderOpen("")
+	, m_CSVFileName("")
 {
     ui->setupUi(this);
 
@@ -98,18 +100,55 @@ void MainWindow::on_actionNew_triggered()
 {
 	qDebug() << "on_actionNew_triggered()";
 	if (!OnCheckLimited()) { return; }
+
+	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
+
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
 	qDebug() << "on_actionOpen_triggered()";
 	if (!OnCheckLimited()) { return; }
+
+	// Get the filename to use
+	QString default_filter = "*";
+	QString baseName = QFileInfo(m_CSVFileName).baseName();
+	m_CSVFileName = QFileDialog::getOpenFileName(this,
+												tr("Open CSV File"),
+												m_LastFolderOpen + "/" + baseName,
+												tr("CSV Files (*.csv)"),
+												&default_filter);
+
+	if (!m_CSVFileName.isEmpty())
+		m_LastFolderOpen = QFileInfo(m_CSVFileName).absolutePath();
+
+	SPCSVManager* csvManager = new SPCSVManager();
+	csvManager->OpenFile(m_CSVFileName);
+
+
+	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
+
 }
 
 void MainWindow::on_actionSave_triggered()
 {
 	qDebug() << "on_actionSave_triggered()";
 	if (!OnCheckLimited()) { return; }
+
+	// Get the filename to use
+	QString default_filter = "*";
+	QString baseName = QFileInfo(m_CSVFileName).baseName();
+	m_CSVFileName = QFileDialog::getSaveFileName(this,
+												tr("Save CSV File"),
+												m_LastFolderOpen + "/" + baseName,
+												tr("CSV Files (*.csv)"),
+												&default_filter);
+	
+	if (!m_CSVFileName.isEmpty())
+		m_LastFolderOpen = QFileInfo(m_CSVFileName).absolutePath();
+
+	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
+
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -127,4 +166,6 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionAbout_triggered()
 {
 	qDebug() << "on_actionAbout_triggered()";
+	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("Gemini is CSV Calculator for JOARA Publishing Team."));
+
 }
