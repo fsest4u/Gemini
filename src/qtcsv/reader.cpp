@@ -107,8 +107,49 @@ bool ReaderPrivate::read(QIODevice& ioDevice,
         return false;
     }
 
+	// check a codec
+	{
+		QByteArray raw_text = ioDevice.read(10);
+		unsigned char c1;
+		unsigned char c2;
+		unsigned char c3;
+		unsigned char c4;
+		QString text;
+		//QTextCodec *codec;
+
+		if (raw_text.count() < 4) {
+			return QTextCodec::codecForName("UTF-8");
+		}
+
+		// Check the BOM if present.
+		c1 = raw_text.at(0);
+		c2 = raw_text.at(1);
+		c3 = raw_text.at(2);
+		c4 = raw_text.at(3);
+		if (c1 == 0xEF && c2 == 0xBB && c3 == 0xBF) {
+			codec = QTextCodec::codecForName("UTF-8");
+		}
+		else if (c1 == 0xFF && c2 == 0xFE && c3 == 0 && c4 == 0) {
+			codec = QTextCodec::codecForName("UTF-32LE");
+		}
+		else if (c1 == 0 && c2 == 0 && c3 == 0xFE && c4 == 0xFF) {
+			codec = QTextCodec::codecForName("UTF-32BE");
+		}
+		else if (c1 == 0xFE && c2 == 0xFF) {
+			codec = QTextCodec::codecForName("UTF-16BE");
+		}
+		else if (c1 == 0xFF && c2 == 0xFE) {
+			codec = QTextCodec::codecForName("UTF-16LE");
+		}
+		else {
+			codec = QTextCodec::codecForName("eucKR");
+		}
+	}
+
+
     QTextStream stream(&ioDevice);
     stream.setCodec(codec);
+	qDebug() << "codec name is " << codec->name();
 
     // This list will contain elements of the row if its elements
     // are located on several lines
@@ -119,6 +160,7 @@ bool ReaderPrivate::read(QIODevice& ioDevice,
     while (false == stream.atEnd())
     {
         QString line = stream.readLine();
+		//line = codec->toUnicode(line.toLocal8Bit());	// for euc-kr
         processor.preProcessRawLine(line);
         QStringList elements = ReaderPrivate::splitElements(
                   line, separator, textDelimiter, elemInfo);
