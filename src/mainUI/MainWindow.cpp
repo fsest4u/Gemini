@@ -18,7 +18,7 @@
 #include "misc/LimitDate.h"
 #include "misc/SettingData.h"
 
-#include "CSVManager.h"
+#include "CalcManager.h"
 #include "mainwindow.h"
 #include "ui_MainWindow.h"
 
@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 	, m_LastFolderOpen("")
 	, m_CSVFileName("")
-	, m_CSVManager(NULL)
+	, m_CalcManager(NULL)
 {
     ui->setupUi(this);
 
@@ -78,9 +78,9 @@ MainWindow::~MainWindow()
 	WriteSettings();
 	delete ui;
 
-	if (m_CSVManager) {
-		delete m_CSVManager;
-		m_CSVManager = 0;
+	if (m_CalcManager) {
+		delete m_CalcManager;
+		m_CalcManager = 0;
 	}
 }
 
@@ -136,8 +136,8 @@ void MainWindow::ConnectSignalsToSlots()
 	connect(ui->RidiCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckRidi(int)));
 	connect(ui->MunpiaCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckMunpia(int)));
 	connect(ui->MrblueCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckMrblue(int)));
-	connect(ui->BarobookCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckBarabook(int)));
-	connect(ui->BookcubeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckBookCube(int)));
+	connect(ui->BarobookCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckBarobook(int)));
+	connect(ui->BookcubeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckBookcube(int)));
 	connect(ui->EpyrusCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckEpyrus(int)));
 	connect(ui->OebookCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckOebook(int)));
 	connect(ui->OnestoreCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckOnestore(int)));
@@ -146,7 +146,7 @@ void MainWindow::ConnectSignalsToSlots()
 	connect(ui->TocsodaCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckTocsoda(int)));
 	connect(ui->KepubCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckKepub(int)));
 
-	connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(SetCSVFiles()));
+	connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(SetCPFiles()));
 
 }
 
@@ -220,17 +220,17 @@ void MainWindow::on_actionSave_triggered()
 	qDebug() << "on_actionSave_triggered()";
 	if (!OnCheckLimited()) { return; }
 
-	// Get the filename to use
-	QString default_filter = "*";
-	QString baseName = QFileInfo(m_CSVFileName).baseName();
-	m_CSVFileName = QFileDialog::getSaveFileName(this,
-												tr("Save CSV File"),
-												m_LastFolderOpen + "/" + baseName,
-												tr("CSV Files (*.csv)"),
-												&default_filter);
-	
-	if (!m_CSVFileName.isEmpty())
-		m_LastFolderOpen = QFileInfo(m_CSVFileName).absolutePath();
+	//// Get the filename to use
+	//QString default_filter = "*";
+	//QString baseName = QFileInfo(m_CSVFileName).baseName();
+	//m_CSVFileName = QFileDialog::getSaveFileName(this,
+	//											tr("Save CSV File"),
+	//											m_LastFolderOpen + "/" + baseName,
+	//											tr("CSV Files (*.csv)"),
+	//											&default_filter);
+	//
+	//if (!m_CSVFileName.isEmpty())
+	//	m_LastFolderOpen = QFileInfo(m_CSVFileName).absolutePath();
 
 	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
 
@@ -315,7 +315,7 @@ void MainWindow::SetCheckMrblue(int state)
 	}
 }
 
-void MainWindow::SetCheckBarabook(int state)
+void MainWindow::SetCheckBarobook(int state)
 {
 	if (Qt::Checked == state) {
 		ui->BarobookFilepath->setEnabled(true);
@@ -327,7 +327,7 @@ void MainWindow::SetCheckBarabook(int state)
 	}
 }
 
-void MainWindow::SetCheckBookCube(int state)
+void MainWindow::SetCheckBookcube(int state)
 {
 	if (Qt::Checked == state) {
 		ui->BookcubeFilepath->setEnabled(true);
@@ -551,11 +551,11 @@ void MainWindow::on_MrblueFileButton_clicked(){
 	SetFilePath(CP_MRBLUE);
 }
 
-void MainWindow::on_BarabookFileButton_clicked(){
+void MainWindow::on_BarobookFileButton_clicked(){
 	SetFilePath(CP_BAROBOOK);
 }
 
-void MainWindow::on_BookCubeFileButton_clicked(){
+void MainWindow::on_BookcubeFileButton_clicked(){
 	SetFilePath(CP_BOOKCUBE);
 }
 
@@ -587,54 +587,150 @@ void MainWindow::on_KepubFileButton_clicked(){
 	SetFilePath(CP_KEPUB);
 }
 
-void MainWindow::SetCSVFiles()
+void MainWindow::SetCPFiles()
 {
 	QHash<int, QString> cpFileList;
 	if (Qt::Checked == ui->KyoboCheckBox->checkState()) {
+		if (ui->KyoboFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Kyobo file path is empty."));
+			return;
+		}
 		cpFileList[CP_KYOBO] = ui->KyoboFilepath->text();
 	}
 	if (Qt::Checked == ui->NaverCheckBox->checkState()) {
+		if (ui->NaverFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Naver file path is empty."));
+			return;
+		}
 		cpFileList[CP_NAVER] = ui->NaverFilepath->text();
 	}
 	if (Qt::Checked == ui->RidiCheckBox->checkState()) {
+		if (ui->RidiFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Ridi file path is empty."));
+			return;
+		}
 		cpFileList[CP_RIDI] = ui->RidiFilepath->text();
 	}
 	if (Qt::Checked == ui->MunpiaCheckBox->checkState()) {
+		if (ui->MunpiaFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Munpia file path is empty."));
+			return;
+		}
 		cpFileList[CP_MUNPIA] = ui->MunpiaFilepath->text();
 	}
 	if (Qt::Checked == ui->MrblueCheckBox->checkState()) {
+		if (ui->MrblueFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Mrblue file path is empty."));
+			return;
+		}
 		cpFileList[CP_MRBLUE] = ui->MrblueFilepath->text();
 	}
 	if (Qt::Checked == ui->BarobookCheckBox->checkState()) {
+		if (ui->BarobookFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Barobook file path is empty."));
+			return;
+		}
 		cpFileList[CP_BAROBOOK] = ui->BarobookFilepath->text();
 	}
 	if (Qt::Checked == ui->BookcubeCheckBox->checkState()) {
+		if (ui->BookcubeFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Bookcube file path is empty."));
+			return;
+		}
 		cpFileList[CP_BOOKCUBE] = ui->BookcubeFilepath->text();
 	}
 	if (Qt::Checked == ui->EpyrusCheckBox->checkState()) {
+		if (ui->EpyrusFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Epyrus file path is empty."));
+			return;
+		}
 		cpFileList[CP_EPYRUS] = ui->EpyrusFilepath->text();
 	}
 	if (Qt::Checked == ui->OebookCheckBox->checkState()) {
+		if (ui->OebookFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Oebook file path is empty."));
+			return;
+		}
 		cpFileList[CP_OEBOOK] = ui->OebookFilepath->text();
 	}
 	if (Qt::Checked == ui->OnestoreCheckBox->checkState()) {
+		if (ui->OnestoreFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Onestore file path is empty."));
+			return;
+		}
 		cpFileList[CP_ONESTORE] = ui->OnestoreFilepath->text();
 	}
 	if (Qt::Checked == ui->KakaoCheckBox->checkState()) {
+		if (ui->KakaoFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Kakao file path is empty."));
+			return;
+		}
 		cpFileList[CP_KAKAO] = ui->KakaoFilepath->text();
 	}
 	if (Qt::Checked == ui->ComicoCheckBox->checkState()) {
+		if (ui->ComicoFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Comico file path is empty."));
+			return;
+		}
 		cpFileList[CP_COMICO] = ui->ComicoFilepath->text();
 	}
 	if (Qt::Checked == ui->TocsodaCheckBox->checkState()) {
+		if (ui->TocsodaFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Tocsoda file path is empty."));
+			return;
+		}
 		cpFileList[CP_TOCSODA] = ui->TocsodaFilepath->text();
 	}
 	if (Qt::Checked == ui->KepubCheckBox->checkState()) {
+		if (ui->KepubFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Kepub file path is empty."));
+			return;
+		}
 		cpFileList[CP_KEPUB] = ui->KepubFilepath->text();
 	}
 
 	// for debug
 	foreach (const int key, cpFileList.keys()) {
 		qDebug() << " key : " << key << ", value : " << cpFileList.value(key);
+	}
+
+	// open dialog for calculation
+	if (m_CalcManager) {
+		delete m_CalcManager;
+		m_CalcManager = 0;
+	}
+	m_CalcManager = new CalcManager();
+	if (!m_CalcManager->ExecuteCalc(cpFileList)) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Calculation service canceled."));
 	}
 }

@@ -18,7 +18,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class CSVManager;
+class CalcManager;
 
 class MainWindow : public QMainWindow
 {
@@ -41,8 +41,8 @@ private slots:
 	void SetCheckRidi(int);
 	void SetCheckMunpia(int);
 	void SetCheckMrblue(int);
-	void SetCheckBarabook(int);
-	void SetCheckBookCube(int);
+	void SetCheckBarobook(int);
+	void SetCheckBookcube(int);
 	void SetCheckEpyrus(int);
 	void SetCheckOebook(int);
 	void SetCheckOnestore(int);
@@ -56,8 +56,8 @@ private slots:
 	void on_RidiFileButton_clicked();
 	void on_MunpiaFileButton_clicked();
 	void on_MrblueFileButton_clicked();
-	void on_BarabookFileButton_clicked();
-	void on_BookCubeFileButton_clicked();
+	void on_BarobookFileButton_clicked();
+	void on_BookcubeFileButton_clicked();
 	void on_EpyrusFileButton_clicked();
 	void on_OebookFileButton_clicked();
 	void on_OnestoreFileButton_clicked();
@@ -67,7 +67,7 @@ private slots:
 	void on_KepubFileButton_clicked();
 
 
-	void SetCSVFiles();
+	void SetCPFiles();
 
 private:
 	/**
@@ -93,7 +93,7 @@ private:
 	QString		m_LastFolderOpen;
 	QString		m_CSVFileName;
 
-	CSVManager* m_CSVManager;
+	CalcManager* m_CalcManager;
 
 
     Ui::MainWindow *ui;

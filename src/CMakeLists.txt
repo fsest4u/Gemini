@@ -24,8 +24,18 @@ set( MAIN_FILES
 set( MAINUI_FILES 
 	mainUI/MainWindow.h
 	mainUI/MainWindow.cpp
-	mainUI/CSVManager.h
-	mainUI/CSVManager.cpp
+	mainUI/CalcManager.h
+	mainUI/CalcManager.cpp
+)
+
+set( CALC_CP_FILES 
+	calcCP/CalcCPDlg.h
+	calcCP/CalcCPDlg.cpp
+)
+
+set( CALC_TOTAL_FILES 
+	calcTotal/CalcTotalDlg.h
+	calcTotal/CalcTotalDlg.cpp
 )
 
 set( MISC_FILES 
@@ -56,13 +66,15 @@ set( QTCSV_FILES
 
 set( UI_FILES
 	formFiles/MainWindow.ui
+	formFiles/CalcCPDlg.ui
+	formFiles/CalcTotalDlg.ui
 )
 
 set( QRC_FILES
 	resFiles/resources.qrc
 )
 
-set( RAW_SOURCES ${MAIN_FILES} ${MAINUI_FILES} ${MISC_FILES} ${QTCSV_FILES})
+set( RAW_SOURCES ${MAIN_FILES} ${MAINUI_FILES} ${CALC_CP_FILES} ${CALC_TOTAL_FILES} ${MISC_FILES} ${QTCSV_FILES})
 
 #########################################################
 
@@ -83,8 +95,10 @@ qt5_add_translation( QM_FILES ${TS_FILES} )
 # Adds folders for Visual Studio solution explorer (and for Xcode explorer)
 source_group( "Form Files"        FILES ${UI_FILES} )
 source_group( "Resource Files"    FILES ${QRC_FILES} )
-source_group( "QtCSV"             FILES ${QTCSV_FILES} )
+source_group( "Calc CP"           FILES ${CALC_CP_FILES} )
+source_group( "Calc Total"        FILES ${CALC_TOTAL_FILES} )
 source_group( "Misc"              FILES ${MISC_FILES} )
+source_group( "QtCSV"             FILES ${QTCSV_FILES} )
 source_group( "Main UI"           FILES ${MAINUI_FILES} )
 source_group( "Main Files"        FILES ${MAIN_FILES} )
 
