@@ -9,12 +9,18 @@
 *************************************************************************/
 
 #pragma once
-#ifndef SP_CSV_MANAGER_H
-#define SP_CSV_MANAGER_H
+#ifndef CSV_MANAGER_H
+#define CSV_MANAGER_H
 
 #include <QtCore/QObject>
+#include <QAbstractItemModel>
+#include <QStandardItemModel>
+#include <QStandardItem>
+#include <QtWidgets/QVBoxLayout>
+#include <QDateTime>
+#include <QtWidgets/QTableView>
 
-class SPCSVManager : public QObject
+class CSVManager : public QObject
 {
 	Q_OBJECT
 
@@ -23,10 +29,13 @@ public:
 	/**
 	* Constructor.
 	*/
-	SPCSVManager(QObject *parent = 0);
-	~SPCSVManager();
+	CSVManager(QObject *parent = 0);
+	~CSVManager();
 
-	void OpenFile(QString filepath);
+	void ReadFile(QString filepath);
+
+	void SetItem();
+	QStandardItemModel* GetItem();
 
 private slots:
 
@@ -38,10 +47,10 @@ private:
 	///////////////////////////////
 	// PRIVATE MEMBER VARIABLES
 	///////////////////////////////
-
-
+	QList<QStringList> m_CSVData;
+	QStandardItemModel *m_CSVModel;
 
 
 };
 
-#endif // SP_CSV_MANAGER_H
+#endif // CSV_MANAGER_H

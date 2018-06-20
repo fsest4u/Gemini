@@ -18,6 +18,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class CSVManager;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -34,6 +36,39 @@ private slots:
 	void on_actionExit_triggered();
 	void on_actionAbout_triggered();
 
+	void SetCheckKyobo(int);
+	void SetCheckNaver(int);
+	void SetCheckRidi(int);
+	void SetCheckMunpia(int);
+	void SetCheckMrblue(int);
+	void SetCheckBarabook(int);
+	void SetCheckBookCube(int);
+	void SetCheckEpyrus(int);
+	void SetCheckOebook(int);
+	void SetCheckOnestore(int);
+	void SetCheckKakao(int);
+	void SetCheckComico(int);
+	void SetCheckTocsoda(int);
+	void SetCheckKepub(int);
+
+	void on_KyoboFileButton_clicked();
+	void on_NaverFileButton_clicked();
+	void on_RidiFileButton_clicked();
+	void on_MunpiaFileButton_clicked();
+	void on_MrblueFileButton_clicked();
+	void on_BarabookFileButton_clicked();
+	void on_BookCubeFileButton_clicked();
+	void on_EpyrusFileButton_clicked();
+	void on_OebookFileButton_clicked();
+	void on_OnestoreFileButton_clicked();
+	void on_KakaoFileButton_clicked();
+	void on_ComicoFileButton_clicked();
+	void on_TocsodaFileButton_clicked();
+	void on_KepubFileButton_clicked();
+
+
+	void SetCSVFiles();
+
 private:
 	/**
 	* Reads all the stored application settings like
@@ -47,11 +82,18 @@ private:
 	*/
 	void WriteSettings();
 
+	void ConnectSignalsToSlots();
+
+	void InitUI();
 	bool OnCheckLimited();
+
+	void SetFilePath(int type);
 
 
 	QString		m_LastFolderOpen;
 	QString		m_CSVFileName;
+
+	CSVManager* m_CSVManager;
 
 
     Ui::MainWindow *ui;
