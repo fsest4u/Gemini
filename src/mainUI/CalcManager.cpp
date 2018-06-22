@@ -11,20 +11,10 @@
 #include <QtDebug>
 #include <QtWidgets/QDialogButtonBox>
 
-#include "calcCP/CalcCPDlg.h"
 #include "calcTotal/CalcTotalDlg.h"
 
 #include "CalcManager.h"
 
-enum STEP_CALC {
-	STEP_CALC_MAIN = 0
-	, STEP_CALC_CP
-	, STEP_CALC_CP_ING
-	, STEP_CALC_TOTAL
-	, STEP_CALC_TOTAL_ING
-	, STEP_CALC_CANCEL
-	, STEP_CALC_MAX
-};
 
 CalcManager::CalcManager(QWidget *parent) :
 	QWidget(parent)
@@ -60,21 +50,27 @@ bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
 	{
 		switch (status)
 		{
+		case STEP_CALC_CP_PREV:
+			status = STEP_CALC_CANCEL;
+			break;
+		case STEP_CALC_MAIN_NEXT:
 		case STEP_CALC_CP:
 			qDebug() << "go to calculate cp dialog";
-			status = ExecuteCP();
+			status = ExecuteCP(cpFileList, true);
 			break;
-		case STEP_CALC_CP_ING:
-			qDebug() << "calculate cp data";
-			status = STEP_CALC_CP;
-			break;
+		case STEP_CALC_CP_NEXT:
 		case STEP_CALC_TOTAL:
 			qDebug() << "go to calculate total dialog";
 			status = ExecuteTotal();
 			break;
-		case STEP_CALC_TOTAL_ING:
+		case STEP_CALC_TOTAL_PREV:
+			qDebug() << "go to calculate cp dialog";
+			status = ExecuteCP(cpFileList, false);
+			break;
+			break;
+		case STEP_CALC_TOTAL_NEXT:
 			qDebug() << "calculate total data";
-			status = STEP_CALC_TOTAL;
+			status = STEP_CALC_MAX;
 			break;
 		}
 	}
@@ -85,19 +81,21 @@ bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
 
 }
 
-int CalcManager::ExecuteCP()
+int CalcManager::ExecuteCP(QHash<int, QString>& cpFileList, bool bNew)
 {
 	if (!m_CalcCP) { 
 		m_CalcCP = new CalcCPDlg();
 	}
-
+	if (bNew) {
+		m_CalcCP->SetCPFileList(cpFileList);
+	}
 	int ret = m_CalcCP->exec();
 	if (QDialogButtonBox::YesRole == ret)
-		return STEP_CALC_MAIN;
+		return STEP_CALC_CP_PREV;
 	else if (QDialogButtonBox::HelpRole == ret)
-		return STEP_CALC_CP_ING;
+		return STEP_CALC_CP;
 	else if (QDialogButtonBox::NoRole == ret)
-		return STEP_CALC_TOTAL;
+		return STEP_CALC_CP_NEXT;
 	else
 		return STEP_CALC_CANCEL;
 
@@ -111,11 +109,11 @@ int CalcManager::ExecuteTotal()
 
 	int ret = m_CalcTotal->exec();
 	if (QDialogButtonBox::YesRole == ret)
-		return STEP_CALC_CP;
+		return STEP_CALC_TOTAL_PREV;
 	else if (QDialogButtonBox::HelpRole == ret)
-		return STEP_CALC_TOTAL_ING;
+		return STEP_CALC_TOTAL;
 	else if (QDialogButtonBox::NoRole == ret)
-		return STEP_CALC_MAX;
+		return STEP_CALC_TOTAL_NEXT;
 	else
 		return STEP_CALC_CANCEL;
 

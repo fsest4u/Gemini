@@ -31,6 +31,34 @@ set( MAINUI_FILES
 set( CALC_CP_FILES 
 	calcCP/CalcCPDlg.h
 	calcCP/CalcCPDlg.cpp
+	calcCP/CSVKyobo.h
+	calcCP/CSVKyobo.cpp
+	calcCP/CSVNaver.h
+	calcCP/CSVNaver.cpp
+	calcCP/CSVRidi.h
+	calcCP/CSVRidi.cpp
+	calcCP/CSVMunpia.h
+	calcCP/CSVMunpia.cpp
+	calcCP/CSVMrblue.h
+	calcCP/CSVMrblue.cpp
+	calcCP/CSVBarobook.h
+	calcCP/CSVBarobook.cpp
+	calcCP/CSVBookcube.h
+	calcCP/CSVBookcube.cpp
+	calcCP/CSVEpyrus.h
+	calcCP/CSVEpyrus.cpp
+	calcCP/CSVOebook.h
+	calcCP/CSVOebook.cpp
+	calcCP/CSVOnestore.h
+	calcCP/CSVOnestore.cpp
+	calcCP/CSVKakao.h
+	calcCP/CSVKakao.cpp
+	calcCP/CSVComico.h
+	calcCP/CSVComico.cpp
+	calcCP/CSVTocsoda.h
+	calcCP/CSVTocsoda.cpp
+	calcCP/CSVKepub.h
+	calcCP/CSVKepub.cpp
 )
 
 set( CALC_TOTAL_FILES 

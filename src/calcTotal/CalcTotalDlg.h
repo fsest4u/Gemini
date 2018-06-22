@@ -32,12 +32,12 @@ private slots:
 	void connectSignalsSlots();
 
 	void Prev();
-	void CalcCP();
+	void CalcTotal();
 	void Next();
 
 private:
 
-
+	void InitUI();
 
 	///////////////////////////////
 	// PRIVATE MEMBER VARIABLES

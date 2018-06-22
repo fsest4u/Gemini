@@ -14,6 +14,8 @@
 
 #include <QMainWindow>
 
+#include "CalcManager.h"
+
 namespace Ui {
 class MainWindow;
 }

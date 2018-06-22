@@ -18,45 +18,10 @@
 #include "misc/LimitDate.h"
 #include "misc/SettingData.h"
 
-#include "CalcManager.h"
 #include "mainwindow.h"
 #include "ui_MainWindow.h"
 
 static const QString SETTINGS_GROUP = "mainWindow";
-
-const QString CPNAME_KYOBO		= "KYOBO";
-const QString CPNAME_NAVER		= "NAVER";
-const QString CPNAME_RIDI		= "RIDI";
-const QString CPNAME_MUNPIA		= "MUNPIA";
-const QString CPNAME_MRBLUE		= "MRBLUE";
-const QString CPNAME_BARABOOK	= "BARABOOK";
-const QString CPNAME_BOOKCUBE	= "BOOKCUBE";
-const QString CPNAME_EPYRUS		= "EPYRUS";
-const QString CPNAME_OEBOOK		= "OEBOOK";
-const QString CPNAME_ONESTORE	= "ONESTORE";
-const QString CPNAME_KAKAO		= "KAKAO";
-const QString CPNAME_COMICO		= "COMICO";
-const QString CPNAME_TOCSODA	= "TOCSODA";
-const QString CPNAME_KEPUB		= "KEPUB";
-
-enum CP_TYPE {
-	CP_KYOBO = 0,
-	CP_NAVER,
-	CP_RIDI,
-	CP_MUNPIA,
-	CP_MRBLUE,
-	CP_BAROBOOK,
-	CP_BOOKCUBE,
-	CP_EPYRUS,
-	CP_OEBOOK,
-	CP_ONESTORE,
-	CP_KAKAO,
-	CP_COMICO,
-	CP_TOCSODA,
-	CP_KEPUB,
-	CP_MAX
-};
-
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -94,6 +59,22 @@ void MainWindow::InitUI()
 	ui->actionSave->setVisible(false);
 
 	ui->buttonBox->button(QDialogButtonBox::Yes)->setText(tr("Calculate"));
+
+	// temp
+	ui->KyoboCheckBox->setChecked(false);
+	ui->NaverCheckBox->setChecked(false);
+	ui->RidiCheckBox->setChecked(false);
+	ui->MunpiaCheckBox->setChecked(false);
+	ui->MrblueCheckBox->setChecked(false);
+	ui->BarobookCheckBox->setChecked(false);
+	ui->BookcubeCheckBox->setChecked(false);
+	ui->EpyrusCheckBox->setChecked(false);
+	ui->OebookCheckBox->setChecked(false);
+	ui->OnestoreCheckBox->setChecked(false);
+	ui->KakaoCheckBox->setChecked(false);
+	ui->ComicoCheckBox->setChecked(false);
+	ui->TocsodaCheckBox->setChecked(false);
+	ui->KepubCheckBox->setChecked(false);
 
 	ConnectSignalsToSlots();
 }
@@ -189,29 +170,7 @@ void MainWindow::on_actionOpen_triggered()
 	qDebug() << "on_actionOpen_triggered()";
 	if (!OnCheckLimited()) { return; }
 
-	//// Get the filename to use
-	//QString default_filter = "*";
-	//QString baseName = QFileInfo(m_CSVFileName).baseName();
-	//m_CSVFileName = QFileDialog::getOpenFileName(this,
-	//											tr("Open CSV File"),
-	//											m_LastFolderOpen + "/" + baseName,
-	//											tr("CSV Files (*.csv)"),
-	//											&default_filter);
-
-	//if (!m_CSVFileName.isEmpty())
-	//	m_LastFolderOpen = QFileInfo(m_CSVFileName).absolutePath();
-
-	//if (m_CSVManager) {
-	//	delete m_CSVManager;
-	//	m_CSVManager = 0;
-	//}
-	//m_CSVManager = new CSVManager();
-	//m_CSVManager->ReadFile(m_CSVFileName);
-	//m_CSVManager->SetItem();
-	//QStandardItemModel *model = m_CSVManager->GetItem();
-	//ui->tableView->setModel(model);
-
-	//QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
+	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
 
 }
 
@@ -219,18 +178,6 @@ void MainWindow::on_actionSave_triggered()
 {
 	qDebug() << "on_actionSave_triggered()";
 	if (!OnCheckLimited()) { return; }
-
-	//// Get the filename to use
-	//QString default_filter = "*";
-	//QString baseName = QFileInfo(m_CSVFileName).baseName();
-	//m_CSVFileName = QFileDialog::getSaveFileName(this,
-	//											tr("Save CSV File"),
-	//											m_LastFolderOpen + "/" + baseName,
-	//											tr("CSV Files (*.csv)"),
-	//											&default_filter);
-	//
-	//if (!m_CSVFileName.isEmpty())
-	//	m_LastFolderOpen = QFileInfo(m_CSVFileName).absolutePath();
 
 	QMessageBox::about(this, tr(QCoreApplication::applicationName().toStdString().c_str()), tr("This function is not yet."));
 
@@ -428,46 +375,46 @@ void MainWindow::SetFilePath(int type)
 	QString filepath;
 	switch (type)
 	{
-	case CP_KYOBO:
+	case CalcCPDlg::CP_KYOBO:
 		filepath = ui->KyoboFilepath->text();
 		break;
-	case CP_NAVER:
+	case CalcCPDlg::CP_NAVER:
 		filepath = ui->NaverFilepath->text();
 		break;
-	case CP_RIDI:
+	case CalcCPDlg::CP_RIDI:
 		filepath = ui->RidiFilepath->text();
 		break;
-	case CP_MUNPIA:
+	case CalcCPDlg::CP_MUNPIA:
 		filepath = ui->MunpiaFilepath->text();
 		break;
-	case CP_MRBLUE:
+	case CalcCPDlg::CP_MRBLUE:
 		filepath = ui->MrblueFilepath->text();
 		break;
-	case CP_BAROBOOK:
+	case CalcCPDlg::CP_BAROBOOK:
 		filepath = ui->BarobookFilepath->text();
 		break;
-	case CP_BOOKCUBE:
+	case CalcCPDlg::CP_BOOKCUBE:
 		filepath = ui->BookcubeFilepath->text();
 		break;
-	case CP_EPYRUS:
+	case CalcCPDlg::CP_EPYRUS:
 		filepath = ui->EpyrusFilepath->text();
 		break;
-	case CP_OEBOOK:
+	case CalcCPDlg::CP_OEBOOK:
 		filepath = ui->OebookFilepath->text();
 		break;
-	case CP_ONESTORE:
+	case CalcCPDlg::CP_ONESTORE:
 		filepath = ui->OnestoreFilepath->text();
 		break;
-	case CP_KAKAO:
+	case CalcCPDlg::CP_KAKAO:
 		filepath = ui->KakaoFilepath->text();
 		break;
-	case CP_COMICO:
+	case CalcCPDlg::CP_COMICO:
 		filepath = ui->ComicoFilepath->text();
 		break;
-	case CP_TOCSODA:
+	case CalcCPDlg::CP_TOCSODA:
 		filepath = ui->TocsodaFilepath->text();
 		break;
-	case CP_KEPUB:
+	case CalcCPDlg::CP_KEPUB:
 		filepath = ui->KepubFilepath->text();
 		break;
 	}
@@ -483,46 +430,46 @@ void MainWindow::SetFilePath(int type)
 
 	switch (type)
 	{
-	case CP_KYOBO:
+	case CalcCPDlg::CP_KYOBO:
 		ui->KyoboFilepath->setText(filename);
 		break;
-	case CP_NAVER:
+	case CalcCPDlg::CP_NAVER:
 		ui->NaverFilepath->setText(filename);
 		break;
-	case CP_RIDI:
+	case CalcCPDlg::CP_RIDI:
 		ui->RidiFilepath->setText(filename);
 		break;
-	case CP_MUNPIA:
+	case CalcCPDlg::CP_MUNPIA:
 		ui->MunpiaFilepath->setText(filename);
 		break;
-	case CP_MRBLUE:
+	case CalcCPDlg::CP_MRBLUE:
 		ui->MrblueFilepath->setText(filename);
 		break;
-	case CP_BAROBOOK:
+	case CalcCPDlg::CP_BAROBOOK:
 		ui->BarobookFilepath->setText(filename);
 		break;
-	case CP_BOOKCUBE:
+	case CalcCPDlg::CP_BOOKCUBE:
 		ui->BookcubeFilepath->setText(filename);
 		break;
-	case CP_EPYRUS:
+	case CalcCPDlg::CP_EPYRUS:
 		ui->EpyrusFilepath->setText(filename);
 		break;
-	case CP_OEBOOK:
+	case CalcCPDlg::CP_OEBOOK:
 		ui->OebookFilepath->setText(filename);
 		break;
-	case CP_ONESTORE:
+	case CalcCPDlg::CP_ONESTORE:
 		ui->OnestoreFilepath->setText(filename);
 		break;
-	case CP_KAKAO:
+	case CalcCPDlg::CP_KAKAO:
 		ui->KakaoFilepath->setText(filename);
 		break;
-	case CP_COMICO:
+	case CalcCPDlg::CP_COMICO:
 		ui->ComicoFilepath->setText(filename);
 		break;
-	case CP_TOCSODA:
+	case CalcCPDlg::CP_TOCSODA:
 		ui->TocsodaFilepath->setText(filename);
 		break;
-	case CP_KEPUB:
+	case CalcCPDlg::CP_KEPUB:
 		ui->KepubFilepath->setText(filename);
 		break;
 	}
@@ -532,59 +479,59 @@ void MainWindow::SetFilePath(int type)
 }
 
 void MainWindow::on_KyoboFileButton_clicked() {
-	SetFilePath(CP_KYOBO);
+	SetFilePath(CalcCPDlg::CP_KYOBO);
 }
 
 void MainWindow::on_NaverFileButton_clicked() {
-	SetFilePath(CP_NAVER);
+	SetFilePath(CalcCPDlg::CP_NAVER);
 }
 
 void MainWindow::on_RidiFileButton_clicked(){ 
-	SetFilePath(CP_RIDI);
+	SetFilePath(CalcCPDlg::CP_RIDI);
 }
 
 void MainWindow::on_MunpiaFileButton_clicked(){
-	SetFilePath(CP_MUNPIA);
+	SetFilePath(CalcCPDlg::CP_MUNPIA);
 }
 
 void MainWindow::on_MrblueFileButton_clicked(){
-	SetFilePath(CP_MRBLUE);
+	SetFilePath(CalcCPDlg::CP_MRBLUE);
 }
 
 void MainWindow::on_BarobookFileButton_clicked(){
-	SetFilePath(CP_BAROBOOK);
+	SetFilePath(CalcCPDlg::CP_BAROBOOK);
 }
 
 void MainWindow::on_BookcubeFileButton_clicked(){
-	SetFilePath(CP_BOOKCUBE);
+	SetFilePath(CalcCPDlg::CP_BOOKCUBE);
 }
 
 void MainWindow::on_EpyrusFileButton_clicked(){
-	SetFilePath(CP_EPYRUS);
+	SetFilePath(CalcCPDlg::CP_EPYRUS);
 }
 
 void MainWindow::on_OebookFileButton_clicked(){
-	SetFilePath(CP_OEBOOK);
+	SetFilePath(CalcCPDlg::CP_OEBOOK);
 }
 
 void MainWindow::on_OnestoreFileButton_clicked(){
-	SetFilePath(CP_ONESTORE);
+	SetFilePath(CalcCPDlg::CP_ONESTORE);
 }
 
 void MainWindow::on_KakaoFileButton_clicked(){
-	SetFilePath(CP_KAKAO);
+	SetFilePath(CalcCPDlg::CP_KAKAO);
 }
 
 void MainWindow::on_ComicoFileButton_clicked(){
-	SetFilePath(CP_COMICO);
+	SetFilePath(CalcCPDlg::CP_COMICO);
 }
 
 void MainWindow::on_TocsodaFileButton_clicked(){
-	SetFilePath(CP_TOCSODA);
+	SetFilePath(CalcCPDlg::CP_TOCSODA);
 }
 
 void MainWindow::on_KepubFileButton_clicked(){
-	SetFilePath(CP_KEPUB);
+	SetFilePath(CalcCPDlg::CP_KEPUB);
 }
 
 void MainWindow::SetCPFiles()
@@ -597,7 +544,7 @@ void MainWindow::SetCPFiles()
 				, tr("Kyobo file path is empty."));
 			return;
 		}
-		cpFileList[CP_KYOBO] = ui->KyoboFilepath->text();
+		cpFileList[CalcCPDlg::CP_KYOBO] = ui->KyoboFilepath->text();
 	}
 	if (Qt::Checked == ui->NaverCheckBox->checkState()) {
 		if (ui->NaverFilepath->text().isEmpty()) {
@@ -606,7 +553,7 @@ void MainWindow::SetCPFiles()
 				, tr("Naver file path is empty."));
 			return;
 		}
-		cpFileList[CP_NAVER] = ui->NaverFilepath->text();
+		cpFileList[CalcCPDlg::CP_NAVER] = ui->NaverFilepath->text();
 	}
 	if (Qt::Checked == ui->RidiCheckBox->checkState()) {
 		if (ui->RidiFilepath->text().isEmpty()) {
@@ -615,7 +562,7 @@ void MainWindow::SetCPFiles()
 				, tr("Ridi file path is empty."));
 			return;
 		}
-		cpFileList[CP_RIDI] = ui->RidiFilepath->text();
+		cpFileList[CalcCPDlg::CP_RIDI] = ui->RidiFilepath->text();
 	}
 	if (Qt::Checked == ui->MunpiaCheckBox->checkState()) {
 		if (ui->MunpiaFilepath->text().isEmpty()) {
@@ -624,7 +571,7 @@ void MainWindow::SetCPFiles()
 				, tr("Munpia file path is empty."));
 			return;
 		}
-		cpFileList[CP_MUNPIA] = ui->MunpiaFilepath->text();
+		cpFileList[CalcCPDlg::CP_MUNPIA] = ui->MunpiaFilepath->text();
 	}
 	if (Qt::Checked == ui->MrblueCheckBox->checkState()) {
 		if (ui->MrblueFilepath->text().isEmpty()) {
@@ -633,7 +580,7 @@ void MainWindow::SetCPFiles()
 				, tr("Mrblue file path is empty."));
 			return;
 		}
-		cpFileList[CP_MRBLUE] = ui->MrblueFilepath->text();
+		cpFileList[CalcCPDlg::CP_MRBLUE] = ui->MrblueFilepath->text();
 	}
 	if (Qt::Checked == ui->BarobookCheckBox->checkState()) {
 		if (ui->BarobookFilepath->text().isEmpty()) {
@@ -642,7 +589,7 @@ void MainWindow::SetCPFiles()
 				, tr("Barobook file path is empty."));
 			return;
 		}
-		cpFileList[CP_BAROBOOK] = ui->BarobookFilepath->text();
+		cpFileList[CalcCPDlg::CP_BAROBOOK] = ui->BarobookFilepath->text();
 	}
 	if (Qt::Checked == ui->BookcubeCheckBox->checkState()) {
 		if (ui->BookcubeFilepath->text().isEmpty()) {
@@ -651,7 +598,7 @@ void MainWindow::SetCPFiles()
 				, tr("Bookcube file path is empty."));
 			return;
 		}
-		cpFileList[CP_BOOKCUBE] = ui->BookcubeFilepath->text();
+		cpFileList[CalcCPDlg::CP_BOOKCUBE] = ui->BookcubeFilepath->text();
 	}
 	if (Qt::Checked == ui->EpyrusCheckBox->checkState()) {
 		if (ui->EpyrusFilepath->text().isEmpty()) {
@@ -660,7 +607,7 @@ void MainWindow::SetCPFiles()
 				, tr("Epyrus file path is empty."));
 			return;
 		}
-		cpFileList[CP_EPYRUS] = ui->EpyrusFilepath->text();
+		cpFileList[CalcCPDlg::CP_EPYRUS] = ui->EpyrusFilepath->text();
 	}
 	if (Qt::Checked == ui->OebookCheckBox->checkState()) {
 		if (ui->OebookFilepath->text().isEmpty()) {
@@ -669,7 +616,7 @@ void MainWindow::SetCPFiles()
 				, tr("Oebook file path is empty."));
 			return;
 		}
-		cpFileList[CP_OEBOOK] = ui->OebookFilepath->text();
+		cpFileList[CalcCPDlg::CP_OEBOOK] = ui->OebookFilepath->text();
 	}
 	if (Qt::Checked == ui->OnestoreCheckBox->checkState()) {
 		if (ui->OnestoreFilepath->text().isEmpty()) {
@@ -678,7 +625,7 @@ void MainWindow::SetCPFiles()
 				, tr("Onestore file path is empty."));
 			return;
 		}
-		cpFileList[CP_ONESTORE] = ui->OnestoreFilepath->text();
+		cpFileList[CalcCPDlg::CP_ONESTORE] = ui->OnestoreFilepath->text();
 	}
 	if (Qt::Checked == ui->KakaoCheckBox->checkState()) {
 		if (ui->KakaoFilepath->text().isEmpty()) {
@@ -687,7 +634,7 @@ void MainWindow::SetCPFiles()
 				, tr("Kakao file path is empty."));
 			return;
 		}
-		cpFileList[CP_KAKAO] = ui->KakaoFilepath->text();
+		cpFileList[CalcCPDlg::CP_KAKAO] = ui->KakaoFilepath->text();
 	}
 	if (Qt::Checked == ui->ComicoCheckBox->checkState()) {
 		if (ui->ComicoFilepath->text().isEmpty()) {
@@ -696,7 +643,7 @@ void MainWindow::SetCPFiles()
 				, tr("Comico file path is empty."));
 			return;
 		}
-		cpFileList[CP_COMICO] = ui->ComicoFilepath->text();
+		cpFileList[CalcCPDlg::CP_COMICO] = ui->ComicoFilepath->text();
 	}
 	if (Qt::Checked == ui->TocsodaCheckBox->checkState()) {
 		if (ui->TocsodaFilepath->text().isEmpty()) {
@@ -705,7 +652,7 @@ void MainWindow::SetCPFiles()
 				, tr("Tocsoda file path is empty."));
 			return;
 		}
-		cpFileList[CP_TOCSODA] = ui->TocsodaFilepath->text();
+		cpFileList[CalcCPDlg::CP_TOCSODA] = ui->TocsodaFilepath->text();
 	}
 	if (Qt::Checked == ui->KepubCheckBox->checkState()) {
 		if (ui->KepubFilepath->text().isEmpty()) {
@@ -714,7 +661,7 @@ void MainWindow::SetCPFiles()
 				, tr("Kepub file path is empty."));
 			return;
 		}
-		cpFileList[CP_KEPUB] = ui->KepubFilepath->text();
+		cpFileList[CalcCPDlg::CP_KEPUB] = ui->KepubFilepath->text();
 	}
 
 	// for debug

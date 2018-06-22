@@ -14,6 +14,8 @@
 
 #include <QtWidgets/QWidget>
 
+#include "calcCP/CalcCPDlg.h"
+
 class CalcCPDlg;
 class CalcTotalDlg;
 
@@ -23,6 +25,19 @@ class CalcManager : public QWidget
 
 public:
 
+	enum STEP_CALC {
+		STEP_CALC_MAIN = 0
+		, STEP_CALC_MAIN_NEXT
+		, STEP_CALC_CP_PREV
+		, STEP_CALC_CP
+		, STEP_CALC_CP_NEXT
+		, STEP_CALC_TOTAL_PREV
+		, STEP_CALC_TOTAL
+		, STEP_CALC_TOTAL_NEXT
+		, STEP_CALC_CANCEL
+		, STEP_CALC_MAX
+	};
+
 	/**
 	* Constructor.
 	*/
@@ -30,7 +45,7 @@ public:
 	~CalcManager();
 
 	bool ExecuteCalc(QHash<int, QString>&);
-	int ExecuteCP();
+	int ExecuteCP(QHash<int, QString>&, bool bNew);
 	int ExecuteTotal();
 
 private slots:
