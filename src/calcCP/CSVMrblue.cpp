@@ -68,7 +68,7 @@ void CSVMrblue::SetItem()
 		m_AuthorAmount += m_CSVData.at(i).value(HEADER_MRBLUE_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
 	}
 
-	qDebug() << "[KAKAO]-----------------------------";
+	qDebug() << "[MRBLUE]-----------------------------";
 	qDebug() << "Row Count : " << m_CSVData.size();
 	qDebug() << "Column Count : " << m_CSVData.at(0).size();
 	qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);

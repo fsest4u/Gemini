@@ -13,6 +13,8 @@
 #define CALC_CP_DLG_H
 
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QProgressDialog>
+
 #include "ui_CalcCPDlg.h"
 
 class CSVKyobo;		
@@ -147,6 +149,9 @@ private:
 	QTableView*			m_ComicoView;
 	QTableView*			m_TocsodaView;
 	QTableView*			m_KepubView;
+
+	QProgressDialog*	m_Progress;
+
 
 	Ui::CalcCPDlg ui;
 

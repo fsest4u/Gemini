@@ -31,7 +31,7 @@ void CalcTotalDlg::InitUI()
 {
 
 	ui.buttonBox->button(QDialogButtonBox::Yes)->setText(tr("Prev"));
-	ui.buttonBox->button(QDialogButtonBox::Retry)->setText(tr("Calculate"));
+	ui.buttonBox->button(QDialogButtonBox::Retry)->setText(tr("Re-Calculate"));
 	ui.buttonBox->button(QDialogButtonBox::No)->setText(tr("Next"));
 
 	connectSignalsSlots();
