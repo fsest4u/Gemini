@@ -60,21 +60,53 @@ void MainWindow::InitUI()
 
 	ui->buttonBox->button(QDialogButtonBox::Yes)->setText(tr("Calculate"));
 
-	// temp
-	ui->KyoboCheckBox->setChecked(false);
-	ui->NaverCheckBox->setChecked(false);
-	ui->RidiCheckBox->setChecked(false);
-	ui->MunpiaCheckBox->setChecked(false);
-	ui->MrblueCheckBox->setChecked(false);
-	ui->BarobookCheckBox->setChecked(false);
-	ui->BookcubeCheckBox->setChecked(false);
-	ui->EpyrusCheckBox->setChecked(false);
-	ui->OebookCheckBox->setChecked(false);
-	ui->OnestoreCheckBox->setChecked(false);
-	ui->KakaoCheckBox->setChecked(false);
-	ui->ComicoCheckBox->setChecked(false);
-	ui->TocsodaCheckBox->setChecked(false);
-	ui->KepubCheckBox->setChecked(false);
+	// temp -------------------------------
+	ui->KyoboCheckBox->setChecked(true);
+	ui->NaverCheckBox->setChecked(true);
+	ui->RidiCheckBox->setChecked(true);
+	ui->MunpiaCheckBox->setChecked(true);
+	ui->MrblueCheckBox->setChecked(true);
+	ui->BarobookCheckBox->setChecked(true);
+	ui->BookcubeCheckBox->setChecked(true);
+	ui->EpyrusCheckBox->setChecked(true);
+	ui->OebookCheckBox->setChecked(true);
+	ui->OnestoreCheckBox->setChecked(true);
+	ui->KakaoCheckBox->setChecked(true);
+	ui->ComicoCheckBox->setChecked(true);
+	ui->TocsodaCheckBox->setChecked(true);
+	ui->KepubCheckBox->setChecked(true);
+
+	ui->KyoboFilepath->setEnabled(true);
+	ui->NaverFilepath->setEnabled(true);
+	ui->RidiFilepath->setEnabled(true);
+	ui->MunpiaFilepath->setEnabled(true);
+	ui->MrblueFilepath->setEnabled(true);
+	ui->BarobookFilepath->setEnabled(true);
+	ui->BookcubeFilepath->setEnabled(true);
+	ui->EpyrusFilepath->setEnabled(true);
+	ui->OebookFilepath->setEnabled(true);
+	ui->OnestoreFilepath->setEnabled(true);
+	ui->KakaoFilepath->setEnabled(true);
+	ui->ComicoFilepath->setEnabled(true);
+	ui->TocsodaFilepath->setEnabled(true);
+	ui->KepubFilepath->setEnabled(true);
+	ui->KepubFileButton->setEnabled(true);
+
+	ui->KyoboFileButton->setEnabled(true);
+	ui->NaverFileButton->setEnabled(true);
+	ui->RidiFileButton->setEnabled(true);
+	ui->MunpiaFileButton->setEnabled(true);
+	ui->MrblueFileButton->setEnabled(true);
+	ui->BarobookFileButton->setEnabled(true);
+	ui->BookcubeFileButton->setEnabled(true);
+	ui->EpyrusFileButton->setEnabled(true);
+	ui->OebookFileButton->setEnabled(true);
+	ui->OnestoreFileButton->setEnabled(true);
+	ui->KakaoFileButton->setEnabled(true);
+	ui->ComicoFileButton->setEnabled(true);
+	ui->TocsodaFileButton->setEnabled(true);
+	ui->KepubFileButton->setEnabled(true);
+	// temp -------------------------------
 
 	ConnectSignalsToSlots();
 }
@@ -670,11 +702,9 @@ void MainWindow::SetCPFiles()
 	}
 
 	// open dialog for calculation
-	if (m_CalcManager) {
-		delete m_CalcManager;
-		m_CalcManager = 0;
+	if (!m_CalcManager) {
+		m_CalcManager = new CalcManager();
 	}
-	m_CalcManager = new CalcManager();
 	if (!m_CalcManager->ExecuteCalc(cpFileList)) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())

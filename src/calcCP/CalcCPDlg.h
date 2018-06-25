@@ -15,6 +15,21 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QProgressDialog>
 
+#include "CSVKyobo.h"
+#include "CSVNaver.h"
+#include "CSVRidi.h"
+#include "CSVMunpia.h"
+#include "CSVMrblue.h"
+#include "CSVBarobook.h"
+#include "CSVBookcube.h"
+#include "CSVEpyrus.h"
+#include "CSVOebook.h"
+#include "CSVOnestore.h"
+#include "CSVKakao.h"
+#include "CSVComico.h"
+#include "CSVTocsoda.h"
+#include "CSVKepub.h"
+
 #include "ui_CalcCPDlg.h"
 
 class CSVKyobo;		
@@ -62,9 +77,22 @@ public:
 	CalcCPDlg(QDialog *parent = 0);
 	~CalcCPDlg();
 
-	void SetCPFileList(QHash<int, QString>&);
+	void SetCP(QHash<int, QString>&);
 
-
+	CSVKyobo*			GetKyobo() { return m_Kyobo; }
+	CSVNaver*			GetNaver() { return m_Naver; }
+	CSVRidi*			GetRidi() { return m_Ridi; }
+	CSVMunpia*			GetMunpia() { return m_Munpia; }
+	CSVMrblue*			GetMrblue() { return m_Mrblue; }
+	CSVBarobook*		GetBarobook() { return m_Barabook; }
+	CSVBookcube*		GetBookcube() { return m_Bookcube; }
+	CSVEpyrus*			GetEpyrus() { return m_Epyrus; }
+	CSVOebook*			GetOebook() { return m_Oebook; }
+	CSVOnestore*		GetOnestore() { return m_Onestore; }
+	CSVKakao*			GetKakao() { return m_Kakao; }
+	CSVComico*			GetComico() { return m_Comico; }
+	CSVTocsoda*			GetTocsoda() { return m_Tocsoda; }
+	CSVKepub*			GetKepub() { return m_Kepub; }
 
 private slots:
 

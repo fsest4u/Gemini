@@ -13,22 +13,8 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLabel>
 
-#include "CSVKyobo.h"
-#include "CSVNaver.h"
-#include "CSVRidi.h"
-#include "CSVMunpia.h"
-#include "CSVMrblue.h"
-#include "CSVBarobook.h"
-#include "CSVBookcube.h"
-#include "CSVEpyrus.h"
-#include "CSVOebook.h"
-#include "CSVOnestore.h"
-#include "CSVKakao.h"
-#include "CSVComico.h"
-#include "CSVTocsoda.h"
-#include "CSVKepub.h"
-
 #include "CalcCPDlg.h"
+#include "gemini_constants.h"
 
 
 const QString CPNAME_KYOBO = "KYOBO";
@@ -127,18 +113,6 @@ void CalcCPDlg::InitUI()
 		Qt::WindowMaximizeButtonHint |
 		Qt::WindowCloseButtonHint);
 
-	if (m_Progress) {
-		delete m_Progress;
-		m_Progress = NULL;
-	}
-	m_Progress = new QProgressDialog(this);
-	m_Progress->setMinimumDuration(PROGRESS_BAR_MINIMUM_DURATION);
-	m_Progress->setMinimum(CP_KYOBO);
-	m_Progress->setMaximum(CP_KEPUB);
-	m_Progress->setValue(0);
-	m_Progress->setAutoClose(true);
-
-
 }
 
 void CalcCPDlg::connectSignalsSlots()
@@ -152,36 +126,6 @@ void CalcCPDlg::connectSignalsSlots()
 
 }
 
-void CalcCPDlg::SetCPFileList(QHash<int, QString>& cpFileList)
-{
-	m_CPFileList = cpFileList;
-	// for debug
-	foreach(const int key, m_CPFileList.keys()) {
-		qDebug() << "[SetCPFileList] key : " << key << ", value : " << m_CPFileList.value(key);
-	}
-
-	QApplication::setOverrideCursor(Qt::WaitCursor);
-
-	CalcKyobo();
-	CalcNaver();
-	CalcRidi();
-	CalcMunpia();
-	CalcMrblue();
-	CalcBarobook();
-	CalcBookcube();
-	CalcEpyrus();
-	CalcOebook();
-	CalcOnestore();
-	CalcKakao();
-	CalcComico();
-	CalcTocsoda();
-	CalcKepub();
-
-	m_Progress->accept();
-	QApplication::restoreOverrideCursor();
-
-}
-
 void CalcCPDlg::Prev()
 {
 	this->done(QDialogButtonBox::YesRole);
@@ -189,6 +133,7 @@ void CalcCPDlg::Prev()
 
 void CalcCPDlg::CalcCP()
 {
+	qDebug() << "[CalcCP] -----";
 	// Delete and draw new
 	int count = ui.tabCP->count();
 	for (int i = 0; i < count; i++) {
@@ -218,6 +163,54 @@ void CalcCPDlg::CalcCP()
 void CalcCPDlg::Next()
 {
 	this->done(QDialogButtonBox::NoRole);
+}
+
+void CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
+{
+	qDebug() << "[SetCP]";
+	m_CPFileList = cpFileList;
+	// for debug
+	//foreach(const int key, m_CPFileList.keys()) {
+	//	qDebug() << "[SetCPFileList] key : " << key << ", value : " << m_CPFileList.value(key);
+	//}
+
+	if (m_Progress) {
+		delete m_Progress;
+		m_Progress = NULL;
+	}
+	m_Progress = new QProgressDialog(this);
+	m_Progress->setMinimumDuration(PROGRESS_BAR_MINIMUM_DURATION);
+	m_Progress->setMinimum(CP_KYOBO);
+	m_Progress->setMaximum(CP_KEPUB);
+	m_Progress->setValue(0);
+	m_Progress->setAutoClose(true);
+
+	// Delete and draw new
+	int count = ui.tabCP->count();
+	for (int i = 0; i < count; i++) {
+		ui.tabCP->removeTab(i);
+	}
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+
+	CalcKyobo();
+	CalcNaver();
+	CalcRidi();
+	CalcMunpia();
+	CalcMrblue();
+	CalcBarobook();
+	CalcBookcube();
+	CalcEpyrus();
+	CalcOebook();
+	CalcOnestore();
+	CalcKakao();
+	CalcComico();
+	CalcTocsoda();
+	CalcKepub();
+
+	m_Progress->accept();
+	QApplication::restoreOverrideCursor();
+
 }
 
 void CalcCPDlg::CalcKyobo()
@@ -712,7 +705,7 @@ void CalcCPDlg::DeleteKepub()
 
 void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, double calculator, double author)
 {
-	qDebug() << "[AddTab] - " << cpName;
+	qDebug() << "[CalcCPDlg AddTab] - " << cpName;
 	// Draw Widget
 	QLabel* totalLabel = new QLabel(QString("Total Amount : %L1").arg(total, 0, 'f', 0));
 	QLabel* calcLabel = new QLabel(QString("Calculate Amount : %L1").arg(calculator, 0, 'f', 0));
@@ -733,7 +726,7 @@ void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, do
 
 void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author)
 {
-	qDebug() << "[AddTab4List] - " << cpName;
+	qDebug() << "[CalcCPDlg AddTab4List] - " << cpName;
 	QGridLayout* defalutLayout = new QGridLayout();
 	QHBoxLayout* totalLayout = new QHBoxLayout();
 	QHBoxLayout* calcLayout = new QHBoxLayout();

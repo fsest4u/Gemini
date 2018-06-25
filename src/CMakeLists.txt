@@ -18,6 +18,7 @@ find_package(Qt5 5.4 COMPONENTS Core Network Svg WebKit WebKitWidgets Widgets Xm
 set(CMAKE_AUTOMOC ON)
 
 set( MAIN_FILES
+	gemini_constants.h
 	main.cpp
 )
 

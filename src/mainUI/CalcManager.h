@@ -45,8 +45,8 @@ public:
 	~CalcManager();
 
 	bool ExecuteCalc(QHash<int, QString>&);
-	int ExecuteCP(QHash<int, QString>&, bool bNew);
-	int ExecuteTotal();
+	int ExecuteCP(QHash<int, QString>&, bool bRefresh);
+	int ExecuteTotal(bool bRefresh);
 
 private slots:
 
