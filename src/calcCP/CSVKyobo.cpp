@@ -39,9 +39,17 @@ void CSVKyobo::ReadFile(QString filepath)
 
 void CSVKyobo::SetItem()
 {
-	m_TotalAmount = 0;
-	m_CalcAmount = 0;
-	m_AuthorAmount = 0;
+	double totalAmount = 0;
+	double calcAmount = 0;
+	double authorAmount = 0;
+
+	double totalAmountB2C = 0;
+	double calcAmountB2C = 0;
+	double authorAmountB2C = 0;
+
+	double totalAmountB2BC = 0;
+	double calcAmountB2BC = 0;
+	double authorAmountB2BC = 0;
 
 	if (m_CSVModel) {
 		delete m_CSVModel;
@@ -62,17 +70,48 @@ void CSVKyobo::SetItem()
 			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
 		}
 
-		m_TotalAmount += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();
-		m_CalcAmount += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble();
-		m_AuthorAmount += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		totalAmount += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();
+		calcAmount += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+		authorAmount += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+
+		// b2c
+		if (!m_CSVData.at(i).value(HEADER_KYOBO_BUSINESS_TYPE).compare("B2C")) {
+			totalAmountB2C += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();
+			calcAmountB2C += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+			authorAmountB2C += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
+		// b2bc
+		else if (!m_CSVData.at(i).value(HEADER_KYOBO_BUSINESS_TYPE).compare("B2BC")) {
+			totalAmountB2BC += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();
+			calcAmountB2BC += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+			authorAmountB2BC += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
 	}
 
 	qDebug() << "[KYOBO]-----------------------------";
 	qDebug() << "Row Count : " << m_CSVData.size();
 	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(m_CalcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
+	qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
+	qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
+	qDebug() << QString("Total Amount B2C: %L1").arg(totalAmountB2C, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount B2C: %L1").arg(calcAmountB2C, 0, 'f', 0);
+	qDebug() << QString("Author Amount B2C: %L1").arg(authorAmountB2C, 0, 'f', 0);
+	qDebug() << QString("Total Amount B2BC: %L1").arg(totalAmountB2BC, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount B2BC: %L1").arg(calcAmountB2BC, 0, 'f', 0);
+	qDebug() << QString("Author Amount B2BC: %L1").arg(authorAmountB2BC, 0, 'f', 0);
+
+	m_TotalAmount.append(totalAmount);
+	m_TotalAmount.append(totalAmountB2C);
+	m_TotalAmount.append(totalAmountB2BC);
+
+	m_CalcAmount.append(calcAmount);
+	m_CalcAmount.append(calcAmountB2C);
+	m_CalcAmount.append(calcAmountB2BC);
+
+	m_AuthorAmount.append(authorAmount);
+	m_AuthorAmount.append(authorAmountB2C);
+	m_AuthorAmount.append(authorAmountB2BC);
 
 }
 

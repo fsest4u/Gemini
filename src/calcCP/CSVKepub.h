@@ -49,6 +49,15 @@ public:
 		HEADER_KAKAO_MAX
 	};
 
+	enum STORE_TYPE {
+		STORE_ALL = 0,
+		STORE_YES24,
+		STORE_ALADDIN,
+		STORE_BANDI,
+		STORE_MAX
+	};
+
+
 	/**
 	* Constructor.
 	*/
@@ -60,9 +69,9 @@ public:
 	void SetItem();
 	QStandardItemModel* GetItem();
 
-	double GetTotalAmount() { return m_TotalAmount; };
-	double GetCalcAmount() { return m_CalcAmount; };
-	double GetAuthorAmount() { return m_AuthorAmount; };
+	QList<double> GetTotalAmount() { return m_TotalAmount; };
+	QList<double> GetCalcAmount() { return m_CalcAmount; };
+	QList<double> GetAuthorAmount() { return m_AuthorAmount; };
 
 private slots:
 
@@ -79,9 +88,9 @@ private:
 
 	QStringList		m_CSVHeader;
 
-	double			m_TotalAmount;
-	double			m_CalcAmount;
-	double			m_AuthorAmount;
+	QList<double>	m_TotalAmount;
+	QList<double>	m_CalcAmount;
+	QList<double>	m_AuthorAmount;
 
 };
 

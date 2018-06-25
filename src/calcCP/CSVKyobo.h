@@ -45,6 +45,13 @@ public:
 		HEADER_KAKAO_MAX
 	};
 
+	enum BUSINESS_TYPE {
+		BUSINESS_ALL = 0,
+		BUSINESS_B2C,
+		BUSINESS_B2BC,
+		BUSINESS_MAX
+	};
+
 	/**
 	* Constructor.
 	*/
@@ -56,9 +63,9 @@ public:
 	void SetItem();
 	QStandardItemModel* GetItem();
 
-	double GetTotalAmount() { return m_TotalAmount; };
-	double GetCalcAmount() { return m_CalcAmount; };
-	double GetAuthorAmount() { return m_AuthorAmount; };
+	QList<double> GetTotalAmount() { return m_TotalAmount; };
+	QList<double> GetCalcAmount() { return m_CalcAmount; };
+	QList<double> GetAuthorAmount() { return m_AuthorAmount; };
 
 private slots:
 
@@ -75,9 +82,9 @@ private:
 
 	QStringList		m_CSVHeader;
 
-	double			m_TotalAmount;
-	double			m_CalcAmount;
-	double			m_AuthorAmount;
+	QList<double>	m_TotalAmount;
+	QList<double>	m_CalcAmount;
+	QList<double>	m_AuthorAmount;
 
 };
 

@@ -39,9 +39,25 @@ void CSVOebook::ReadFile(QString filepath)
 
 void CSVOebook::SetItem()
 {
-	m_TotalAmount = 0;
-	m_CalcAmount = 0;
-	m_AuthorAmount = 0;
+	double totalAmount = 0;
+	double calcAmount = 0;
+	double authorAmount = 0;
+
+	double totalAmountOebook = 0;
+	double calcAmountOebook = 0;
+	double authorAmountOebook = 0;
+
+	double totalAmountOebookRomance = 0;
+	double calcAmountOebookRomance = 0;
+	double authorAmountOebookRomance = 0;
+
+	double totalAmountOebookMurim = 0;
+	double calcAmountOebookMurim = 0;
+	double authorAmountOebookMurim = 0;
+
+	double totalAmountOebookComic = 0;
+	double calcAmountOebookComic = 0;
+	double authorAmountOebookComic = 0;
 
 	if (m_CSVModel) {
 		delete m_CSVModel;
@@ -62,17 +78,72 @@ void CSVOebook::SetItem()
 			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
 		}
 
-		m_TotalAmount += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
-		m_CalcAmount += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
-		m_AuthorAmount += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
+		totalAmount += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
+		calcAmount += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
+		authorAmount += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
+
+		// oebook
+		if (!m_CSVData.at(i).value(HEADER_OEBOOK_COMPANY).compare(QString::fromLocal8Bit("ø¿¿Ã∫œ"))) {
+			totalAmountOebook += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
+			calcAmountOebook += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
+			authorAmountOebook += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
+		// oebook romance
+		else if (!m_CSVData.at(i).value(HEADER_OEBOOK_COMPANY).compare(QString::fromLocal8Bit("ø¿¿Ã∫œ(∑Œ∏¡)"))) {
+			totalAmountOebookRomance += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
+			calcAmountOebookRomance += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
+			authorAmountOebookRomance += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
+		// oebook murim
+		else if (!m_CSVData.at(i).value(HEADER_OEBOOK_COMPANY).compare(QString::fromLocal8Bit("ø¿¿Ã∫œ(π´∏≤)"))) {
+			totalAmountOebookMurim += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
+			calcAmountOebookMurim += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
+			authorAmountOebookMurim += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
+		// oebook comic
+		else if (!m_CSVData.at(i).value(HEADER_OEBOOK_COMPANY).compare(QString::fromLocal8Bit("ø¿¿Ã∫œ(ƒ⁄πÕ«√∑ØΩ∫)"))) {
+			totalAmountOebookComic += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
+			calcAmountOebookComic += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
+			authorAmountOebookComic += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
 	}
 
 	qDebug() << "[OEBOOK]-----------------------------";
 	qDebug() << "Row Count : " << m_CSVData.size();
 	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(m_CalcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
+	qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
+	qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
+	qDebug() << QString("Total Amount Oebook: %L1").arg(totalAmountOebook, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Oebook: %L1").arg(calcAmountOebook, 0, 'f', 0);
+	qDebug() << QString("Author Amount Oebook: %L1").arg(authorAmountOebook, 0, 'f', 0);
+	qDebug() << QString("Total Amount Romance : %L1").arg(totalAmountOebookRomance, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Romance: %L1").arg(calcAmountOebookRomance, 0, 'f', 0);
+	qDebug() << QString("Author Amount Romance: %L1").arg(authorAmountOebookRomance, 0, 'f', 0);
+	qDebug() << QString("Total Amount Murim : %L1").arg(totalAmountOebookMurim, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Murim: %L1").arg(calcAmountOebookMurim, 0, 'f', 0);
+	qDebug() << QString("Author Amount Murim: %L1").arg(authorAmountOebookMurim, 0, 'f', 0);
+	qDebug() << QString("Total Amount Comic: %L1").arg(totalAmountOebookComic, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Comic: %L1").arg(calcAmountOebookComic, 0, 'f', 0);
+	qDebug() << QString("Author Amount Comic: %L1").arg(authorAmountOebookComic, 0, 'f', 0);
+
+	m_TotalAmount.append(totalAmount);
+	m_TotalAmount.append(totalAmountOebook);
+	m_TotalAmount.append(totalAmountOebookRomance);
+	m_TotalAmount.append(totalAmountOebookMurim);
+	m_TotalAmount.append(totalAmountOebookComic);
+
+	m_CalcAmount.append(calcAmount);
+	m_CalcAmount.append(calcAmountOebook);
+	m_CalcAmount.append(calcAmountOebookRomance);
+	m_CalcAmount.append(calcAmountOebookMurim);
+	m_CalcAmount.append(calcAmountOebookComic);
+
+	m_AuthorAmount.append(authorAmount);
+	m_AuthorAmount.append(authorAmountOebook);
+	m_AuthorAmount.append(authorAmountOebookRomance);
+	m_AuthorAmount.append(authorAmountOebookMurim);
+	m_AuthorAmount.append(authorAmountOebookComic);
 }
 
 QStandardItemModel* CSVOebook::GetItem()

@@ -46,6 +46,16 @@ public:
 		HEADER_OEBOOK_MAX,
 	};
 
+	enum COMPANY_TYPE {
+		COMPANY_OEBOOK_ALL = 0,
+		COMPANY_OEBOOK,
+		COMPANY_OEBOOK_ROMANCE,
+		COMPANY_OEBOOK_MURIM,
+		COMPANY_OEBOOK_COMIC,
+		COMPANY_MAX
+	};
+
+
 	/**
 	* Constructor.
 	*/
@@ -57,9 +67,9 @@ public:
 	void SetItem();
 	QStandardItemModel* GetItem();
 
-	double GetTotalAmount() { return m_TotalAmount; };
-	double GetCalcAmount() { return m_CalcAmount; };
-	double GetAuthorAmount() { return m_AuthorAmount; };
+	QList<double> GetTotalAmount() { return m_TotalAmount; };
+	QList<double> GetCalcAmount() { return m_CalcAmount; };
+	QList<double> GetAuthorAmount() { return m_AuthorAmount; };
 
 private slots:
 
@@ -76,9 +86,9 @@ private:
 
 	QStringList		m_CSVHeader;
 
-	double			m_TotalAmount;
-	double			m_CalcAmount;
-	double			m_AuthorAmount;
+	QList<double>	m_TotalAmount;
+	QList<double>	m_CalcAmount;
+	QList<double>	m_AuthorAmount;
 
 };
 

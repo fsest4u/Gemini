@@ -232,14 +232,14 @@ void CalcCPDlg::CalcKyobo()
 	m_Kyobo->ReadFile(m_CPFileList.value(CP_KYOBO));
 	m_Kyobo->SetItem();
 
-	double total = m_Kyobo->GetTotalAmount();
-	double calculator = m_Kyobo->GetCalcAmount();
-	double author = m_Kyobo->GetAuthorAmount();
+	QList<double> total = m_Kyobo->GetTotalAmount();
+	QList<double> calculator = m_Kyobo->GetCalcAmount();
+	QList<double> author = m_Kyobo->GetAuthorAmount();
 
 	if (!m_KyoboView) { m_KyoboView = new QTableView(); }
 	m_KyoboView->setModel(m_Kyobo->GetItem());
 
-	AddTab(m_KyoboView, CPNAME_KYOBO, total, calculator, author);
+	AddTab4List(m_KyoboView, CPNAME_KYOBO, total, calculator, author);
 }
 
 void CalcCPDlg::CalcNaver()
@@ -408,14 +408,14 @@ void CalcCPDlg::CalcOebook()
 	m_Oebook->ReadFile(m_CPFileList.value(CP_OEBOOK));
 	m_Oebook->SetItem();
 
-	double total = m_Oebook->GetTotalAmount();
-	double calculator = m_Oebook->GetCalcAmount();
-	double author = m_Oebook->GetAuthorAmount();
+	QList<double> total = m_Oebook->GetTotalAmount();
+	QList<double> calculator = m_Oebook->GetCalcAmount();
+	QList<double> author = m_Oebook->GetAuthorAmount();
 
 	if (!m_OebookView) { m_OebookView = new QTableView(); }
 	m_OebookView->setModel(m_Oebook->GetItem());
 
-	AddTab(m_OebookView, CPNAME_OEBOOK, total, calculator, author);
+	AddTab4List(m_OebookView, CPNAME_OEBOOK, total, calculator, author);
 }
 
 void CalcCPDlg::CalcOnestore()
@@ -518,14 +518,14 @@ void CalcCPDlg::CalcKepub()
 	m_Kepub->ReadFile(m_CPFileList.value(CP_KEPUB));
 	m_Kepub->SetItem();
 
-	double total = m_Kepub->GetTotalAmount();
-	double calculator = m_Kepub->GetCalcAmount();
-	double author = m_Kepub->GetAuthorAmount();
+	QList<double> total = m_Kepub->GetTotalAmount();
+	QList<double> calculator = m_Kepub->GetCalcAmount();
+	QList<double> author = m_Kepub->GetAuthorAmount();
 
 	if (!m_KepubView) { m_KepubView = new QTableView(); }
 	m_KepubView->setModel(m_Kepub->GetItem());
 
-	AddTab(m_KepubView, CPNAME_KEPUB, total, calculator, author);
+	AddTab4List(m_KepubView, CPNAME_KEPUB, total, calculator, author);
 }
 
 void CalcCPDlg::DeleteKyobo()
@@ -722,6 +722,132 @@ void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, do
 	defalutLayout->addWidget(totalLabel);
 	defalutLayout->addWidget(calcLabel);
 	defalutLayout->addWidget(authorLabel);
+	defalutLayout->addWidget(table);
+
+	QWidget* defaultWidget = new QWidget();
+	defaultWidget->setLayout(defalutLayout);
+
+	ui.tabCP->addTab(defaultWidget, cpName);
+
+}
+
+void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author)
+{
+	qDebug() << "[AddTab4List] - " << cpName;
+	QGridLayout* defalutLayout = new QGridLayout();
+	QHBoxLayout* totalLayout = new QHBoxLayout();
+	QHBoxLayout* calcLayout = new QHBoxLayout();
+	QHBoxLayout* authorLayout = new QHBoxLayout();
+	// kyobo
+	if (!cpName.compare(CPNAME_KYOBO)) {
+
+		QLabel* totalAll = new QLabel(QString("Total Amount : %L1").arg(total.at(CSVKyobo::BUSINESS_ALL), 0, 'f', 0));
+		QLabel* calcAll = new QLabel(QString("Calculate Amount : %L1").arg(calculator.at(CSVKyobo::BUSINESS_ALL), 0, 'f', 0));
+		QLabel* authorAll = new QLabel(QString("Author Amount : %L1").arg(author.at(CSVKyobo::BUSINESS_ALL), 0, 'f', 0));
+
+		QLabel* totalB2C = new QLabel(QString("Total B2C : %L1").arg(total.at(CSVKyobo::BUSINESS_B2C), 0, 'f', 0));
+		QLabel* calcB2C = new QLabel(QString("Calculate B2C : %L1").arg(calculator.at(CSVKyobo::BUSINESS_B2C), 0, 'f', 0));
+		QLabel* authorB2C = new QLabel(QString("Author B2C : %L1").arg(author.at(CSVKyobo::BUSINESS_B2C), 0, 'f', 0));
+
+		QLabel* totalB2BC = new QLabel(QString("Total B2BC : %L1").arg(total.at(CSVKyobo::BUSINESS_B2BC), 0, 'f', 0));
+		QLabel* calcB2BC = new QLabel(QString("Calculate B2BC : %L1").arg(calculator.at(CSVKyobo::BUSINESS_B2BC), 0, 'f', 0));
+		QLabel* authorB2BC = new QLabel(QString("Author B2BC : %L1").arg(author.at(CSVKyobo::BUSINESS_B2BC), 0, 'f', 0));
+
+		totalLayout->addWidget(totalAll);
+		totalLayout->addWidget(totalB2C);
+		totalLayout->addWidget(totalB2BC);
+
+		calcLayout->addWidget(calcAll);
+		calcLayout->addWidget(calcB2C);
+		calcLayout->addWidget(calcB2BC);
+
+		authorLayout->addWidget(authorAll);
+		authorLayout->addWidget(authorB2C);
+		authorLayout->addWidget(authorB2BC);
+
+	}
+	// oebook
+	else if (!cpName.compare(CPNAME_OEBOOK)) {
+
+		QLabel* totalAll = new QLabel(QString("Total Amount : %L1").arg(total.at(CSVOebook::COMPANY_OEBOOK_ALL), 0, 'f', 0));
+		QLabel* calcAll = new QLabel(QString("Calculate Amount : %L1").arg(calculator.at(CSVOebook::COMPANY_OEBOOK_ALL), 0, 'f', 0));
+		QLabel* authorAll = new QLabel(QString("Author Amount : %L1").arg(author.at(CSVOebook::COMPANY_OEBOOK_ALL), 0, 'f', 0));
+
+		QLabel* totalOebook = new QLabel(QString("Total Oebook : %L1").arg(total.at(CSVOebook::COMPANY_OEBOOK), 0, 'f', 0));
+		QLabel* calcOebook = new QLabel(QString("Calculate Oebook : %L1").arg(calculator.at(CSVOebook::COMPANY_OEBOOK), 0, 'f', 0));
+		QLabel* authorOebook = new QLabel(QString("Author Oebook : %L1").arg(author.at(CSVOebook::COMPANY_OEBOOK), 0, 'f', 0));
+
+		QLabel* totalOebookRomance = new QLabel(QString("Total Oebook Romance: %L1").arg(total.at(CSVOebook::COMPANY_OEBOOK_ROMANCE), 0, 'f', 0));
+		QLabel* calcOebookRomance = new QLabel(QString("Calculate Oebook Romance: %L1").arg(calculator.at(CSVOebook::COMPANY_OEBOOK_ROMANCE), 0, 'f', 0));
+		QLabel* authorOebookRomance = new QLabel(QString("Author Oebook Romance: %L1").arg(author.at(CSVOebook::COMPANY_OEBOOK_ROMANCE), 0, 'f', 0));
+
+		QLabel* totalOebookMurim = new QLabel(QString("Total Oebook Murim: %L1").arg(total.at(CSVOebook::COMPANY_OEBOOK_MURIM), 0, 'f', 0));
+		QLabel* calcOebookMurim = new QLabel(QString("Calculate Oebook Murim: %L1").arg(calculator.at(CSVOebook::COMPANY_OEBOOK_MURIM), 0, 'f', 0));
+		QLabel* authorOebookMurim = new QLabel(QString("Author Oebook Murim: %L1").arg(author.at(CSVOebook::COMPANY_OEBOOK_MURIM), 0, 'f', 0));
+
+		QLabel* totalOebookComic = new QLabel(QString("Total Oebook Comic: %L1").arg(total.at(CSVOebook::COMPANY_OEBOOK_COMIC), 0, 'f', 0));
+		QLabel* calcOebookComic = new QLabel(QString("Calculate Oebook Comic: %L1").arg(calculator.at(CSVOebook::COMPANY_OEBOOK_COMIC), 0, 'f', 0));
+		QLabel* authorOebookComic = new QLabel(QString("Author Oebook Comic: %L1").arg(author.at(CSVOebook::COMPANY_OEBOOK_COMIC), 0, 'f', 0));
+
+		totalLayout->addWidget(totalAll);
+		totalLayout->addWidget(totalOebook);
+		totalLayout->addWidget(totalOebookRomance);
+		totalLayout->addWidget(totalOebookMurim);
+		totalLayout->addWidget(totalOebookComic);
+
+		calcLayout->addWidget(calcAll);
+		calcLayout->addWidget(calcOebook);
+		calcLayout->addWidget(calcOebookRomance);
+		calcLayout->addWidget(calcOebookMurim);
+		calcLayout->addWidget(calcOebookComic);
+
+		authorLayout->addWidget(authorAll);
+		authorLayout->addWidget(authorOebook);
+		authorLayout->addWidget(authorOebookRomance);
+		authorLayout->addWidget(authorOebookMurim);
+		authorLayout->addWidget(authorOebookComic);
+
+	}
+	// kepub
+	else if (!cpName.compare(CPNAME_KEPUB)) {
+
+		QLabel* totalAll = new QLabel(QString("Total Amount : %L1").arg(total.at(CSVKepub::STORE_ALL), 0, 'f', 0));
+		QLabel* calcAll = new QLabel(QString("Calculate Amount : %L1").arg(calculator.at(CSVKepub::STORE_ALL), 0, 'f', 0));
+		QLabel* authorAll = new QLabel(QString("Author Amount : %L1").arg(author.at(CSVKepub::STORE_ALL), 0, 'f', 0));
+
+		QLabel* totalYES24 = new QLabel(QString("Total YES24 : %L1").arg(total.at(CSVKepub::STORE_YES24), 0, 'f', 0));
+		QLabel* calcYES24 = new QLabel(QString("Calculate YES24 : %L1").arg(calculator.at(CSVKepub::STORE_YES24), 0, 'f', 0));
+		QLabel* authorYES24 = new QLabel(QString("Author YES24 : %L1").arg(author.at(CSVKepub::STORE_YES24), 0, 'f', 0));
+
+		QLabel* totalAladdin = new QLabel(QString("Total Aladdin: %L1").arg(total.at(CSVKepub::STORE_ALADDIN), 0, 'f', 0));
+		QLabel* calcAladdin = new QLabel(QString("Calculate Aladdin: %L1").arg(calculator.at(CSVKepub::STORE_ALADDIN), 0, 'f', 0));
+		QLabel* authorAladdin = new QLabel(QString("Author Aladdin: %L1").arg(author.at(CSVKepub::STORE_ALADDIN), 0, 'f', 0));
+
+		QLabel* totalBandi= new QLabel(QString("Total BandinLunis: %L1").arg(total.at(CSVKepub::STORE_BANDI), 0, 'f', 0));
+		QLabel* calcBandi = new QLabel(QString("Calculate BandinLunis: %L1").arg(calculator.at(CSVKepub::STORE_BANDI), 0, 'f', 0));
+		QLabel* authorBandi = new QLabel(QString("Author BandinLunis: %L1").arg(author.at(CSVKepub::STORE_BANDI), 0, 'f', 0));
+
+		totalLayout->addWidget(totalAll);
+		totalLayout->addWidget(totalYES24);
+		totalLayout->addWidget(totalAladdin);
+		totalLayout->addWidget(totalBandi);
+
+		calcLayout->addWidget(calcAll);
+		calcLayout->addWidget(calcYES24);
+		calcLayout->addWidget(calcAladdin);
+		calcLayout->addWidget(calcBandi);
+
+		authorLayout->addWidget(authorAll);
+		authorLayout->addWidget(authorYES24);
+		authorLayout->addWidget(authorAladdin);
+		authorLayout->addWidget(authorBandi);
+
+	}
+
+	defalutLayout->addLayout(totalLayout, 0, 0);
+	defalutLayout->addLayout(calcLayout, 1, 0);
+	defalutLayout->addLayout(authorLayout, 2, 0);
+
 	defalutLayout->addWidget(table);
 
 	QWidget* defaultWidget = new QWidget();

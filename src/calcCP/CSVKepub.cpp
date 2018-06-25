@@ -39,9 +39,21 @@ void CSVKepub::ReadFile(QString filepath)
 
 void CSVKepub::SetItem()
 {
-	m_TotalAmount = 0;
-	m_CalcAmount = 0;
-	m_AuthorAmount = 0;
+	double totalAmount = 0;
+	double calcAmount = 0;
+	double authorAmount = 0;
+
+	double totalAmountYes24 = 0;
+	double calcAmountYes24 = 0;
+	double authorAmountYes24 = 0;
+
+	double totalAmountAladdin = 0;
+	double calcAmountAladdin = 0;
+	double authorAmountAladdin = 0;
+
+	double totalAmountBandi = 0;
+	double calcAmountBandi = 0;
+	double authorAmountBandi = 0;
 
 	if (m_CSVModel) {
 		delete m_CSVModel;
@@ -62,18 +74,65 @@ void CSVKepub::SetItem()
 			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
 		}
 
-		m_TotalAmount += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
-		m_TotalAmount -= m_CSVData.at(i).value(HEADER_KEPUB_STORE_REFUND_PRICE).replace(",", "").toDouble();
-		m_CalcAmount += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble();
-		m_AuthorAmount += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		totalAmount += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
+		totalAmount -= m_CSVData.at(i).value(HEADER_KEPUB_STORE_REFUND_PRICE).replace(",", "").toDouble();
+		calcAmount += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+		authorAmount += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+
+		// yes24
+		if (!m_CSVData.at(i).value(HEADER_KEPUB_BOOK_STORE).compare("YES24")) {
+			totalAmountYes24 += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
+			totalAmountYes24 -= m_CSVData.at(i).value(HEADER_KEPUB_STORE_REFUND_PRICE).replace(",", "").toDouble();
+			calcAmountYes24 += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+			authorAmountYes24 += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
+		// aladdin
+		else if (!m_CSVData.at(i).value(HEADER_KEPUB_BOOK_STORE).compare(QString::fromLocal8Bit("¾Ë¶óµò"))) {
+			totalAmountAladdin += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
+			totalAmountAladdin -= m_CSVData.at(i).value(HEADER_KEPUB_STORE_REFUND_PRICE).replace(",", "").toDouble();
+			calcAmountAladdin += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+			authorAmountAladdin += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
+		// bandinrunis
+		else if (!m_CSVData.at(i).value(HEADER_KEPUB_BOOK_STORE).compare(QString::fromLocal8Bit("¹Ýµð¾Ø·ç´Ï½º"))) {
+			totalAmountBandi += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
+			totalAmountBandi -= m_CSVData.at(i).value(HEADER_KEPUB_STORE_REFUND_PRICE).replace(",", "").toDouble();
+			calcAmountBandi += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+			authorAmountBandi += m_CSVData.at(i).value(HEADER_KEPUB_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
+		}
 	}
 
 	qDebug() << "[KEPUB]-----------------------------";
 	qDebug() << "Row Count : " << m_CSVData.size();
 	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(m_CalcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
+	qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
+	qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
+	qDebug() << QString("Total Amount Yes24 : %L1").arg(totalAmountYes24, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Yes24 : %L1").arg(calcAmountYes24, 0, 'f', 0);
+	qDebug() << QString("Author Amount Yes24 : %L1").arg(authorAmountYes24, 0, 'f', 0);
+	qDebug() << QString("Total Amount Aladdin : %L1").arg(totalAmountAladdin, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Aladdin : %L1").arg(calcAmountAladdin, 0, 'f', 0);
+	qDebug() << QString("Author Amount Aladdin : %L1").arg(authorAmountAladdin, 0, 'f', 0);
+	qDebug() << QString("Total Amount Bandi : %L1").arg(totalAmountBandi, 0, 'f', 0);
+	qDebug() << QString("Calculate Amount Bandi : %L1").arg(calcAmountBandi, 0, 'f', 0);
+	qDebug() << QString("Author Amount Bandi : %L1").arg(authorAmountBandi, 0, 'f', 0);
+
+	m_TotalAmount.append(totalAmount);
+	m_TotalAmount.append(totalAmountYes24);
+	m_TotalAmount.append(totalAmountAladdin);
+	m_TotalAmount.append(totalAmountBandi);
+
+	m_CalcAmount.append(calcAmount);
+	m_CalcAmount.append(calcAmountYes24);
+	m_CalcAmount.append(calcAmountAladdin);
+	m_CalcAmount.append(calcAmountBandi);
+
+	m_AuthorAmount.append(authorAmount);
+	m_AuthorAmount.append(authorAmountYes24);
+	m_AuthorAmount.append(authorAmountAladdin);
+	m_AuthorAmount.append(authorAmountBandi);
+
 }
 
 QStandardItemModel* CSVKepub::GetItem()
