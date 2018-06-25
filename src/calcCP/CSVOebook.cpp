@@ -70,7 +70,8 @@ void CSVOebook::SetItem()
 		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
 	}
 
-	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
+	// because of last row is sum data, -1
+	for (int i = CSV_START_ROW; i < m_CSVData.size() - 1; i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
