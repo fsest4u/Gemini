@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 	, m_LastFolderOpen("")
-	, m_CSVFileName("")
 	, m_CalcManager(NULL)
 {
     ui->setupUi(this);
@@ -60,55 +59,24 @@ void MainWindow::InitUI()
 
 	ui->buttonBox->button(QDialogButtonBox::Yes)->setText(tr("Calculate"));
 
-	// temp -------------------------------
-	ui->KyoboCheckBox->setChecked(true);
-	ui->NaverCheckBox->setChecked(true);
-	ui->RidiCheckBox->setChecked(true);
-	ui->MunpiaCheckBox->setChecked(true);
-	ui->MrblueCheckBox->setChecked(true);
-	ui->BarobookCheckBox->setChecked(true);
-	ui->BookcubeCheckBox->setChecked(true);
-	ui->EpyrusCheckBox->setChecked(true);
-	ui->OebookCheckBox->setChecked(true);
-	ui->OnestoreCheckBox->setChecked(true);
-	ui->KakaoCheckBox->setChecked(true);
-	ui->ComicoCheckBox->setChecked(true);
-	ui->TocsodaCheckBox->setChecked(true);
-	ui->KepubCheckBox->setChecked(true);
-
-	ui->KyoboFilepath->setEnabled(true);
-	ui->NaverFilepath->setEnabled(true);
-	ui->RidiFilepath->setEnabled(true);
-	ui->MunpiaFilepath->setEnabled(true);
-	ui->MrblueFilepath->setEnabled(true);
-	ui->BarobookFilepath->setEnabled(true);
-	ui->BookcubeFilepath->setEnabled(true);
-	ui->EpyrusFilepath->setEnabled(true);
-	ui->OebookFilepath->setEnabled(true);
-	ui->OnestoreFilepath->setEnabled(true);
-	ui->KakaoFilepath->setEnabled(true);
-	ui->ComicoFilepath->setEnabled(true);
-	ui->TocsodaFilepath->setEnabled(true);
-	ui->KepubFilepath->setEnabled(true);
-	ui->KepubFileButton->setEnabled(true);
-
-	ui->KyoboFileButton->setEnabled(true);
-	ui->NaverFileButton->setEnabled(true);
-	ui->RidiFileButton->setEnabled(true);
-	ui->MunpiaFileButton->setEnabled(true);
-	ui->MrblueFileButton->setEnabled(true);
-	ui->BarobookFileButton->setEnabled(true);
-	ui->BookcubeFileButton->setEnabled(true);
-	ui->EpyrusFileButton->setEnabled(true);
-	ui->OebookFileButton->setEnabled(true);
-	ui->OnestoreFileButton->setEnabled(true);
-	ui->KakaoFileButton->setEnabled(true);
-	ui->ComicoFileButton->setEnabled(true);
-	ui->TocsodaFileButton->setEnabled(true);
-	ui->KepubFileButton->setEnabled(true);
-	// temp -------------------------------
-
 	ConnectSignalsToSlots();
+
+	//m_CSVFileNames.clear();
+	ui->KyoboFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KYOBO]);
+	ui->NaverFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_NAVER]);
+	ui->RidiFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_RIDI]);
+	ui->MunpiaFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_MUNPIA]);
+	ui->MrblueFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_MRBLUE]);
+	ui->BarobookFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_BAROBOOK]);
+	ui->BookcubeFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_BOOKCUBE]);
+	ui->EpyrusFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_EPYRUS]);
+	ui->OebookFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_OEBOOK]);
+	ui->OnestoreFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_ONESTORE]);
+	ui->KakaoFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KAKAO]);
+	ui->ComicoFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_COMICO]);
+	ui->TocsodaFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_TOCSODA]);
+	ui->KepubFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
+
 }
 
 void MainWindow::ReadSettings()
@@ -125,6 +93,21 @@ void MainWindow::ReadSettings()
 	// The last folder used for saving and opening files
 	m_LastFolderOpen = settings.value("lastfolderopen", QDir::homePath()).toString();
 
+	m_CSVFileNames[CalcCPDlg::CP_KYOBO] = settings.value("lastcsvkyobo", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_NAVER] = settings.value("lastcsvnaver", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_RIDI] = settings.value("lastcsvridi", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_MUNPIA] = settings.value("lastcsvmunpia", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_MRBLUE] = settings.value("lastcsvmrblue", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_BAROBOOK] = settings.value("lastcsvbarobook", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_BOOKCUBE] = settings.value("lastcsvbookcube", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_EPYRUS] = settings.value("lastcsvepyrus", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_OEBOOK] = settings.value("lastcsvoebook", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_ONESTORE] = settings.value("lastcsvonestore", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_KAKAO] = settings.value("lastcsvkakao", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_COMICO] = settings.value("lastcsvcomico", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_TOCSODA] = settings.value("lastcsvtocsoda", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_KEPUB] = settings.value("lastcsvkepub", QDir::homePath()).toString();
+
 	settings.endGroup();
 
 }
@@ -138,6 +121,22 @@ void MainWindow::WriteSettings()
 
 	// The last folders used for saving and opening files
 	settings.setValue("lastfolderopen", m_LastFolderOpen);
+
+	settings.setValue("lastcsvkyobo", m_CSVFileNames[CalcCPDlg::CP_KYOBO]);
+	settings.setValue("lastcsvnaver", m_CSVFileNames[CalcCPDlg::CP_NAVER]);
+	settings.setValue("lastcsvridi", m_CSVFileNames[CalcCPDlg::CP_RIDI]);
+	settings.setValue("lastcsvmunpia", m_CSVFileNames[CalcCPDlg::CP_MUNPIA]);
+	settings.setValue("lastcsvmrblue", m_CSVFileNames[CalcCPDlg::CP_MRBLUE]);
+	settings.setValue("lastcsvbarobook", m_CSVFileNames[CalcCPDlg::CP_BAROBOOK]);
+	settings.setValue("lastcsvbookcube", m_CSVFileNames[CalcCPDlg::CP_BOOKCUBE]);
+	settings.setValue("lastcsvepyrus", m_CSVFileNames[CalcCPDlg::CP_EPYRUS]);
+	settings.setValue("lastcsvoebook", m_CSVFileNames[CalcCPDlg::CP_OEBOOK]);
+	settings.setValue("lastcsvonestore", m_CSVFileNames[CalcCPDlg::CP_ONESTORE]);
+	settings.setValue("lastcsvkakao", m_CSVFileNames[CalcCPDlg::CP_KAKAO]);
+	settings.setValue("lastcsvcomico", m_CSVFileNames[CalcCPDlg::CP_COMICO]);
+	settings.setValue("lastcsvtocsoda", m_CSVFileNames[CalcCPDlg::CP_TOCSODA]);
+	settings.setValue("lastcsvkepub", m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
+
 
 	settings.endGroup();
 }
@@ -405,51 +404,52 @@ void MainWindow::SetCheckKepub(int state)
 void MainWindow::SetFilePath(int type)
 {
 	QString filepath;
-	switch (type)
-	{
-	case CalcCPDlg::CP_KYOBO:
-		filepath = ui->KyoboFilepath->text();
-		break;
-	case CalcCPDlg::CP_NAVER:
-		filepath = ui->NaverFilepath->text();
-		break;
-	case CalcCPDlg::CP_RIDI:
-		filepath = ui->RidiFilepath->text();
-		break;
-	case CalcCPDlg::CP_MUNPIA:
-		filepath = ui->MunpiaFilepath->text();
-		break;
-	case CalcCPDlg::CP_MRBLUE:
-		filepath = ui->MrblueFilepath->text();
-		break;
-	case CalcCPDlg::CP_BAROBOOK:
-		filepath = ui->BarobookFilepath->text();
-		break;
-	case CalcCPDlg::CP_BOOKCUBE:
-		filepath = ui->BookcubeFilepath->text();
-		break;
-	case CalcCPDlg::CP_EPYRUS:
-		filepath = ui->EpyrusFilepath->text();
-		break;
-	case CalcCPDlg::CP_OEBOOK:
-		filepath = ui->OebookFilepath->text();
-		break;
-	case CalcCPDlg::CP_ONESTORE:
-		filepath = ui->OnestoreFilepath->text();
-		break;
-	case CalcCPDlg::CP_KAKAO:
-		filepath = ui->KakaoFilepath->text();
-		break;
-	case CalcCPDlg::CP_COMICO:
-		filepath = ui->ComicoFilepath->text();
-		break;
-	case CalcCPDlg::CP_TOCSODA:
-		filepath = ui->TocsodaFilepath->text();
-		break;
-	case CalcCPDlg::CP_KEPUB:
-		filepath = ui->KepubFilepath->text();
-		break;
-	}
+	//switch (type)
+	//{
+	//case CalcCPDlg::CP_KYOBO:
+	//	filepath = ui->KyoboFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_NAVER:
+	//	filepath = ui->NaverFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_RIDI:
+	//	filepath = ui->RidiFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_MUNPIA:
+	//	filepath = ui->MunpiaFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_MRBLUE:
+	//	filepath = ui->MrblueFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_BAROBOOK:
+	//	filepath = ui->BarobookFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_BOOKCUBE:
+	//	filepath = ui->BookcubeFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_EPYRUS:
+	//	filepath = ui->EpyrusFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_OEBOOK:
+	//	filepath = ui->OebookFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_ONESTORE:
+	//	filepath = ui->OnestoreFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_KAKAO:
+	//	filepath = ui->KakaoFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_COMICO:
+	//	filepath = ui->ComicoFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_TOCSODA:
+	//	filepath = ui->TocsodaFilepath->text();
+	//	break;
+	//case CalcCPDlg::CP_KEPUB:
+	//	filepath = ui->KepubFilepath->text();
+	//	break;
+	//}
+	filepath = m_CSVFileNames[type];
 
 	// Get the filename to use
 	QString default_filter = "*";
@@ -460,6 +460,7 @@ void MainWindow::SetFilePath(int type)
 													tr("CSV Files (*.csv)"),
 													&default_filter);
 
+	m_CSVFileNames[type] = filename;
 	switch (type)
 	{
 	case CalcCPDlg::CP_KYOBO:

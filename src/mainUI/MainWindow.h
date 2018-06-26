@@ -92,8 +92,8 @@ private:
 	void SetFilePath(int type);
 
 
-	QString		m_LastFolderOpen;
-	QString		m_CSVFileName;
+	QString					m_LastFolderOpen;
+	QMap<int, QString>		m_CSVFileNames;
 
 	CalcManager* m_CalcManager;
 
