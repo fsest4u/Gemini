@@ -57,7 +57,10 @@ private:
 	void InitUI();
 
 	void InitCPData();
-	void SetCPTable(int column, QString total, QString calc, QString author);
+
+	// total amount for cp
+	void SetCPTable(int column, QString total, QString calc, QString author, QString rank = "");
+	void SetCPRank();
 	void SetCPData(CalcCPDlg*);
 
 	void AddTab(QTableView* table, const QString cpName);
@@ -67,13 +70,16 @@ private:
 	// PRIVATE MEMBER VARIABLES
 	///////////////////////////////
 
+	// total amount for cp
 	double				m_totalAmount;
 	double				m_calcAmount;
 	double				m_authorAmount;
+	QMap<double, int>	m_rankAmount;
+	int					m_rankIndex;
 
 	QStandardItemModel *m_TotalAmountModel;
 
-	QTableView*			m_TotalView;
+	QTableView*			m_TotalView;				// total amount for cp
 	QTableView*			m_TotalBookView;
 	QTableView*			m_TotalSeriesView;
 	QTableView*			m_TotalMemoView;

@@ -139,24 +139,53 @@ void CalcTotalDlg::InitCPData()
 	m_totalAmount = 0;
 	m_calcAmount = 0;
 	m_authorAmount = 0;
+	m_rankIndex = 0;
 
 }
 
-void CalcTotalDlg::SetCPTable(int column, QString total, QString calc, QString author)
+void CalcTotalDlg::SetCPTable(int column, QString total, QString calc, QString author, QString rank)
 {
 	//set data
 	m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_TOTAL, column), total);
 	m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_CALCULATOR, column), calc);
 	m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_AUTHOR, column), author);
+	m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_RANK, column), rank);
 
 	// if column is not zero, add amount.
 	if (column) {
 		m_totalAmount += total.replace(",", "").toDouble();
 		m_calcAmount += calc.replace(",", "").toDouble();
 		m_authorAmount += author.replace(",", "").toDouble();
+		m_rankAmount.insert(total.toDouble(), column);
 	}
 }
 
+void CalcTotalDlg::SetCPRank()
+{
+	int rankKepub = 3;
+	int rank = m_rankAmount.count() - rankKepub;
+	QMapIterator<double, int> i(m_rankAmount);
+	while (i.hasNext()) {
+		i.next();
+		if (CalcCPDlg::CP_KEPUB + 2 != i.value()
+			&& CalcCPDlg::CP_KEPUB + 3 != i.value()
+			&& CalcCPDlg::CP_KEPUB + 4 != i.value()) {
+
+			// for debug
+			qDebug() << "Rank : " << rank << ", Amount : " << i.key() << ", Column : " << i.value();
+
+			m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_RANK, i.value()), rank);
+			rank--;	// because of ascend order
+		}
+		else {
+			// for debug
+			qDebug() << "Kepub Rank : " << rankKepub << ", Amount : " << i.key() << ", Column : " << i.value();
+
+			m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_RANK, i.value()), rankKepub);
+			rankKepub--;	// because of ascend order
+		}
+	}
+}
 
 void CalcTotalDlg::SetCPData(CalcCPDlg* cpData)
 {
@@ -286,7 +315,11 @@ void CalcTotalDlg::SetCPData(CalcCPDlg* cpData)
 	SetCPTable(0
 		, QString("%L1").arg(m_totalAmount, 0, 'f', 0)
 		, QString("%L1").arg(m_calcAmount, 0, 'f', 0)
-		, QString("%L1").arg(m_authorAmount, 0, 'f', 0));
+		, QString("%L1").arg(m_authorAmount, 0, 'f', 0)
+		, QString("%L1").arg(m_calcAmount - m_authorAmount, 0, 'f', 0));
+
+	// rank
+	SetCPRank();
 
 	// Add TabWidget
 	if (!m_TotalView) { m_TotalView = new QTableView(); }
