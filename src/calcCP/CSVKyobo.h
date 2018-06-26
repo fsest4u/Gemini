@@ -42,7 +42,7 @@ public:
 		HEADER_KYOBO_SALE_AMOUNT,
 		HEADER_KYOBO_CALCULATOR_AMOUNT,
 		HEADER_KYOBO_CALCULATOR_RATE,
-		HEADER_KAKAO_MAX
+		HEADER_KYOBO_MAX
 	};
 
 	enum BUSINESS_TYPE {
@@ -58,7 +58,7 @@ public:
 	CSVKyobo();
 	~CSVKyobo();
 
-	void ReadFile(QString filepath);
+	bool ReadFile(QString filepath);
 
 	void SetItem();
 	QStandardItemModel* GetItem();

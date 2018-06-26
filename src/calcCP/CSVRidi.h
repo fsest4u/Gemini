@@ -66,7 +66,7 @@ public:
 	CSVRidi();
 	~CSVRidi();
 
-	void ReadFile(QString filepath);
+	bool ReadFile(QString filepath);
 
 	void SetItem();
 	QStandardItemModel* GetItem();

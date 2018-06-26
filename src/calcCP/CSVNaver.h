@@ -57,7 +57,7 @@ public:
 		HEADER_NAVER_PURCHASE_I_COOKIE_FREE_AMOUNT,
 		HEADER_NAVER_FREE_TICKET,
 		HEADER_NAVER_SALE_AMOUNT,
-		HEADER_KAKAO_MAX
+		HEADER_NAVER_MAX
 	};
 
 	/**
@@ -66,7 +66,7 @@ public:
 	CSVNaver();
 	~CSVNaver();
 
-	void ReadFile(QString filepath);
+	bool ReadFile(QString filepath);
 
 	void SetItem();
 	QStandardItemModel* GetItem();

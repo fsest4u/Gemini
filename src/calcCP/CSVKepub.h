@@ -42,11 +42,12 @@ public:
 		HEADER_KEPUB_AUTHOR,
 		HEADER_KEPUB_BOOK_ID,
 		HEADER_KEPUB_EPUB_ID,
+		HEADER_KEPUB_SET_CODE,
 		HEADER_KEPUB_BOOK_ISBN,
 		HEADER_KEPUB_EBOOK_ISBN,
 		HEADER_KEPUB_PURCHASE_DAY,
 		HEADER_KEPUB_REFUND_DAY,
-		HEADER_KAKAO_MAX
+		HEADER_KEPUB_MAX
 	};
 
 	enum STORE_TYPE {
@@ -64,7 +65,7 @@ public:
 	CSVKepub();
 	~CSVKepub();
 
-	void ReadFile(QString filepath);
+	bool ReadFile(QString filepath);
 
 	void SetItem();
 	QStandardItemModel* GetItem();

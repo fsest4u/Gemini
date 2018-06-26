@@ -32,9 +32,13 @@ CSVMunpia::~CSVMunpia()
 	}
 }
 
-void CSVMunpia::ReadFile(QString filepath)
+bool CSVMunpia::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_MUNPIA_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVMunpia::SetItem()

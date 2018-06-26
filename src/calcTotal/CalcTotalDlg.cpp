@@ -110,10 +110,6 @@ void CalcTotalDlg::CalcTotal()
 		ui.tabTotal->removeTab(i);
 	}
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);
-
-	QApplication::restoreOverrideCursor();
-
 	this->done(QDialogButtonBox::HelpRole);
 }
 

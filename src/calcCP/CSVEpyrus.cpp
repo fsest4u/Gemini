@@ -32,9 +32,13 @@ CSVEpyrus::~CSVEpyrus()
 	}
 }
 
-void CSVEpyrus::ReadFile(QString filepath)
+bool CSVEpyrus::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_EPYRUS_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVEpyrus::SetItem()

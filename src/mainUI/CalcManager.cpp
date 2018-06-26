@@ -109,7 +109,9 @@ int CalcManager::ExecuteCP(QHash<int, QString>& cpFileList, bool bRefresh)
 		m_CalcCP = new CalcCPDlg();
 	}
 	if (bRefresh) {
-		m_CalcCP->SetCP(cpFileList);
+		if (!m_CalcCP->SetCP(cpFileList)) {
+			return STEP_CALC_CANCEL;
+		}
 	}
 	int ret = m_CalcCP->exec();
 	if (QDialogButtonBox::YesRole == ret)

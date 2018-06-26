@@ -77,7 +77,7 @@ public:
 	CalcCPDlg(QDialog *parent = 0);
 	~CalcCPDlg();
 
-	void SetCP(QHash<int, QString>&);
+	bool SetCP(QHash<int, QString>&);
 
 	CSVKyobo*			GetKyobo() { return m_Kyobo; }
 	CSVNaver*			GetNaver() { return m_Naver; }
@@ -111,20 +111,20 @@ private:
 	void AddTab4List(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author);
 
 
-	void CalcKyobo();
-	void CalcNaver();
-	void CalcRidi();
-	void CalcMunpia();
-	void CalcMrblue();
-	void CalcBarobook();
-	void CalcBookcube();
-	void CalcEpyrus();
-	void CalcOebook();
-	void CalcOnestore();
-	void CalcKakao();
-	void CalcComico();
-	void CalcTocsoda();
-	void CalcKepub();
+	bool CalcKyobo();
+	bool CalcNaver();
+	bool CalcRidi();
+	bool CalcMunpia();
+	bool CalcMrblue();
+	bool CalcBarobook();
+	bool CalcBookcube();
+	bool CalcEpyrus();
+	bool CalcOebook();
+	bool CalcOnestore();
+	bool CalcKakao();
+	bool CalcComico();
+	bool CalcTocsoda();
+	bool CalcKepub();
 
 	void DeleteKyobo();
 	void DeleteNaver();

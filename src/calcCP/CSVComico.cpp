@@ -32,9 +32,13 @@ CSVComico::~CSVComico()
 	}
 }
 
-void CSVComico::ReadFile(QString filepath)
+bool CSVComico::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_COMICO_MAX + 3) {
+		return true;
+	}
+	return false;
 }
 
 void CSVComico::SetItem()

@@ -32,9 +32,13 @@ CSVRidi::~CSVRidi()
 	}
 }
 
-void CSVRidi::ReadFile(QString filepath)
+bool CSVRidi::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_RIDI_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVRidi::SetItem()

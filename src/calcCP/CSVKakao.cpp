@@ -32,7 +32,7 @@ CSVKakao::~CSVKakao()
 	}
 }
 
-void CSVKakao::ReadFile(QString filepath)
+bool CSVKakao::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
 	// for debug
@@ -42,6 +42,10 @@ void CSVKakao::ReadFile(QString filepath)
 	//	}
 	//	qDebug() << m_CSVData.at(i);
 	//}
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KAKAO_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVKakao::SetItem()

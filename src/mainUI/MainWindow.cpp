@@ -404,51 +404,6 @@ void MainWindow::SetCheckKepub(int state)
 void MainWindow::SetFilePath(int type)
 {
 	QString filepath;
-	//switch (type)
-	//{
-	//case CalcCPDlg::CP_KYOBO:
-	//	filepath = ui->KyoboFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_NAVER:
-	//	filepath = ui->NaverFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_RIDI:
-	//	filepath = ui->RidiFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_MUNPIA:
-	//	filepath = ui->MunpiaFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_MRBLUE:
-	//	filepath = ui->MrblueFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_BAROBOOK:
-	//	filepath = ui->BarobookFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_BOOKCUBE:
-	//	filepath = ui->BookcubeFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_EPYRUS:
-	//	filepath = ui->EpyrusFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_OEBOOK:
-	//	filepath = ui->OebookFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_ONESTORE:
-	//	filepath = ui->OnestoreFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_KAKAO:
-	//	filepath = ui->KakaoFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_COMICO:
-	//	filepath = ui->ComicoFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_TOCSODA:
-	//	filepath = ui->TocsodaFilepath->text();
-	//	break;
-	//case CalcCPDlg::CP_KEPUB:
-	//	filepath = ui->KepubFilepath->text();
-	//	break;
-	//}
 	filepath = m_CSVFileNames[type];
 
 	// Get the filename to use

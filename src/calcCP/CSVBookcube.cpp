@@ -32,9 +32,13 @@ CSVBookcube::~CSVBookcube()
 	}
 }
 
-void CSVBookcube::ReadFile(QString filepath)
+bool CSVBookcube::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_BOOKCUBE_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVBookcube::SetItem()

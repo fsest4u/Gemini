@@ -32,9 +32,13 @@ CSVMrblue::~CSVMrblue()
 	}
 }
 
-void CSVMrblue::ReadFile(QString filepath)
+bool CSVMrblue::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_MRBLUE_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVMrblue::SetItem()

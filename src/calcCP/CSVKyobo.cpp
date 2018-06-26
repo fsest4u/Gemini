@@ -32,9 +32,13 @@ CSVKyobo::~CSVKyobo()
 	}
 }
 
-void CSVKyobo::ReadFile(QString filepath)
+bool CSVKyobo::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KYOBO_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVKyobo::SetItem()

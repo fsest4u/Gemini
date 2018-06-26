@@ -46,7 +46,7 @@ public:
 		HEADER_MRBLUE_WEIGHT_CALCULATOR_AMOUNT,
 		HEADER_MRBLUE_TOTAL_AMOUNT,
 		HEADER_MRBLUE_CALCULATOR_AMOUNT,
-		HEADER_KAKAO_MAX
+		HEADER_MRBLUE_MAX
 	};
 
 	/**
@@ -55,7 +55,7 @@ public:
 	CSVMrblue();
 	~CSVMrblue();
 
-	void ReadFile(QString filepath);
+	bool ReadFile(QString filepath);
 
 	void SetItem();
 	QStandardItemModel* GetItem();

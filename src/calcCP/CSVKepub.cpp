@@ -32,9 +32,13 @@ CSVKepub::~CSVKepub()
 	}
 }
 
-void CSVKepub::ReadFile(QString filepath)
+bool CSVKepub::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KEPUB_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVKepub::SetItem()

@@ -32,9 +32,13 @@ CSVOebook::~CSVOebook()
 	}
 }
 
-void CSVOebook::ReadFile(QString filepath)
+bool CSVOebook::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_OEBOOK_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVOebook::SetItem()

@@ -12,6 +12,7 @@
 #include <QtCore/QObject>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMessageBox>
 
 #include "CalcCPDlg.h"
 #include "gemini_constants.h"
@@ -140,23 +141,6 @@ void CalcCPDlg::CalcCP()
 		ui.tabCP->removeTab(i);
 	}
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);
-	//CalcKyobo();
-	//CalcNaver();
-	//CalcRidi();
-	//CalcMunpia();
-	//CalcMrblue();
-	//CalcBarobook();
-	//CalcBookcube();
-	//CalcEpyrus();
-	//CalcOebook();
-	//CalcOnestore();
-	//CalcKakao();
-	//CalcComico();
-	//CalcTocsoda();
-	//CalcKepub();
-
-	QApplication::restoreOverrideCursor();
 	this->done(QDialogButtonBox::HelpRole);
 }
 
@@ -165,7 +149,7 @@ void CalcCPDlg::Next()
 	this->done(QDialogButtonBox::NoRole);
 }
 
-void CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
+bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 {
 	qDebug() << "[SetCP]";
 	m_CPFileList = cpFileList;
@@ -193,36 +177,149 @@ void CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	CalcKyobo();
-	CalcNaver();
-	CalcRidi();
-	CalcMunpia();
-	CalcMrblue();
-	CalcBarobook();
-	CalcBookcube();
-	CalcEpyrus();
-	CalcOebook();
-	CalcOnestore();
-	CalcKakao();
-	CalcComico();
-	CalcTocsoda();
-	CalcKepub();
+	if (!CalcKyobo()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_KYOBO));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcNaver()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_NAVER));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcRidi()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_RIDI));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcMunpia()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_MUNPIA));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcMrblue()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_MRBLUE));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcBarobook()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_BAROBOOK));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcBookcube()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_BOOKCUBE));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcEpyrus()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_EPYRUS));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcOebook()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_OEBOOK));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcOnestore()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_ONESTORE));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcKakao()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_KAKAO));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcComico()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_COMICO));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcTocsoda()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_TOCSODA));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcKepub()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CPNAME_KEPUB));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
 
 	m_Progress->accept();
 	QApplication::restoreOverrideCursor();
 
+	return true;
 }
 
-void CalcCPDlg::CalcKyobo()
+bool CalcCPDlg::CalcKyobo()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_KYOBO));
 	m_Progress->setValue(CP_KYOBO);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_KYOBO).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_KYOBO).isEmpty()) { return true; }
 
 	if (!m_Kyobo) { m_Kyobo = new CSVKyobo(); }
-	m_Kyobo->ReadFile(m_CPFileList.value(CP_KYOBO));
+	if (!m_Kyobo->ReadFile(m_CPFileList.value(CP_KYOBO))) { return false; }
 	m_Kyobo->SetItem();
 
 	QList<double> total = m_Kyobo->GetTotalAmount();
@@ -233,18 +330,19 @@ void CalcCPDlg::CalcKyobo()
 	m_KyoboView->setModel(m_Kyobo->GetItem());
 
 	AddTab4List(m_KyoboView, CPNAME_KYOBO, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcNaver()
+bool CalcCPDlg::CalcNaver()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAVER));
 	m_Progress->setValue(CP_NAVER);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_NAVER).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_NAVER).isEmpty()) { return true; }
 
 	if (!m_Naver) { m_Naver = new CSVNaver(); }
-	m_Naver->ReadFile(m_CPFileList.value(CP_NAVER));
+	if (!m_Naver->ReadFile(m_CPFileList.value(CP_NAVER))) { return false; }
 	m_Naver->SetItem();
 
 	double total = m_Naver->GetTotalAmount();
@@ -255,18 +353,19 @@ void CalcCPDlg::CalcNaver()
 	m_NaverView->setModel(m_Naver->GetItem());
 
 	AddTab(m_NaverView, CPNAME_NAVER, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcRidi()
+bool CalcCPDlg::CalcRidi()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_RIDI));
 	m_Progress->setValue(CP_RIDI);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_RIDI).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_RIDI).isEmpty()) { return true; }
 
 	if (!m_Ridi) { m_Ridi = new CSVRidi(); }
-	m_Ridi->ReadFile(m_CPFileList.value(CP_RIDI));
+	if (!m_Ridi->ReadFile(m_CPFileList.value(CP_RIDI))) { return false; }
 	m_Ridi->SetItem();
 
 	double total = m_Ridi->GetTotalAmount();
@@ -277,18 +376,19 @@ void CalcCPDlg::CalcRidi()
 	m_RidiView->setModel(m_Ridi->GetItem());
 
 	AddTab(m_RidiView, CPNAME_RIDI, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcMunpia()
+bool CalcCPDlg::CalcMunpia()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_MUNPIA));
 	m_Progress->setValue(CP_MUNPIA);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_MUNPIA).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_MUNPIA).isEmpty()) { return true; }
 
 	if (!m_Munpia) { m_Munpia = new CSVMunpia(); }
-	m_Munpia->ReadFile(m_CPFileList.value(CP_MUNPIA));
+	if (!m_Munpia->ReadFile(m_CPFileList.value(CP_MUNPIA))) { return false; }
 	m_Munpia->SetItem();
 
 	double total = m_Munpia->GetTotalAmount();
@@ -299,18 +399,19 @@ void CalcCPDlg::CalcMunpia()
 	m_MunpiaView->setModel(m_Munpia->GetItem());
 
 	AddTab(m_MunpiaView, CPNAME_MUNPIA, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcMrblue()
+bool CalcCPDlg::CalcMrblue()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_MRBLUE));
 	m_Progress->setValue(CP_MRBLUE);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_MRBLUE).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_MRBLUE).isEmpty()) { return true; }
 
 	if (!m_Mrblue) { m_Mrblue = new CSVMrblue(); }
-	m_Mrblue->ReadFile(m_CPFileList.value(CP_MRBLUE));
+	if (!m_Mrblue->ReadFile(m_CPFileList.value(CP_MRBLUE))) { return false; }
 	m_Mrblue->SetItem();
 
 	double total = m_Mrblue->GetTotalAmount();
@@ -321,18 +422,19 @@ void CalcCPDlg::CalcMrblue()
 	m_MrblueView->setModel(m_Mrblue->GetItem());
 
 	AddTab(m_MrblueView, CPNAME_MRBLUE, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcBarobook()
+bool CalcCPDlg::CalcBarobook()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_BAROBOOK));
 	m_Progress->setValue(CP_BAROBOOK);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_BAROBOOK).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_BAROBOOK).isEmpty()) { return true; }
 
 	if (!m_Barabook) { m_Barabook = new CSVBarobook(); }
-	m_Barabook->ReadFile(m_CPFileList.value(CP_BAROBOOK));
+	if (!m_Barabook->ReadFile(m_CPFileList.value(CP_BAROBOOK))) { return false; }
 	m_Barabook->SetItem();
 
 	double total = m_Barabook->GetTotalAmount();
@@ -343,18 +445,19 @@ void CalcCPDlg::CalcBarobook()
 	m_BarobookView->setModel(m_Barabook->GetItem());
 
 	AddTab(m_BarobookView, CPNAME_BAROBOOK, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcBookcube()
+bool CalcCPDlg::CalcBookcube()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_BOOKCUBE));
 	m_Progress->setValue(CP_BOOKCUBE);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_BOOKCUBE).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_BOOKCUBE).isEmpty()) { return true; }
 
 	if (!m_Bookcube) { m_Bookcube = new CSVBookcube(); }
-	m_Bookcube->ReadFile(m_CPFileList.value(CP_BOOKCUBE));
+	if (!m_Bookcube->ReadFile(m_CPFileList.value(CP_BOOKCUBE))) { return false; }
 	m_Bookcube->SetItem();
 
 	double total = m_Bookcube->GetTotalAmount();
@@ -365,18 +468,19 @@ void CalcCPDlg::CalcBookcube()
 	m_BookcubeView->setModel(m_Bookcube->GetItem());
 
 	AddTab(m_BookcubeView, CPNAME_BOOKCUBE, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcEpyrus()
+bool CalcCPDlg::CalcEpyrus()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_EPYRUS));
 	m_Progress->setValue(CP_EPYRUS);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_EPYRUS).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_EPYRUS).isEmpty()) { return true; }
 
 	if (!m_Epyrus) { m_Epyrus = new CSVEpyrus(); }
-	m_Epyrus->ReadFile(m_CPFileList.value(CP_EPYRUS));
+	if (!m_Epyrus->ReadFile(m_CPFileList.value(CP_EPYRUS))) { return false; }
 	m_Epyrus->SetItem();
 
 	double total = m_Epyrus->GetTotalAmount();
@@ -387,18 +491,19 @@ void CalcCPDlg::CalcEpyrus()
 	m_EpyrusView->setModel(m_Epyrus->GetItem());
 
 	AddTab(m_EpyrusView, CPNAME_EPYRUS, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcOebook()
+bool CalcCPDlg::CalcOebook()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_OEBOOK));
 	m_Progress->setValue(CP_OEBOOK);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_OEBOOK).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_OEBOOK).isEmpty()) { return true; }
 
 	if (!m_Oebook) { m_Oebook = new CSVOebook(); }
-	m_Oebook->ReadFile(m_CPFileList.value(CP_OEBOOK));
+	if (!m_Oebook->ReadFile(m_CPFileList.value(CP_OEBOOK))) { return false; }
 	m_Oebook->SetItem();
 
 	QList<double> total = m_Oebook->GetTotalAmount();
@@ -409,18 +514,19 @@ void CalcCPDlg::CalcOebook()
 	m_OebookView->setModel(m_Oebook->GetItem());
 
 	AddTab4List(m_OebookView, CPNAME_OEBOOK, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcOnestore()
+bool CalcCPDlg::CalcOnestore()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_ONESTORE));
 	m_Progress->setValue(CP_ONESTORE);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_ONESTORE).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_ONESTORE).isEmpty()) { return true; }
 
 	if (!m_Onestore) { m_Onestore = new CSVOnestore(); }
-	m_Onestore->ReadFile(m_CPFileList.value(CP_ONESTORE));
+	if (!m_Onestore->ReadFile(m_CPFileList.value(CP_ONESTORE))) { return false; }
 	m_Onestore->SetItem();
 
 	double total = m_Onestore->GetTotalAmount();
@@ -431,18 +537,19 @@ void CalcCPDlg::CalcOnestore()
 	m_OnestoreView->setModel(m_Onestore->GetItem());
 
 	AddTab(m_OnestoreView, CPNAME_ONESTORE, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcKakao()
+bool CalcCPDlg::CalcKakao()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_KAKAO));
 	m_Progress->setValue(CP_KAKAO);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_KAKAO).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_KAKAO).isEmpty()) { return true; }
 
 	if (!m_Kakao) { m_Kakao = new CSVKakao(); }
-	m_Kakao->ReadFile(m_CPFileList.value(CP_KAKAO));
+	if (!m_Kakao->ReadFile(m_CPFileList.value(CP_KAKAO))) { return false; }
 	m_Kakao->SetItem();
 
 	double total = m_Kakao->GetTotalAmount();
@@ -453,18 +560,19 @@ void CalcCPDlg::CalcKakao()
 	m_KakaoView->setModel(m_Kakao->GetItem());
 
 	AddTab(m_KakaoView, CPNAME_KAKAO, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcComico()
+bool CalcCPDlg::CalcComico()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_COMICO));
 	m_Progress->setValue(CP_COMICO);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_COMICO).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_COMICO).isEmpty()) { return true; }
 
 	if (!m_Comico) { m_Comico = new CSVComico(); }
-	m_Comico->ReadFile(m_CPFileList.value(CP_COMICO));
+	if (!m_Comico->ReadFile(m_CPFileList.value(CP_COMICO))) { return false; }
 	m_Comico->SetItem();
 
 	double total = m_Comico->GetTotalAmount();
@@ -475,18 +583,19 @@ void CalcCPDlg::CalcComico()
 	m_ComicoView->setModel(m_Comico->GetItem());
 
 	AddTab(m_ComicoView, CPNAME_COMICO, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcTocsoda()
+bool CalcCPDlg::CalcTocsoda()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_TOCSODA));
 	m_Progress->setValue(CP_TOCSODA);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_TOCSODA).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_TOCSODA).isEmpty()) { return true; }
 
 	if (!m_Tocsoda) { m_Tocsoda = new CSVTocsoda(); }
-	m_Tocsoda->ReadFile(m_CPFileList.value(CP_TOCSODA));
+	if (!m_Tocsoda->ReadFile(m_CPFileList.value(CP_TOCSODA))) { return false; }
 	m_Tocsoda->SetItem();
 
 	double total = m_Tocsoda->GetTotalAmount();
@@ -497,18 +606,19 @@ void CalcCPDlg::CalcTocsoda()
 	m_TocsodaView->setModel(m_Tocsoda->GetItem());
 
 	AddTab(m_TocsodaView, CPNAME_TOCSODA, total, calculator, author);
+	return true;
 }
 
-void CalcCPDlg::CalcKepub()
+bool CalcCPDlg::CalcKepub()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_KEPUB));
 	m_Progress->setValue(CP_KEPUB);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (m_CPFileList.value(CP_KEPUB).isEmpty()) { return; }
+	if (m_CPFileList.value(CP_KEPUB).isEmpty()) { return true; }
 
 	if (!m_Kepub) { m_Kepub = new CSVKepub(); }
-	m_Kepub->ReadFile(m_CPFileList.value(CP_KEPUB));
+	if (!m_Kepub->ReadFile(m_CPFileList.value(CP_KEPUB))) { return false; }
 	m_Kepub->SetItem();
 
 	QList<double> total = m_Kepub->GetTotalAmount();
@@ -519,6 +629,7 @@ void CalcCPDlg::CalcKepub()
 	m_KepubView->setModel(m_Kepub->GetItem());
 
 	AddTab4List(m_KepubView, CPNAME_KEPUB, total, calculator, author);
+	return true;
 }
 
 void CalcCPDlg::DeleteKyobo()

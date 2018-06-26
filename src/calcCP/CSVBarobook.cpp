@@ -32,9 +32,13 @@ CSVBarobook::~CSVBarobook()
 	}
 }
 
-void CSVBarobook::ReadFile(QString filepath)
+bool CSVBarobook::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_BAROBOOK_MAX) {
+		return true;
+	}
+	return false;
 }
 
 void CSVBarobook::SetItem()
