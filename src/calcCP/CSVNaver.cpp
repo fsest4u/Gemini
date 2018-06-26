@@ -72,12 +72,12 @@ void CSVNaver::SetItem()
 		m_AuthorAmount += m_CSVData.at(i).value(HEADER_NAVER_SALE_AMOUNT).replace(",", "").toDouble() * 0.49;
 	}
 
-	qDebug() << "[NAVER]-----------------------------";
-	qDebug() << "Row Count : " << m_CSVData.size();
-	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(m_CalcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
+	//qDebug() << "[NAVER]-----------------------------";
+	//qDebug() << "Row Count : " << m_CSVData.size();
+	//qDebug() << "Column Count : " << m_CSVData.at(0).size();
+	//qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount : %L1").arg(m_CalcAmount, 0, 'f', 0);
+	//qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
 }
 
 QStandardItemModel* CSVNaver::GetItem()

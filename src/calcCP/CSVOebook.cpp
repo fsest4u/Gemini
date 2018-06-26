@@ -113,24 +113,24 @@ void CSVOebook::SetItem()
 		}
 	}
 
-	qDebug() << "[OEBOOK]-----------------------------";
-	qDebug() << "Row Count : " << m_CSVData.size();
-	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
-	qDebug() << QString("Total Amount Oebook: %L1").arg(totalAmountOebook, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Oebook: %L1").arg(calcAmountOebook, 0, 'f', 0);
-	qDebug() << QString("Author Amount Oebook: %L1").arg(authorAmountOebook, 0, 'f', 0);
-	qDebug() << QString("Total Amount Romance : %L1").arg(totalAmountOebookRomance, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Romance: %L1").arg(calcAmountOebookRomance, 0, 'f', 0);
-	qDebug() << QString("Author Amount Romance: %L1").arg(authorAmountOebookRomance, 0, 'f', 0);
-	qDebug() << QString("Total Amount Murim : %L1").arg(totalAmountOebookMurim, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Murim: %L1").arg(calcAmountOebookMurim, 0, 'f', 0);
-	qDebug() << QString("Author Amount Murim: %L1").arg(authorAmountOebookMurim, 0, 'f', 0);
-	qDebug() << QString("Total Amount Comic: %L1").arg(totalAmountOebookComic, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Comic: %L1").arg(calcAmountOebookComic, 0, 'f', 0);
-	qDebug() << QString("Author Amount Comic: %L1").arg(authorAmountOebookComic, 0, 'f', 0);
+	//qDebug() << "[OEBOOK]-----------------------------";
+	//qDebug() << "Row Count : " << m_CSVData.size();
+	//qDebug() << "Column Count : " << m_CSVData.at(0).size();
+	//qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
+	//qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Oebook: %L1").arg(totalAmountOebook, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Oebook: %L1").arg(calcAmountOebook, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Oebook: %L1").arg(authorAmountOebook, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Romance : %L1").arg(totalAmountOebookRomance, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Romance: %L1").arg(calcAmountOebookRomance, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Romance: %L1").arg(authorAmountOebookRomance, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Murim : %L1").arg(totalAmountOebookMurim, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Murim: %L1").arg(calcAmountOebookMurim, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Murim: %L1").arg(authorAmountOebookMurim, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Comic: %L1").arg(totalAmountOebookComic, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Comic: %L1").arg(calcAmountOebookComic, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Comic: %L1").arg(authorAmountOebookComic, 0, 'f', 0);
 
 	m_TotalAmount.append(totalAmount);
 	m_TotalAmount.append(totalAmountOebook);

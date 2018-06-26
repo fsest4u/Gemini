@@ -92,18 +92,18 @@ void CSVKyobo::SetItem()
 		}
 	}
 
-	qDebug() << "[KYOBO]-----------------------------";
-	qDebug() << "Row Count : " << m_CSVData.size();
-	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
-	qDebug() << QString("Total Amount B2C: %L1").arg(totalAmountB2C, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount B2C: %L1").arg(calcAmountB2C, 0, 'f', 0);
-	qDebug() << QString("Author Amount B2C: %L1").arg(authorAmountB2C, 0, 'f', 0);
-	qDebug() << QString("Total Amount B2BC: %L1").arg(totalAmountB2BC, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount B2BC: %L1").arg(calcAmountB2BC, 0, 'f', 0);
-	qDebug() << QString("Author Amount B2BC: %L1").arg(authorAmountB2BC, 0, 'f', 0);
+	//qDebug() << "[KYOBO]-----------------------------";
+	//qDebug() << "Row Count : " << m_CSVData.size();
+	//qDebug() << "Column Count : " << m_CSVData.at(0).size();
+	//qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
+	//qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
+	//qDebug() << QString("Total Amount B2C: %L1").arg(totalAmountB2C, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount B2C: %L1").arg(calcAmountB2C, 0, 'f', 0);
+	//qDebug() << QString("Author Amount B2C: %L1").arg(authorAmountB2C, 0, 'f', 0);
+	//qDebug() << QString("Total Amount B2BC: %L1").arg(totalAmountB2BC, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount B2BC: %L1").arg(calcAmountB2BC, 0, 'f', 0);
+	//qDebug() << QString("Author Amount B2BC: %L1").arg(authorAmountB2BC, 0, 'f', 0);
 
 	m_TotalAmount.append(totalAmount);
 	m_TotalAmount.append(totalAmountB2C);

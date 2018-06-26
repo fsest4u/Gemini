@@ -106,21 +106,21 @@ void CSVKepub::SetItem()
 		}
 	}
 
-	qDebug() << "[KEPUB]-----------------------------";
-	qDebug() << "Row Count : " << m_CSVData.size();
-	qDebug() << "Column Count : " << m_CSVData.at(0).size();
-	qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
-	qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
-	qDebug() << QString("Total Amount Yes24 : %L1").arg(totalAmountYes24, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Yes24 : %L1").arg(calcAmountYes24, 0, 'f', 0);
-	qDebug() << QString("Author Amount Yes24 : %L1").arg(authorAmountYes24, 0, 'f', 0);
-	qDebug() << QString("Total Amount Aladdin : %L1").arg(totalAmountAladdin, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Aladdin : %L1").arg(calcAmountAladdin, 0, 'f', 0);
-	qDebug() << QString("Author Amount Aladdin : %L1").arg(authorAmountAladdin, 0, 'f', 0);
-	qDebug() << QString("Total Amount Bandi : %L1").arg(totalAmountBandi, 0, 'f', 0);
-	qDebug() << QString("Calculate Amount Bandi : %L1").arg(calcAmountBandi, 0, 'f', 0);
-	qDebug() << QString("Author Amount Bandi : %L1").arg(authorAmountBandi, 0, 'f', 0);
+	//qDebug() << "[KEPUB]-----------------------------";
+	//qDebug() << "Row Count : " << m_CSVData.size();
+	//qDebug() << "Column Count : " << m_CSVData.at(0).size();
+	//qDebug() << QString("Total Amount : %L1").arg(totalAmount, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount : %L1").arg(calcAmount, 0, 'f', 0);
+	//qDebug() << QString("Author Amount : %L1").arg(authorAmount, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Yes24 : %L1").arg(totalAmountYes24, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Yes24 : %L1").arg(calcAmountYes24, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Yes24 : %L1").arg(authorAmountYes24, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Aladdin : %L1").arg(totalAmountAladdin, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Aladdin : %L1").arg(calcAmountAladdin, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Aladdin : %L1").arg(authorAmountAladdin, 0, 'f', 0);
+	//qDebug() << QString("Total Amount Bandi : %L1").arg(totalAmountBandi, 0, 'f', 0);
+	//qDebug() << QString("Calculate Amount Bandi : %L1").arg(calcAmountBandi, 0, 'f', 0);
+	//qDebug() << QString("Author Amount Bandi : %L1").arg(authorAmountBandi, 0, 'f', 0);
 
 	m_TotalAmount.append(totalAmount);
 	m_TotalAmount.append(totalAmountYes24);
