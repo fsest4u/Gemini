@@ -65,7 +65,8 @@ public:
 	bool ReadFile(QString filepath);
 
 	void SetItem();
-	QStandardItemModel* GetItem();
+	QStandardItemModel* GetItem() { return m_CSVModel; }
+	QTableView* GetView();
 
 	double GetTotalAmount() { return m_TotalAmount; };
 	double GetCalcAmount() { return m_CalcAmount; };
@@ -83,6 +84,7 @@ private:
 	///////////////////////////////
 	QList<QStringList> m_CSVData;
 	QStandardItemModel *m_CSVModel;
+	QTableView*			m_CSVView;
 
 	QStringList		m_CSVHeader;
 

@@ -19,6 +19,7 @@ const int CSV_START_ROW = 1;
 
 CSVKyobo::CSVKyobo() :
 	m_CSVModel(NULL)
+	, m_CSVView(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
@@ -119,8 +120,12 @@ void CSVKyobo::SetItem()
 
 }
 
-QStandardItemModel* CSVKyobo::GetItem()
+QTableView* CSVKyobo::GetView()
 {
-	return m_CSVModel;
+	if (!m_CSVView) { m_CSVView = new QTableView(); }
+	m_CSVView->setModel(GetItem());
+
+	return m_CSVView;
 }
+
 

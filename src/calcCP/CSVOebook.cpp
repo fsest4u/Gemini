@@ -19,6 +19,7 @@ const int CSV_START_ROW = 1;
 
 CSVOebook::CSVOebook() :
 	m_CSVModel(NULL)
+	, m_CSVView(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
@@ -151,8 +152,10 @@ void CSVOebook::SetItem()
 	m_AuthorAmount.append(authorAmountOebookComic);
 }
 
-QStandardItemModel* CSVOebook::GetItem()
+QTableView* CSVOebook::GetView()
 {
-	return m_CSVModel;
-}
+	if (!m_CSVView) { m_CSVView = new QTableView(); }
+	m_CSVView->setModel(GetItem());
 
+	return m_CSVView;
+}

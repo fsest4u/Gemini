@@ -19,6 +19,7 @@ const int CSV_START_ROW = 1;
 
 CSVRidi::CSVRidi() :
 	m_CSVModel(NULL)
+	, m_CSVView(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
@@ -83,8 +84,11 @@ void CSVRidi::SetItem()
 	//qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
 }
 
-QStandardItemModel* CSVRidi::GetItem()
+QTableView* CSVRidi::GetView()
 {
-	return m_CSVModel;
+	if (!m_CSVView) { m_CSVView = new QTableView(); }
+	m_CSVView->setModel(GetItem());
+
+	return m_CSVView;
 }
 

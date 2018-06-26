@@ -19,6 +19,7 @@ const int CSV_START_ROW = 1;
 
 CSVKepub::CSVKepub() :
 	m_CSVModel(NULL)
+	, m_CSVView(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
@@ -139,7 +140,11 @@ void CSVKepub::SetItem()
 
 }
 
-QStandardItemModel* CSVKepub::GetItem()
+QTableView* CSVKepub::GetView()
 {
-	return m_CSVModel;
+	if (!m_CSVView) { m_CSVView = new QTableView(); }
+	m_CSVView->setModel(GetItem());
+
+	return m_CSVView;
 }
+

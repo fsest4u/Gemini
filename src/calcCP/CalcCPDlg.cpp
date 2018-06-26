@@ -52,20 +52,6 @@ CalcCPDlg::CalcCPDlg(QDialog *parent) :
 	, m_Comico(NULL)
 	, m_Tocsoda(NULL)
 	, m_Kepub(NULL)
-	, m_KyoboView(NULL)
-	, m_NaverView(NULL)
-	, m_RidiView(NULL)
-	, m_MunpiaView(NULL)
-	, m_MrblueView(NULL)
-	, m_BarobookView(NULL)
-	, m_BookcubeView(NULL)
-	, m_EpyrusView(NULL)
-	, m_OebookView(NULL)
-	, m_OnestoreView(NULL)
-	, m_KakaoView(NULL)
-	, m_ComicoView(NULL)
-	, m_TocsodaView(NULL)
-	, m_KepubView(NULL)
 	, m_Progress(NULL)
 
 {
@@ -323,10 +309,8 @@ bool CalcCPDlg::CalcKyobo()
 	QList<double> calculator = m_Kyobo->GetCalcAmount();
 	QList<double> author = m_Kyobo->GetAuthorAmount();
 
-	if (!m_KyoboView) { m_KyoboView = new QTableView(); }
-	m_KyoboView->setModel(m_Kyobo->GetItem());
-
-	AddTab4List(m_KyoboView, CPNAME_KYOBO, total, calculator, author);
+	QTableView* view = m_Kyobo->GetView();
+	AddTab4List(view, CPNAME_KYOBO, total, calculator, author);
 	return true;
 }
 
@@ -346,10 +330,8 @@ bool CalcCPDlg::CalcNaver()
 	double calculator = m_Naver->GetCalcAmount();
 	double author = m_Naver->GetAuthorAmount();
 
-	if (!m_NaverView) { m_NaverView = new QTableView(); }
-	m_NaverView->setModel(m_Naver->GetItem());
-
-	AddTab(m_NaverView, CPNAME_NAVER, total, calculator, author);
+	QTableView* view = m_Naver->GetView();
+	AddTab(view, CPNAME_NAVER, total, calculator, author);
 	return true;
 }
 
@@ -369,10 +351,8 @@ bool CalcCPDlg::CalcRidi()
 	double calculator = m_Ridi->GetCalcAmount();
 	double author = m_Ridi->GetAuthorAmount();
 
-	if (!m_RidiView) { m_RidiView = new QTableView(); }
-	m_RidiView->setModel(m_Ridi->GetItem());
-
-	AddTab(m_RidiView, CPNAME_RIDI, total, calculator, author);
+	QTableView* view = m_Ridi->GetView();
+	AddTab(view, CPNAME_RIDI, total, calculator, author);
 	return true;
 }
 
@@ -392,10 +372,8 @@ bool CalcCPDlg::CalcMunpia()
 	double calculator = m_Munpia->GetCalcAmount();
 	double author = m_Munpia->GetAuthorAmount();
 
-	if (!m_MunpiaView) { m_MunpiaView = new QTableView(); }
-	m_MunpiaView->setModel(m_Munpia->GetItem());
-
-	AddTab(m_MunpiaView, CPNAME_MUNPIA, total, calculator, author);
+	QTableView* view = m_Munpia->GetView();
+	AddTab(view, CPNAME_MUNPIA, total, calculator, author);
 	return true;
 }
 
@@ -415,10 +393,8 @@ bool CalcCPDlg::CalcMrblue()
 	double calculator = m_Mrblue->GetCalcAmount();
 	double author = m_Mrblue->GetAuthorAmount();
 
-	if (!m_MrblueView) { m_MrblueView = new QTableView(); }
-	m_MrblueView->setModel(m_Mrblue->GetItem());
-
-	AddTab(m_MrblueView, CPNAME_MRBLUE, total, calculator, author);
+	QTableView* view = m_Mrblue->GetView();
+	AddTab(view, CPNAME_MRBLUE, total, calculator, author);
 	return true;
 }
 
@@ -438,10 +414,8 @@ bool CalcCPDlg::CalcBarobook()
 	double calculator = m_Barabook->GetCalcAmount();
 	double author = m_Barabook->GetAuthorAmount();
 
-	if (!m_BarobookView) { m_BarobookView = new QTableView(); }
-	m_BarobookView->setModel(m_Barabook->GetItem());
-
-	AddTab(m_BarobookView, CPNAME_BAROBOOK, total, calculator, author);
+	QTableView* view = m_Barabook->GetView();
+	AddTab(view, CPNAME_BAROBOOK, total, calculator, author);
 	return true;
 }
 
@@ -461,10 +435,8 @@ bool CalcCPDlg::CalcBookcube()
 	double calculator = m_Bookcube->GetCalcAmount();
 	double author = m_Bookcube->GetAuthorAmount();
 
-	if (!m_BookcubeView) { m_BookcubeView = new QTableView(); }
-	m_BookcubeView->setModel(m_Bookcube->GetItem());
-
-	AddTab(m_BookcubeView, CPNAME_BOOKCUBE, total, calculator, author);
+	QTableView* view = m_Bookcube->GetView();
+	AddTab(view, CPNAME_BOOKCUBE, total, calculator, author);
 	return true;
 }
 
@@ -484,10 +456,8 @@ bool CalcCPDlg::CalcEpyrus()
 	double calculator = m_Epyrus->GetCalcAmount();
 	double author = m_Epyrus->GetAuthorAmount();
 
-	if (!m_EpyrusView) { m_EpyrusView = new QTableView(); }
-	m_EpyrusView->setModel(m_Epyrus->GetItem());
-
-	AddTab(m_EpyrusView, CPNAME_EPYRUS, total, calculator, author);
+	QTableView* view = m_Epyrus->GetView();
+	AddTab(view, CPNAME_EPYRUS, total, calculator, author);
 	return true;
 }
 
@@ -507,10 +477,8 @@ bool CalcCPDlg::CalcOebook()
 	QList<double> calculator = m_Oebook->GetCalcAmount();
 	QList<double> author = m_Oebook->GetAuthorAmount();
 
-	if (!m_OebookView) { m_OebookView = new QTableView(); }
-	m_OebookView->setModel(m_Oebook->GetItem());
-
-	AddTab4List(m_OebookView, CPNAME_OEBOOK, total, calculator, author);
+	QTableView* view = m_Oebook->GetView();
+	AddTab4List(view, CPNAME_OEBOOK, total, calculator, author);
 	return true;
 }
 
@@ -530,10 +498,8 @@ bool CalcCPDlg::CalcOnestore()
 	double calculator = m_Onestore->GetCalcAmount();
 	double author = m_Onestore->GetAuthorAmount();
 
-	if (!m_OnestoreView) { m_OnestoreView = new QTableView(); }
-	m_OnestoreView->setModel(m_Onestore->GetItem());
-
-	AddTab(m_OnestoreView, CPNAME_ONESTORE, total, calculator, author);
+	QTableView* view = m_Onestore->GetView();
+	AddTab(view, CPNAME_ONESTORE, total, calculator, author);
 	return true;
 }
 
@@ -553,10 +519,8 @@ bool CalcCPDlg::CalcKakao()
 	double calculator = m_Kakao->GetCalcAmount();
 	double author = m_Kakao->GetAuthorAmount();
 
-	if (!m_KakaoView) { m_KakaoView = new QTableView(); }
-	m_KakaoView->setModel(m_Kakao->GetItem());
-
-	AddTab(m_KakaoView, CPNAME_KAKAO, total, calculator, author);
+	QTableView* view = m_Kakao->GetView();
+	AddTab(view, CPNAME_KAKAO, total, calculator, author);
 	return true;
 }
 
@@ -576,10 +540,8 @@ bool CalcCPDlg::CalcComico()
 	double calculator = m_Comico->GetCalcAmount();
 	double author = m_Comico->GetAuthorAmount();
 
-	if (!m_ComicoView) { m_ComicoView = new QTableView(); }
-	m_ComicoView->setModel(m_Comico->GetItem());
-
-	AddTab(m_ComicoView, CPNAME_COMICO, total, calculator, author);
+	QTableView* view = m_Comico->GetView();
+	AddTab(view, CPNAME_COMICO, total, calculator, author);
 	return true;
 }
 
@@ -599,10 +561,8 @@ bool CalcCPDlg::CalcTocsoda()
 	double calculator = m_Tocsoda->GetCalcAmount();
 	double author = m_Tocsoda->GetAuthorAmount();
 
-	if (!m_TocsodaView) { m_TocsodaView = new QTableView(); }
-	m_TocsodaView->setModel(m_Tocsoda->GetItem());
-
-	AddTab(m_TocsodaView, CPNAME_TOCSODA, total, calculator, author);
+	QTableView* view = m_Tocsoda->GetView();
+	AddTab(view, CPNAME_TOCSODA, total, calculator, author);
 	return true;
 }
 
@@ -622,10 +582,8 @@ bool CalcCPDlg::CalcKepub()
 	QList<double> calculator = m_Kepub->GetCalcAmount();
 	QList<double> author = m_Kepub->GetAuthorAmount();
 
-	if (!m_KepubView) { m_KepubView = new QTableView(); }
-	m_KepubView->setModel(m_Kepub->GetItem());
-
-	AddTab4List(m_KepubView, CPNAME_KEPUB, total, calculator, author);
+	QTableView* view = m_Kepub->GetView();
+	AddTab4List(view, CPNAME_KEPUB, total, calculator, author);
 	return true;
 }
 
@@ -635,11 +593,6 @@ void CalcCPDlg::DeleteKyobo()
 		delete m_Kyobo;
 		m_Kyobo = 0;
 	}
-
-	if (m_KyoboView) {
-		delete m_KyoboView;
-		m_KyoboView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteNaver()
@@ -647,11 +600,6 @@ void CalcCPDlg::DeleteNaver()
 	if (m_Naver) {
 		delete m_Naver;
 		m_Naver = 0;
-	}
-
-	if (m_NaverView) {
-		delete m_NaverView;
-		m_NaverView = 0;
 	}
 }
 
@@ -661,11 +609,6 @@ void CalcCPDlg::DeleteRidi()
 		delete m_Ridi;
 		m_Ridi = 0;
 	}
-
-	if (m_RidiView) {
-		delete m_RidiView;
-		m_RidiView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteMunpia()
@@ -673,11 +616,6 @@ void CalcCPDlg::DeleteMunpia()
 	if (m_Munpia) {
 		delete m_Munpia;
 		m_Munpia = 0;
-	}
-
-	if (m_MunpiaView) {
-		delete m_MunpiaView;
-		m_MunpiaView = 0;
 	}
 }
 
@@ -687,11 +625,6 @@ void CalcCPDlg::DeleteMrblue()
 		delete m_Mrblue;
 		m_Mrblue = 0;
 	}
-
-	if (m_MrblueView) {
-		delete m_MrblueView;
-		m_MrblueView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteBarobook()
@@ -699,11 +632,6 @@ void CalcCPDlg::DeleteBarobook()
 	if (m_Barabook) {
 		delete m_Barabook;
 		m_Barabook = 0;
-	}
-
-	if (m_BarobookView) {
-		delete m_BarobookView;
-		m_BarobookView = 0;
 	}
 }
 
@@ -713,11 +641,6 @@ void CalcCPDlg::DeleteBookcube()
 		delete m_Bookcube;
 		m_Bookcube = 0;
 	}
-
-	if (m_BookcubeView) {
-		delete m_BookcubeView;
-		m_BookcubeView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteEpyrus()
@@ -725,11 +648,6 @@ void CalcCPDlg::DeleteEpyrus()
 	if (m_Epyrus) {
 		delete m_Epyrus;
 		m_Epyrus = 0;
-	}
-
-	if (m_EpyrusView) {
-		delete m_EpyrusView;
-		m_EpyrusView = 0;
 	}
 }
 
@@ -739,11 +657,6 @@ void CalcCPDlg::DeleteOebook()
 		delete m_Oebook;
 		m_Oebook = 0;
 	}
-
-	if (m_OebookView) {
-		delete m_OebookView;
-		m_OebookView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteOnestore()
@@ -751,11 +664,6 @@ void CalcCPDlg::DeleteOnestore()
 	if (m_Onestore) {
 		delete m_Onestore;
 		m_Onestore = 0;
-	}
-
-	if (m_OnestoreView) {
-		delete m_OnestoreView;
-		m_OnestoreView = 0;
 	}
 }
 
@@ -765,11 +673,6 @@ void CalcCPDlg::DeleteKakao()
 		delete m_Kakao;
 		m_Kakao = 0;
 	}
-
-	if (m_KakaoView) {
-		delete m_KakaoView;
-		m_KakaoView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteComico()
@@ -777,11 +680,6 @@ void CalcCPDlg::DeleteComico()
 	if (m_Comico) {
 		delete m_Comico;
 		m_Comico = 0;
-	}
-
-	if (m_ComicoView) {
-		delete m_ComicoView;
-		m_ComicoView = 0;
 	}
 }
 
@@ -791,11 +689,6 @@ void CalcCPDlg::DeleteTocsoda()
 		delete m_Tocsoda;
 		m_Tocsoda = 0;
 	}
-
-	if (m_TocsodaView) {
-		delete m_TocsodaView;
-		m_TocsodaView = 0;
-	}
 }
 
 void CalcCPDlg::DeleteKepub()
@@ -803,11 +696,6 @@ void CalcCPDlg::DeleteKepub()
 	if (m_Kepub) {
 		delete m_Kepub;
 		m_Kepub = 0;
-	}
-
-	if (m_KepubView) {
-		delete m_KepubView;
-		m_KepubView = 0;
 	}
 }
 

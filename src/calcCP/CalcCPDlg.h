@@ -164,21 +164,6 @@ private:
 	CSVTocsoda*			m_Tocsoda;
 	CSVKepub*			m_Kepub;
 
-	QTableView*			m_KyoboView;
-	QTableView*			m_NaverView;
-	QTableView*			m_RidiView;
-	QTableView*			m_MunpiaView;
-	QTableView*			m_MrblueView;
-	QTableView*			m_BarobookView;
-	QTableView*			m_BookcubeView;
-	QTableView*			m_EpyrusView;
-	QTableView*			m_OebookView;
-	QTableView*			m_OnestoreView;
-	QTableView*			m_KakaoView;
-	QTableView*			m_ComicoView;
-	QTableView*			m_TocsodaView;
-	QTableView*			m_KepubView;
-
 	QProgressDialog*	m_Progress;
 
 

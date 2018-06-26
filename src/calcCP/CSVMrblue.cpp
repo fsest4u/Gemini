@@ -19,6 +19,7 @@ const int CSV_START_ROW = 5;
 
 CSVMrblue::CSVMrblue() :
 	m_CSVModel(NULL)
+	, m_CSVView(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
@@ -80,8 +81,11 @@ void CSVMrblue::SetItem()
 	//qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
 }
 
-QStandardItemModel* CSVMrblue::GetItem()
+QTableView* CSVMrblue::GetView()
 {
-	return m_CSVModel;
+	if (!m_CSVView) { m_CSVView = new QTableView(); }
+	m_CSVView->setModel(GetItem());
+
+	return m_CSVView;
 }
 
