@@ -136,11 +136,7 @@ void CalcCPDlg::ReCalcCP()
 {
 	qDebug() << "[ReCalcCP] -----";
 	// Delete and draw new
-	int count = ui.tabCP->count();
-	for (int i = 0; i < count; i++) {
-		qDebug() << "[ReCalcCP] removeTab "<< i;
-		ui.tabCP->removeTab(i);
-	}
+	ui.tabCP->clear();
 
 	this->done(QDialogButtonBox::HelpRole);
 }

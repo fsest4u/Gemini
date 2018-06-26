@@ -109,11 +109,7 @@ void CalcTotalDlg::ReCalcTotal()
 
 	qDebug() << "[ReCalcTotal] -----";
 	// Delete and draw new
-	int count = ui.tabTotal->count();
-	for (int i = 0; i < count; i++) {
-		qDebug() << "[ReCalcTotal] removeTab " << i;
-		ui.tabTotal->removeTab(i);
-	}
+	ui.tabTotal->clear();
 
 	this->done(QDialogButtonBox::HelpRole);
 }
