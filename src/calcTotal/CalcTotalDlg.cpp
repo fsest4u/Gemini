@@ -168,14 +168,16 @@ void CalcTotalDlg::SetCPRank()
 			&& CalcCPDlg::CP_KEPUB + 4 != i.value()) {
 
 			// for debug
-			qDebug() << "Rank : " << rank << ", Amount : " << i.key() << ", Column : " << i.value();
+			QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+			qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Column : " << i.value();
 
 			m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_RANK, i.value()), rank);
 			rank--;	// because of ascend order
 		}
 		else {
 			// for debug
-			qDebug() << "Kepub Rank : " << rankKepub << ", Amount : " << i.key() << ", Column : " << i.value();
+			QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+			qDebug() << "Kepub Rank : " << rankKepub << ", Amount : " << amount << ", Column : " << i.value();
 
 			m_TotalAmountModel->setData(m_TotalAmountModel->index(ROW_AMOUNT_RANK, i.value()), rankKepub);
 			rankKepub--;	// because of ascend order

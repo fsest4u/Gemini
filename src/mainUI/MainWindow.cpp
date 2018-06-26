@@ -653,9 +653,9 @@ void MainWindow::SetCPFiles()
 	}
 
 	// for debug
-	foreach (const int key, cpFileList.keys()) {
-		qDebug() << " key : " << key << ", value : " << cpFileList.value(key);
-	}
+	//foreach (const int key, cpFileList.keys()) {
+	//	qDebug() << " key : " << key << ", value : " << cpFileList.value(key);
+	//}
 
 	// open dialog for calculation
 	if (!m_CalcManager) {

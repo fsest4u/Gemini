@@ -40,9 +40,9 @@ CalcManager::~CalcManager()
 bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
 {
 	// for debug
-	foreach(const int key, cpFileList.keys()) {
-		qDebug() << "[SetCPList] key : " << key << ", value : " << cpFileList.value(key);
-	}
+	//foreach(const int key, cpFileList.keys()) {
+	//	qDebug() << "[SetCPList] key : " << key << ", value : " << cpFileList.value(key);
+	//}
 
 	int status = STEP_CALC_MAIN_NEXT;
 	while (STEP_CALC_CANCEL > status 

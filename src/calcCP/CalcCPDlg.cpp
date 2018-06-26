@@ -152,7 +152,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	m_CPFileList = cpFileList;
 	// for debug
 	//foreach(const int key, m_CPFileList.keys()) {
-	//	qDebug() << "[SetCPFileList] key : " << key << ", value : " << m_CPFileList.value(key);
+	//	qDebug() << "[SetCP] key : " << key << ", value : " << m_CPFileList.value(key);
 	//}
 
 	if (m_Progress) {
