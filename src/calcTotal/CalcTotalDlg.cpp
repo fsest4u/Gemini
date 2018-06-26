@@ -158,7 +158,7 @@ void CalcTotalDlg::SetCPTable(int column, QString total, QString calc, QString a
 
 void CalcTotalDlg::SetCPRank()
 {
-	int rankKepub = 3;
+	int rankKepub = (m_rankAmount.count() - CalcCPDlg::CP_MAX > 0) ? m_rankAmount.count() - CalcCPDlg::CP_MAX : 0;
 	int rank = m_rankAmount.count() - rankKepub;
 	QMapIterator<double, int> i(m_rankAmount);
 	while (i.hasNext()) {
