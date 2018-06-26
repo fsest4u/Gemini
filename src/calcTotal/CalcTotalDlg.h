@@ -49,8 +49,8 @@ private slots:
 	void connectSignalsSlots();
 
 	void Prev();
-	void CalcTotal();
-	void Next();
+	void ReCalcTotal();
+	void Extract();
 
 private:
 
@@ -75,7 +75,6 @@ private:
 	double				m_calcAmount;
 	double				m_authorAmount;
 	QMap<double, int>	m_rankAmount;
-	int					m_rankIndex;
 
 	QStandardItemModel *m_TotalAmountModel;
 

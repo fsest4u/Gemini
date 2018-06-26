@@ -70,7 +70,7 @@ void CalcTotalDlg::InitUI()
 
 	ui.buttonBox->button(QDialogButtonBox::Yes)->setText(tr("Prev"));
 	ui.buttonBox->button(QDialogButtonBox::Retry)->setText(tr("Re-Calculate"));
-	ui.buttonBox->button(QDialogButtonBox::No)->setText(tr("Next"));
+	ui.buttonBox->button(QDialogButtonBox::No)->setText(tr("Extract"));
 
 	connectSignalsSlots();
 
@@ -90,9 +90,9 @@ void CalcTotalDlg::connectSignalsSlots()
 	// prev button
 	connect(ui.buttonBox->button(QDialogButtonBox::Yes), SIGNAL(clicked()), this, SLOT(Prev()));
 	// calc button
-	connect(ui.buttonBox->button(QDialogButtonBox::Retry), SIGNAL(clicked()), this, SLOT(CalcTotal()));
+	connect(ui.buttonBox->button(QDialogButtonBox::Retry), SIGNAL(clicked()), this, SLOT(ReCalcTotal()));
 	// next button
-	connect(ui.buttonBox->button(QDialogButtonBox::No), SIGNAL(clicked()), this, SLOT(Next()));
+	connect(ui.buttonBox->button(QDialogButtonBox::No), SIGNAL(clicked()), this, SLOT(Extract()));
 
 }
 
@@ -101,19 +101,24 @@ void CalcTotalDlg::Prev()
 	this->done(QDialogButtonBox::YesRole);
 }
 
-void CalcTotalDlg::CalcTotal()
+void CalcTotalDlg::ReCalcTotal()
 {
-	qDebug() << "[CalcTotal] -----";
+	m_totalAmount = 0;
+	m_calcAmount = 0;
+	m_authorAmount = 0;
+
+	qDebug() << "[ReCalcTotal] -----";
 	// Delete and draw new
 	int count = ui.tabTotal->count();
 	for (int i = 0; i < count; i++) {
+		qDebug() << "[ReCalcTotal] removeTab " << i;
 		ui.tabTotal->removeTab(i);
 	}
 
 	this->done(QDialogButtonBox::HelpRole);
 }
 
-void CalcTotalDlg::Next()
+void CalcTotalDlg::Extract()
 {
 	this->done(QDialogButtonBox::NoRole);
 }
@@ -135,7 +140,6 @@ void CalcTotalDlg::InitCPData()
 	m_totalAmount = 0;
 	m_calcAmount = 0;
 	m_authorAmount = 0;
-	m_rankIndex = 0;
 
 }
 

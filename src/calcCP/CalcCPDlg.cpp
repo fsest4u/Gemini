@@ -121,7 +121,7 @@ void CalcCPDlg::connectSignalsSlots()
 	// prev button
 	connect(ui.buttonBox->button(QDialogButtonBox::Yes), SIGNAL(clicked()), this, SLOT(Prev()));
 	// calc button
-	connect(ui.buttonBox->button(QDialogButtonBox::Retry), SIGNAL(clicked()), this, SLOT(CalcCP()));
+	connect(ui.buttonBox->button(QDialogButtonBox::Retry), SIGNAL(clicked()), this, SLOT(ReCalcCP()));
 	// next button
 	connect(ui.buttonBox->button(QDialogButtonBox::No), SIGNAL(clicked()), this, SLOT(Next()));
 
@@ -132,12 +132,13 @@ void CalcCPDlg::Prev()
 	this->done(QDialogButtonBox::YesRole);
 }
 
-void CalcCPDlg::CalcCP()
+void CalcCPDlg::ReCalcCP()
 {
-	qDebug() << "[CalcCP] -----";
+	qDebug() << "[ReCalcCP] -----";
 	// Delete and draw new
 	int count = ui.tabCP->count();
 	for (int i = 0; i < count; i++) {
+		qDebug() << "[ReCalcCP] removeTab "<< i;
 		ui.tabCP->removeTab(i);
 	}
 

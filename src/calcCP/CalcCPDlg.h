@@ -99,7 +99,7 @@ private slots:
 	void connectSignalsSlots();
 
 	void Prev();
-	void CalcCP();
+	void ReCalcCP();
 	void Next();
 
 
