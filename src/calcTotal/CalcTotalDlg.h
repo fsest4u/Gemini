@@ -50,6 +50,8 @@ private:
 	void InitUI();
 
 	void SetCPData(CalcCPDlg*);
+	void SetBookData(CalcCPDlg*);
+	void SetSeriesData(CalcCPDlg*);
 
 	void AddTab(QTableView* table, const QString cpName);
 
@@ -59,9 +61,8 @@ private:
 	///////////////////////////////
 
 	CSVTotalCP*			m_TotalCP;
-	QTableView*			m_TotalBookView;
-	QTableView*			m_TotalSeriesView;
-	QTableView*			m_TotalMemoView;
+	CSVTotalCP*			m_TotalBook;
+	CSVTotalCP*			m_TotalSeries;
 
 	QProgressDialog*	m_Progress;
 
