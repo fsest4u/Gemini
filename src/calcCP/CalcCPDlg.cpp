@@ -17,21 +17,10 @@
 #include "CalcCPDlg.h"
 #include "gemini_constants.h"
 
-
-const QString CPNAME_KYOBO = "KYOBO";
-const QString CPNAME_NAVER = "NAVER";
-const QString CPNAME_RIDI = "RIDI";
-const QString CPNAME_MUNPIA = "MUNPIA";
-const QString CPNAME_MRBLUE = "MRBLUE";
-const QString CPNAME_BAROBOOK = "BAROBOOK";
-const QString CPNAME_BOOKCUBE = "BOOKCUBE";
-const QString CPNAME_EPYRUS = "EPYRUS";
-const QString CPNAME_OEBOOK = "OEBOOK";
-const QString CPNAME_ONESTORE = "ONESTORE";
-const QString CPNAME_KAKAO = "KAKAO";
-const QString CPNAME_COMICO = "COMICO";
-const QString CPNAME_TOCSODA = "TOCSODA";
-const QString CPNAME_KEPUB = "KEPUB";
+// The CP_TYPE and order must match.
+const QStringList CP_NAME = QStringList() << "KYOBO" << "NAVER" << "RIDI" << "MUNPIA" \
+							<< "MRBLUE" << "BAROBOOK" << "BOOKCUBE" << "EPYRUS" << "OEBOOK" \
+							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "KEPUB";
 
 const int PROGRESS_BAR_MINIMUM_DURATION = 500;
 
@@ -163,7 +152,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcKyobo()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_KYOBO));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_KYOBO)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -172,7 +161,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcNaver()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_NAVER));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_NAVER)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -181,7 +170,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcRidi()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_RIDI));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_RIDI)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -190,7 +179,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcMunpia()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_MUNPIA));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_MUNPIA)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -199,7 +188,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcMrblue()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_MRBLUE));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_MRBLUE)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -208,7 +197,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcBarobook()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_BAROBOOK));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_BAROBOOK)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -217,7 +206,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcBookcube()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_BOOKCUBE));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_BOOKCUBE)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -226,7 +215,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcEpyrus()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_EPYRUS));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_EPYRUS)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -235,7 +224,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcOebook()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_OEBOOK));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_OEBOOK)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -244,7 +233,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcOnestore()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_ONESTORE));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_ONESTORE)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -253,7 +242,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcKakao()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_KAKAO));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_KAKAO)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -262,7 +251,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcComico()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_COMICO));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_COMICO)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -271,7 +260,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcTocsoda()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_TOCSODA));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_TOCSODA)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -280,7 +269,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	if (!CalcKepub()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CPNAME_KEPUB));
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_KEPUB)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -295,7 +284,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 
 bool CalcCPDlg::CalcKyobo()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_KYOBO));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_KYOBO)));
 	m_Progress->setValue(CP_KYOBO);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -310,13 +299,13 @@ bool CalcCPDlg::CalcKyobo()
 	QList<double> author = m_Kyobo->GetAuthorAmount();
 
 	QTableView* view = m_Kyobo->GetView();
-	AddTab4List(view, CPNAME_KYOBO, total, calculator, author);
+	AddTab4List(view, CP_NAME.at(CP_KYOBO), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcNaver()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAVER));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_NAVER)));
 	m_Progress->setValue(CP_NAVER);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -331,13 +320,13 @@ bool CalcCPDlg::CalcNaver()
 	double author = m_Naver->GetAuthorAmount();
 
 	QTableView* view = m_Naver->GetView();
-	AddTab(view, CPNAME_NAVER, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_NAVER), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcRidi()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_RIDI));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_RIDI)));
 	m_Progress->setValue(CP_RIDI);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -352,13 +341,13 @@ bool CalcCPDlg::CalcRidi()
 	double author = m_Ridi->GetAuthorAmount();
 
 	QTableView* view = m_Ridi->GetView();
-	AddTab(view, CPNAME_RIDI, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_RIDI), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcMunpia()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_MUNPIA));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_MUNPIA)));
 	m_Progress->setValue(CP_MUNPIA);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -373,13 +362,13 @@ bool CalcCPDlg::CalcMunpia()
 	double author = m_Munpia->GetAuthorAmount();
 
 	QTableView* view = m_Munpia->GetView();
-	AddTab(view, CPNAME_MUNPIA, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_MUNPIA), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcMrblue()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_MRBLUE));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_MRBLUE)));
 	m_Progress->setValue(CP_MRBLUE);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -394,13 +383,13 @@ bool CalcCPDlg::CalcMrblue()
 	double author = m_Mrblue->GetAuthorAmount();
 
 	QTableView* view = m_Mrblue->GetView();
-	AddTab(view, CPNAME_MRBLUE, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_MRBLUE), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcBarobook()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_BAROBOOK));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_BAROBOOK)));
 	m_Progress->setValue(CP_BAROBOOK);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -415,13 +404,13 @@ bool CalcCPDlg::CalcBarobook()
 	double author = m_Barabook->GetAuthorAmount();
 
 	QTableView* view = m_Barabook->GetView();
-	AddTab(view, CPNAME_BAROBOOK, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_BAROBOOK), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcBookcube()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_BOOKCUBE));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_BOOKCUBE)));
 	m_Progress->setValue(CP_BOOKCUBE);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -436,13 +425,13 @@ bool CalcCPDlg::CalcBookcube()
 	double author = m_Bookcube->GetAuthorAmount();
 
 	QTableView* view = m_Bookcube->GetView();
-	AddTab(view, CPNAME_BOOKCUBE, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_BOOKCUBE), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcEpyrus()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_EPYRUS));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_EPYRUS)));
 	m_Progress->setValue(CP_EPYRUS);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -457,13 +446,13 @@ bool CalcCPDlg::CalcEpyrus()
 	double author = m_Epyrus->GetAuthorAmount();
 
 	QTableView* view = m_Epyrus->GetView();
-	AddTab(view, CPNAME_EPYRUS, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_EPYRUS), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcOebook()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_OEBOOK));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_OEBOOK)));
 	m_Progress->setValue(CP_OEBOOK);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -478,13 +467,13 @@ bool CalcCPDlg::CalcOebook()
 	QList<double> author = m_Oebook->GetAuthorAmount();
 
 	QTableView* view = m_Oebook->GetView();
-	AddTab4List(view, CPNAME_OEBOOK, total, calculator, author);
+	AddTab4List(view, CP_NAME.at(CP_OEBOOK), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcOnestore()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_ONESTORE));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_ONESTORE)));
 	m_Progress->setValue(CP_ONESTORE);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -499,13 +488,13 @@ bool CalcCPDlg::CalcOnestore()
 	double author = m_Onestore->GetAuthorAmount();
 
 	QTableView* view = m_Onestore->GetView();
-	AddTab(view, CPNAME_ONESTORE, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_ONESTORE), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcKakao()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_KAKAO));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_KAKAO)));
 	m_Progress->setValue(CP_KAKAO);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -520,13 +509,13 @@ bool CalcCPDlg::CalcKakao()
 	double author = m_Kakao->GetAuthorAmount();
 
 	QTableView* view = m_Kakao->GetView();
-	AddTab(view, CPNAME_KAKAO, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_KAKAO), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcComico()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_COMICO));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_COMICO)));
 	m_Progress->setValue(CP_COMICO);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -541,13 +530,13 @@ bool CalcCPDlg::CalcComico()
 	double author = m_Comico->GetAuthorAmount();
 
 	QTableView* view = m_Comico->GetView();
-	AddTab(view, CPNAME_COMICO, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_COMICO), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcTocsoda()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_TOCSODA));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_TOCSODA)));
 	m_Progress->setValue(CP_TOCSODA);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -562,13 +551,13 @@ bool CalcCPDlg::CalcTocsoda()
 	double author = m_Tocsoda->GetAuthorAmount();
 
 	QTableView* view = m_Tocsoda->GetView();
-	AddTab(view, CPNAME_TOCSODA, total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_TOCSODA), total, calculator, author);
 	return true;
 }
 
 bool CalcCPDlg::CalcKepub()
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CPNAME_KEPUB));
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_KEPUB)));
 	m_Progress->setValue(CP_KEPUB);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
@@ -583,7 +572,7 @@ bool CalcCPDlg::CalcKepub()
 	QList<double> author = m_Kepub->GetAuthorAmount();
 
 	QTableView* view = m_Kepub->GetView();
-	AddTab4List(view, CPNAME_KEPUB, total, calculator, author);
+	AddTab4List(view, CP_NAME.at(CP_KEPUB), total, calculator, author);
 	return true;
 }
 
@@ -728,7 +717,7 @@ void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<doubl
 	QHBoxLayout* calcLayout = new QHBoxLayout();
 	QHBoxLayout* authorLayout = new QHBoxLayout();
 	// kyobo
-	if (!cpName.compare(CPNAME_KYOBO)) {
+	if (!cpName.compare(CP_NAME.at(CP_KYOBO))) {
 
 		QLabel* totalAll = new QLabel(QString("Total Amount : %L1").arg(total.at(CSVKyobo::BUSINESS_ALL), 0, 'f', 0));
 		QLabel* calcAll = new QLabel(QString("Calculate Amount : %L1").arg(calculator.at(CSVKyobo::BUSINESS_ALL), 0, 'f', 0));
@@ -756,7 +745,7 @@ void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<doubl
 
 	}
 	// oebook
-	else if (!cpName.compare(CPNAME_OEBOOK)) {
+	else if (!cpName.compare(CP_NAME.at(CP_OEBOOK))) {
 
 		QLabel* totalAll = new QLabel(QString("Total Amount : %L1").arg(total.at(CSVOebook::COMPANY_OEBOOK_ALL), 0, 'f', 0));
 		QLabel* calcAll = new QLabel(QString("Calculate Amount : %L1").arg(calculator.at(CSVOebook::COMPANY_OEBOOK_ALL), 0, 'f', 0));
@@ -798,7 +787,7 @@ void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<doubl
 
 	}
 	// kepub
-	else if (!cpName.compare(CPNAME_KEPUB)) {
+	else if (!cpName.compare(CP_NAME.at(CP_KEPUB))) {
 
 		QLabel* totalAll = new QLabel(QString("Total Amount : %L1").arg(total.at(CSVKepub::STORE_ALL), 0, 'f', 0));
 		QLabel* calcAll = new QLabel(QString("Calculate Amount : %L1").arg(calculator.at(CSVKepub::STORE_ALL), 0, 'f', 0));
