@@ -21,20 +21,13 @@
 #include "ui_CalcTotalDlg.h"
 
 class CalcCPDlg;
+class CSVTotalCP;
 
 class CalcTotalDlg : public QDialog
 {
 	Q_OBJECT
 
 public:
-
-	enum ROW_AMOUNT_TYPE {
-		ROW_AMOUNT_TOTAL = 0,
-		ROW_AMOUNT_CALCULATOR,
-		ROW_AMOUNT_AUTHOR,
-		ROW_AMOUNT_RANK,
-		ROW_AMOUNT_MAX
-	};
 
 	/**
 	* Constructor.
@@ -56,11 +49,6 @@ private:
 
 	void InitUI();
 
-	void InitCPData();
-
-	// total amount for cp
-	void SetCPTable(int column, QString total, QString calc, QString author, QString rank = "");
-	void SetCPRank();
 	void SetCPData(CalcCPDlg*);
 
 	void AddTab(QTableView* table, const QString cpName);
@@ -70,15 +58,7 @@ private:
 	// PRIVATE MEMBER VARIABLES
 	///////////////////////////////
 
-	// total amount for cp
-	double				m_totalAmount;
-	double				m_calcAmount;
-	double				m_authorAmount;
-	QMap<double, int>	m_rankAmount;
-
-	QStandardItemModel *m_TotalAmountModel;
-
-	QTableView*			m_TotalView;				// total amount for cp
+	CSVTotalCP*			m_TotalCP;
 	QTableView*			m_TotalBookView;
 	QTableView*			m_TotalSeriesView;
 	QTableView*			m_TotalMemoView;
