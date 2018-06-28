@@ -658,9 +658,13 @@ void MainWindow::SetCPFiles()
 	//}
 
 	// open dialog for calculation
-	if (!m_CalcManager) {
-		m_CalcManager = new CalcManager();
+	if (m_CalcManager) {
+		delete m_CalcManager;
+		m_CalcManager = 0;
+
 	}
+	m_CalcManager = new CalcManager();
+
 	if (!m_CalcManager->ExecuteCalc(cpFileList)) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
