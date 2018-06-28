@@ -21,7 +21,7 @@
 
 #include "../gemini_constants.h"
 
-const int PROGRESS_BAR_MINIMUM_DURATION = 500;
+const int PROGRESS_BAR_MINIMUM_DURATION = 50;
 
 
 CalcTotalDlg::CalcTotalDlg(QDialog *parent) :
@@ -115,7 +115,7 @@ void CalcTotalDlg::Extract()
 void CalcTotalDlg::SetCPData(CalcCPDlg* cpData)
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg("CP"));
-	m_Progress->setValue(0);
+	m_Progress->setValue(1);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	if (!m_TotalCP) { m_TotalCP = new CSVTotalCP(); }
@@ -130,7 +130,7 @@ void CalcTotalDlg::SetCPData(CalcCPDlg* cpData)
 void CalcTotalDlg::SetBookData(CalcCPDlg* cpData)
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg("Book"));
-	m_Progress->setValue(1);
+	m_Progress->setValue(2);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	if (!m_TotalBook) { m_TotalBook = new CSVTotalBook(); }
@@ -144,7 +144,7 @@ void CalcTotalDlg::SetBookData(CalcCPDlg* cpData)
 void CalcTotalDlg::SetSeriesData(CalcCPDlg* cpData)
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg("Series"));
-	m_Progress->setValue(2);
+	m_Progress->setValue(3);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	if (!m_TotalSeries) { m_TotalSeries = new CSVTotalSeries(); }
@@ -167,7 +167,7 @@ void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 	m_Progress = new QProgressDialog(this);
 	m_Progress->setMinimumDuration(PROGRESS_BAR_MINIMUM_DURATION);
 	m_Progress->setMinimum(0);
-	m_Progress->setMaximum(2);
+	m_Progress->setMaximum(3);
 	m_Progress->setValue(0);
 	m_Progress->setAutoClose(true);
 
