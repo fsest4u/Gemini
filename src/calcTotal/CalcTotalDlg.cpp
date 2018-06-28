@@ -16,6 +16,7 @@
 #include "calcCP/CalcCpDlg.h"
 #include "calcTotal/CSVTotalCP.h"
 #include "calcTotal/CSVTotalBook.h"
+#include "calcTotal/CSVTotalSeries.h"
 #include "CalcTotalDlg.h"
 
 #include "../gemini_constants.h"
@@ -146,7 +147,7 @@ void CalcTotalDlg::SetSeriesData(CalcCPDlg* cpData)
 	m_Progress->setValue(2);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (!m_TotalSeries) { m_TotalSeries = new CSVTotalCP(); }
+	if (!m_TotalSeries) { m_TotalSeries = new CSVTotalSeries(); }
 	m_TotalSeries->SetItem(cpData);
 
 	// Add TabWidget

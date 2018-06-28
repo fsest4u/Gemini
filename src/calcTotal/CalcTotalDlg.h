@@ -23,6 +23,7 @@
 class CalcCPDlg;
 class CSVTotalCP;
 class CSVTotalBook;
+class CSVTotalSeries;
 
 class CalcTotalDlg : public QDialog
 {
@@ -63,7 +64,7 @@ private:
 
 	CSVTotalCP*			m_TotalCP;
 	CSVTotalBook*		m_TotalBook;
-	CSVTotalCP*			m_TotalSeries;
+	CSVTotalSeries*		m_TotalSeries;
 
 	QProgressDialog*	m_Progress;
 

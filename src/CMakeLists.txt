@@ -67,6 +67,8 @@ set( CALC_TOTAL_FILES
 	calcTotal/CSVTotalCP.cpp
 	calcTotal/CSVTotalBook.h
 	calcTotal/CSVTotalBook.cpp
+	calcTotal/CSVTotalSeries.h
+	calcTotal/CSVTotalSeries.cpp
 	calcTotal/CalcTotalDlg.h
 	calcTotal/CalcTotalDlg.cpp
 )
