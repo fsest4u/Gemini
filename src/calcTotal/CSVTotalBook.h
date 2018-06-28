@@ -28,14 +28,6 @@ class CSVTotalBook : public QObject
 
 public:
 
-	enum ROW_AMOUNT_TYPE {
-		ROW_AMOUNT_TOTAL = 0,
-		ROW_AMOUNT_CALCULATOR,
-		ROW_AMOUNT_AUTHOR,
-		ROW_AMOUNT_RANK,
-		ROW_AMOUNT_MAX
-	};
-
 	enum ROW_TYPE {
 		ROW_AMOUNT_NAME = 0,
 		ROW_AMOUNT,
@@ -101,7 +93,7 @@ public:
 
 	void InitBookData();
 
-	void SetBookTable(int column, QString total, QString calc, QString author, QString rank = "");
+	void SetBookTable();
 	void SetBookRank();
 
 	void MakeBookKyobo(QStandardItemModel* item);
@@ -143,7 +135,7 @@ private:
 	QStandardItemModel*	m_CSVModel;
 	QTableView*			m_CSVView;
 
-	QHash<QString, QHash<int, double>>		m_BookList;
+	QMap<QString, QMap<int, double>>		m_BookList;
 	//QHash<int, double>						m_AmountList;
 
 	QList<double>		m_TotalAmount;

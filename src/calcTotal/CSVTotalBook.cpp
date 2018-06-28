@@ -47,8 +47,8 @@ void CSVTotalBook::InitBookData()
 		delete m_CSVModel;
 		m_CSVModel = 0;
 	}
-	//m_CSVModel = new QStandardItemModel(ROW_AMOUNT_MAX, CalcCPDlg::CP_MAX + 4);
-	m_CSVModel = new QStandardItemModel(ROW_MAX, COLUMN_MAX);
+	m_BookList.count();
+	m_CSVModel = new QStandardItemModel(m_BookList.count() + ROW_MAX, COLUMN_MAX);
 
 	// set header
 	m_CSVModel->setHeaderData(COLUMN_TITLE, Qt::Horizontal, QString::fromLocal8Bit("작품제목"));
@@ -75,48 +75,124 @@ void CSVTotalBook::InitBookData()
 		m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_KYOBO_TOTAL + i * 3 + 1), QString::fromLocal8Bit("정산액"));
 		m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_KYOBO_TOTAL + i * 3 + 2), QString::fromLocal8Bit("작가정산액"));
 	}
-	//// set line number
-	//m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT_TOTAL, new QStandardItem("Total Amount"));		// total
-	//m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT_CALCULATOR, new QStandardItem("Calc Amount"));		// calculation
-	//m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT_AUTHOR, new QStandardItem("Author Amount"));	// author
-	//m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT_RANK, new QStandardItem("Rank"));				// rank
 
 }
 
-void CSVTotalBook::SetBookTable(int column, QString total, QString calc, QString author, QString rank)
+void CSVTotalBook::SetBookTable()
 {
-	//set data
-	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_TOTAL, column), total);
-	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_CALCULATOR, column), calc);
-	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_AUTHOR, column), author);
-	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, column), rank);
+	QList<double> amountList;
+	amountList.clear();
 
-	// if column is not zero, add amount.
-	if (column) {
-		//m_TotalAmount += total.replace(",", "").toDouble();
-		//m_CalcAmount += calc.replace(",", "").toDouble();
-		//m_AuthorAmount += author.replace(",", "").toDouble();
-		m_TotalAmount += total.replace(",", "").toDouble();
-		m_CalcAmount += calc.replace(",", "").toDouble();
-		m_AuthorAmount += author.replace(",", "").toDouble();
-		m_RankAmount.insert(total.toDouble(), column);
+	//set data
+	int row = ROW_AMOUNT + 1;
+	QMap<QString, QMap<int, double>>::const_iterator bookHash = m_BookList.constBegin();
+	while (bookHash != m_BookList.constEnd()) {
+
+		//qDebug() << bookHash.key() << ": " << bookHash.value();
+		// set title
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_TITLE), bookHash.key());
+		
+		double totalAmount = 0;
+		double calcAmount = 0;
+		double authorAmount = 0;
+
+		QMap<int, double>::const_iterator amountHash = bookHash.value().constBegin();
+		while (amountHash != bookHash.value().constEnd()) {
+
+			//qDebug() << amountHash.key() << ": " << amountHash.value();
+			// set amount list
+			m_CSVModel->setData(m_CSVModel->index(row, amountHash.key()), amountHash.value());
+			if (COLUMN_KYOBO_TOTAL == amountHash.key()
+				|| COLUMN_NAVER_TOTAL == amountHash.key()
+				|| COLUMN_RIDI_TOTAL == amountHash.key()
+				|| COLUMN_MUNPIA_TOTAL == amountHash.key()
+				|| COLUMN_MRBLUE_TOTAL == amountHash.key()
+				|| COLUMN_BAROBOOK_TOTAL == amountHash.key()
+				|| COLUMN_BOOKCUBE_TOTAL == amountHash.key()
+				|| COLUMN_EPYRUS_TOTAL == amountHash.key()
+				|| COLUMN_OEBOOK_TOTAL == amountHash.key()
+				|| COLUMN_ONESTORE_TOTAL == amountHash.key()
+				|| COLUMN_KAKAO_TOTAL == amountHash.key()
+				|| COLUMN_COMICO_TOTAL == amountHash.key()
+				|| COLUMN_TOCSODA_TOTAL == amountHash.key()
+				|| COLUMN_KEPUB_TOTAL == amountHash.key()) {
+
+				totalAmount += amountHash.value();
+			}
+			else if (COLUMN_KYOBO_CALC == amountHash.key()
+				|| COLUMN_NAVER_CALC == amountHash.key()
+				|| COLUMN_RIDI_CALC == amountHash.key()
+				|| COLUMN_MUNPIA_CALC == amountHash.key()
+				|| COLUMN_MRBLUE_CALC == amountHash.key()
+				|| COLUMN_BAROBOOK_CALC == amountHash.key()
+				|| COLUMN_BOOKCUBE_CALC == amountHash.key()
+				|| COLUMN_EPYRUS_CALC == amountHash.key()
+				|| COLUMN_OEBOOK_CALC == amountHash.key()
+				|| COLUMN_ONESTORE_CALC == amountHash.key()
+				|| COLUMN_KAKAO_CALC == amountHash.key()
+				|| COLUMN_COMICO_CALC == amountHash.key()
+				|| COLUMN_TOCSODA_CALC == amountHash.key()
+				|| COLUMN_KEPUB_CALC == amountHash.key()) {
+
+				calcAmount += amountHash.value();
+
+			}
+			else if (COLUMN_KYOBO_AUTHOR == amountHash.key()
+				|| COLUMN_NAVER_AUTHOR == amountHash.key()
+				|| COLUMN_RIDI_AUTHOR == amountHash.key()
+				|| COLUMN_MUNPIA_AUTHOR == amountHash.key()
+				|| COLUMN_MRBLUE_AUTHOR == amountHash.key()
+				|| COLUMN_BAROBOOK_AUTHOR == amountHash.key()
+				|| COLUMN_BOOKCUBE_AUTHOR == amountHash.key()
+				|| COLUMN_EPYRUS_AUTHOR == amountHash.key()
+				|| COLUMN_OEBOOK_AUTHOR == amountHash.key()
+				|| COLUMN_ONESTORE_AUTHOR == amountHash.key()
+				|| COLUMN_KAKAO_AUTHOR == amountHash.key()
+				|| COLUMN_COMICO_AUTHOR == amountHash.key()
+				|| COLUMN_TOCSODA_AUTHOR == amountHash.key()
+				|| COLUMN_KEPUB_AUTHOR == amountHash.key()) {
+
+				authorAmount += amountHash.value();
+			}
+			amountHash++;
+		}
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL), totalAmount);
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_CALC), calcAmount);
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_AUTHOR), authorAmount);
+
+		amountList.replace(COLUMN_AMOUNT_TOTAL, totalAmount);
+
+
+		row++; bookHash++;
 	}
+
+	//// if column is not zero, add amount.
+	//if (column) {
+	//	//m_TotalAmount += total.replace(",", "").toDouble();
+	//	//m_CalcAmount += calc.replace(",", "").toDouble();
+	//	//m_AuthorAmount += author.replace(",", "").toDouble();
+	//	m_TotalAmount += total.replace(",", "").toDouble();
+	//	m_CalcAmount += calc.replace(",", "").toDouble();
+	//	m_AuthorAmount += author.replace(",", "").toDouble();
+	//	m_RankAmount.insert(total.toDouble(), column);
+	//}
 }
 
+// todo
 void CSVTotalBook::SetBookRank()
 {
-	int rank = m_RankAmount.count();
-	QMapIterator<double, int> i(m_RankAmount);
-	while (i.hasNext()) {
-		i.next();
+	//int rank = m_RankAmount.count();
+	//QMapIterator<double, int> i(m_RankAmount);
+	//while (i.hasNext()) {
+	//	i.next();
 
-		// for debug
-		QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
-		qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Column : " << i.value();
+	//	// for debug
+	//	QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+	//	qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Column : " << i.value();
 
-		m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, i.value()), rank);
-		rank--;	// because of ascend order
-	}
+	//	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, i.value()), rank);
+	//	rank--;	// because of ascend order
+	//}
 }
 
 void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)
@@ -144,10 +220,15 @@ void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -165,11 +246,11 @@ void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookKyobo]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookKyobo]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -204,10 +285,15 @@ void CSVTotalBook::MakeBookNaver(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -226,11 +312,11 @@ void CSVTotalBook::MakeBookNaver(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookNaver]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookNaver]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -270,10 +356,15 @@ void CSVTotalBook::MakeBookRidi(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -295,11 +386,11 @@ void CSVTotalBook::MakeBookRidi(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookRidi]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookRidi]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -334,10 +425,15 @@ void CSVTotalBook::MakeBookMunpia(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -356,11 +452,11 @@ void CSVTotalBook::MakeBookMunpia(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookMunpia]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookMunpia]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -396,10 +492,15 @@ void CSVTotalBook::MakeBookMrblue(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -417,11 +518,11 @@ void CSVTotalBook::MakeBookMrblue(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookMrblue]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookMrblue]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -456,10 +557,15 @@ void CSVTotalBook::MakeBookBarobook(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -478,11 +584,11 @@ void CSVTotalBook::MakeBookBarobook(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookBarobook]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookBarobook]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -518,10 +624,15 @@ void CSVTotalBook::MakeBookBookcube(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -539,11 +650,11 @@ void CSVTotalBook::MakeBookBookcube(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookBookcube]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookBookcube]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -579,10 +690,15 @@ void CSVTotalBook::MakeBookEpyrus(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -600,11 +716,11 @@ void CSVTotalBook::MakeBookEpyrus(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookEpyrus]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookEpyrus]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -640,10 +756,15 @@ void CSVTotalBook::MakeBookOebook(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -661,11 +782,11 @@ void CSVTotalBook::MakeBookOebook(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookOebook]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookOebook]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -700,10 +821,15 @@ void CSVTotalBook::MakeBookOnestore(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -722,11 +848,11 @@ void CSVTotalBook::MakeBookOnestore(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookOnestore]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookOnestore]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -762,10 +888,15 @@ void CSVTotalBook::MakeBookKakao(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -783,11 +914,11 @@ void CSVTotalBook::MakeBookKakao(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookKakao]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookKakao]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -824,10 +955,15 @@ void CSVTotalBook::MakeBookComico(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -849,11 +985,11 @@ void CSVTotalBook::MakeBookComico(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookComico]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookComico]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -889,10 +1025,15 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
 		title = item->data(item->index(row, headerTitle)).toString();
 		if (title.isEmpty()) { continue; }
 
@@ -910,11 +1051,11 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookTocsoda]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookTocsoda]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -951,7 +1092,7 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 	double calc = 0;
 	double author = 0;
 
-	QHash<int, double> amountList;
+	QMap<int, double> amountList;
 	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
@@ -981,11 +1122,11 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		qDebug() << "[MakeBookKepub]-----------------------------";
-		qDebug() << "Title : " << title;
-		qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+		//qDebug() << "[MakeBookKepub]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
 
 		amountList.insert(bookTotal, total);
 		amountList.insert(bookCalc, calc);
@@ -1144,10 +1285,15 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 //	double calc = 0;
 //	double author = 0;
 //
-//	QHash<int, double> amountList;
+//	QMap<int, double> amountList;
 //	amountList.clear();
 //
 //	for (int row = 0; row < item->rowCount(); row++) {
+//
+//		total = 0;
+//		calc = 0;
+//		author = 0;
+//
 //		title = item->data(item->index(row, headerTitle)).toString();
 //		if (title.isEmpty()) { continue; }
 //
@@ -1207,8 +1353,7 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 
 void CSVTotalBook::SetItem(CalcCPDlg* cpData)
 {
-	InitBookData();
-
+	// make book data
 	if (cpData->GetKyobo()) {
 		MakeBookKyobo(cpData->GetKyobo()->GetItem());
 	}
@@ -1252,6 +1397,11 @@ void CSVTotalBook::SetItem(CalcCPDlg* cpData)
 		MakeBookKepub(cpData->GetKepub()->GetItem());
 	}
 
+	// init book list
+	InitBookData();
+
+	// set book list
+	SetBookTable();
 }
 
 QTableView* CSVTotalBook::GetView()
