@@ -67,7 +67,7 @@ void CSVBookcube::SetItem()
 			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
 		}
 
-		m_TotalAmount += m_CSVData.at(i).value(HEADER_BOOKCUBE_CALCULATOR_RELATIVE).replace(",", "").toDouble();
+		m_TotalAmount += m_CSVData.at(i).value(HEADER_BOOKCUBE_CALCULATOR_RELATIVE).replace(",", "").toDouble();	// todo - check HEADER_BOOKCUBE_CALCULATOR ?
 		m_CalcAmount += m_CSVData.at(i).value(HEADER_BOOKCUBE_CALCULATOR).replace(",", "").toDouble();
 		m_AuthorAmount += m_CSVData.at(i).value(HEADER_BOOKCUBE_CALCULATOR).replace(",", "").toDouble() * 0.7;
 	}

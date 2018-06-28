@@ -15,6 +15,7 @@
 
 #include "calcCP/CalcCpDlg.h"
 #include "calcTotal/CSVTotalCP.h"
+#include "calcTotal/CSVTotalBook.h"
 #include "CalcTotalDlg.h"
 
 #include "../gemini_constants.h"
@@ -105,6 +106,7 @@ void CalcTotalDlg::ReCalcTotal()
 
 void CalcTotalDlg::Extract()
 {
+	// todo - extract
 	this->done(QDialogButtonBox::NoRole);
 }
 
@@ -130,7 +132,7 @@ void CalcTotalDlg::SetBookData(CalcCPDlg* cpData)
 	m_Progress->setValue(1);
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	if (!m_TotalBook) { m_TotalBook = new CSVTotalCP(); }
+	if (!m_TotalBook) { m_TotalBook = new CSVTotalBook(); }
 	m_TotalBook->SetItem(cpData);
 
 	// Add TabWidget
@@ -174,8 +176,11 @@ void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	SetCPData(cpData);
+	// todo 
 	SetBookData(cpData);
+	// todo 
 	SetSeriesData(cpData);
+	// todo - send notes
 
 	m_Progress->accept();
 	QApplication::restoreOverrideCursor();
