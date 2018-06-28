@@ -14,8 +14,8 @@
 
 #include "CSVBookcube.h"
 
-const int CSV_HEADER_ROW = 1;
-const int CSV_START_ROW = 3;
+const int CSV_HEADER_ROW_BOOKCUBE = 1;
+const int CSV_START_ROW_BOOKCUBE = 3;
 
 CSVBookcube::CSVBookcube() :
 	m_CSVModel(NULL)
@@ -36,7 +36,7 @@ CSVBookcube::~CSVBookcube()
 bool CSVBookcube::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_BOOKCUBE_MAX) {
+	if (m_CSVData.at(CSV_START_ROW_BOOKCUBE).size() == HEADER_BOOKCUBE_MAX) {
 		return true;
 	}
 	return false;
@@ -56,15 +56,15 @@ void CSVBookcube::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_BOOKCUBE).value(j));
 	}
 
-	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW_BOOKCUBE; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_BOOKCUBE, j), m_CSVData.at(i).value(j));
 		}
 
 		m_TotalAmount += m_CSVData.at(i).value(HEADER_BOOKCUBE_CALCULATOR_RELATIVE).replace(",", "").toDouble();	// todo - check HEADER_BOOKCUBE_CALCULATOR ?

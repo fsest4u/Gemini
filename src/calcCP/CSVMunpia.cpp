@@ -14,8 +14,8 @@
 
 #include "CSVMunpia.h"
 
-const int CSV_HEADER_ROW = 0;
-const int CSV_START_ROW = 1;
+const int CSV_HEADER_ROW_MUNPIA = 0;
+const int CSV_START_ROW_MUNPIA = 1;
 
 CSVMunpia::CSVMunpia() :
 	m_CSVModel(NULL)
@@ -36,7 +36,7 @@ CSVMunpia::~CSVMunpia()
 bool CSVMunpia::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_MUNPIA_MAX) {
+	if (m_CSVData.at(CSV_START_ROW_MUNPIA).size() == HEADER_MUNPIA_MAX) {
 		return true;
 	}
 	return false;
@@ -56,16 +56,16 @@ void CSVMunpia::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_MUNPIA).value(j));
 	}
 
 	// because of last row is sum data, -1
-	for (int i = CSV_START_ROW; i < m_CSVData.size() - 1; i++) {
+	for (int i = CSV_START_ROW_MUNPIA; i < m_CSVData.size() - 1; i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_MUNPIA, j), m_CSVData.at(i).value(j));
 		}
 
 		m_TotalAmount += m_CSVData.at(i).value(HEADER_MUNPIA_REAL_AMOUNT).replace(",", "").toDouble();

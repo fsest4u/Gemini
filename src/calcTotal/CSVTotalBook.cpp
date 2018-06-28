@@ -17,9 +17,6 @@
 
 #include "../gemini_constants.h"
 
-const int CSV_HEADER_ROW = 2;
-const int CSV_START_ROW = 6;
-
 CSVTotalBook::CSVTotalBook() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
@@ -47,14 +44,16 @@ void CSVTotalBook::InitBookData()
 		delete m_CSVModel;
 		m_CSVModel = 0;
 	}
-	m_BookList.count();
+
 	m_CSVModel = new QStandardItemModel(m_BookList.count() + ROW_MAX, COLUMN_MAX);
 
 	// set header
 	m_CSVModel->setHeaderData(COLUMN_TITLE, Qt::Horizontal, QString::fromLocal8Bit("작품제목"));
 	m_CSVModel->setHeaderData(COLUMN_RANK, Qt::Horizontal, QString::fromLocal8Bit("랭킹"));
-	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_RANK), QString::fromLocal8Bit("구분"));
-	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT, COLUMN_RANK), QString::fromLocal8Bit("합계"));
+	//m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_RANK), QString::fromLocal8Bit("구분"));
+	//m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT, COLUMN_RANK), QString::fromLocal8Bit("합계"));
+	m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT_NAME, new QStandardItem(QString::fromLocal8Bit("구분")));		// total
+	m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT, new QStandardItem(QString::fromLocal8Bit("합계")));		// calculation
 
 	// total amount
 	m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL, Qt::Horizontal, QString::fromLocal8Bit("총계"));
@@ -80,8 +79,16 @@ void CSVTotalBook::InitBookData()
 
 void CSVTotalBook::SetBookTable()
 {
-	QList<double> amountList;
-	amountList.clear();
+	QMap<int, double> amountCPList;
+	amountCPList.clear();
+
+	// Total by Book
+	double totalAmountBook = 0;
+	double calcAmountBook = 0;
+	double authorAmountBook = 0;
+
+	// Total by CP
+	double tempAmountCP = 0;
 
 	//set data
 	int row = ROW_AMOUNT + 1;
@@ -92,16 +99,24 @@ void CSVTotalBook::SetBookTable()
 		// set title
 		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_TITLE), bookHash.key());
 		
-		double totalAmount = 0;
-		double calcAmount = 0;
-		double authorAmount = 0;
+		totalAmountBook = 0;
+		calcAmountBook = 0;
+		authorAmountBook = 0;
+
+		tempAmountCP = 0;
 
 		QMap<int, double>::const_iterator amountHash = bookHash.value().constBegin();
 		while (amountHash != bookHash.value().constEnd()) {
 
 			//qDebug() << amountHash.key() << ": " << amountHash.value();
-			// set amount list
-			m_CSVModel->setData(m_CSVModel->index(row, amountHash.key()), amountHash.value());
+			// Amount by CP
+			m_CSVModel->setData(m_CSVModel->index(row, amountHash.key()), QString("%L1").arg(amountHash.value(), 0, 'f', 0));
+
+			// Total by CP
+			tempAmountCP = amountCPList.value(amountHash.key());
+			tempAmountCP += amountHash.value();
+			amountCPList.insert(amountHash.key(), tempAmountCP);
+
 			if (COLUMN_KYOBO_TOTAL == amountHash.key()
 				|| COLUMN_NAVER_TOTAL == amountHash.key()
 				|| COLUMN_RIDI_TOTAL == amountHash.key()
@@ -117,7 +132,7 @@ void CSVTotalBook::SetBookTable()
 				|| COLUMN_TOCSODA_TOTAL == amountHash.key()
 				|| COLUMN_KEPUB_TOTAL == amountHash.key()) {
 
-				totalAmount += amountHash.value();
+				totalAmountBook += amountHash.value();
 			}
 			else if (COLUMN_KYOBO_CALC == amountHash.key()
 				|| COLUMN_NAVER_CALC == amountHash.key()
@@ -134,7 +149,7 @@ void CSVTotalBook::SetBookTable()
 				|| COLUMN_TOCSODA_CALC == amountHash.key()
 				|| COLUMN_KEPUB_CALC == amountHash.key()) {
 
-				calcAmount += amountHash.value();
+				calcAmountBook += amountHash.value();
 
 			}
 			else if (COLUMN_KYOBO_AUTHOR == amountHash.key()
@@ -152,30 +167,35 @@ void CSVTotalBook::SetBookTable()
 				|| COLUMN_TOCSODA_AUTHOR == amountHash.key()
 				|| COLUMN_KEPUB_AUTHOR == amountHash.key()) {
 
-				authorAmount += amountHash.value();
+				authorAmountBook += amountHash.value();
 			}
 			amountHash++;
 		}
-		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL), totalAmount);
-		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_CALC), calcAmount);
-		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_AUTHOR), authorAmount);
+		// Total by book
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL), QString("%L1").arg(totalAmountBook, 0, 'f', 0) );
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_CALC), QString("%L1").arg(calcAmountBook, 0, 'f', 0) );
+		m_CSVModel->setData(m_CSVModel->index(row, COLUMN_AMOUNT_AUTHOR), QString("%L1").arg(authorAmountBook, 0, 'f', 0) );
 
-		amountList.replace(COLUMN_AMOUNT_TOTAL, totalAmount);
+		// Total Sum
+		tempAmountCP = amountCPList.value(COLUMN_AMOUNT_TOTAL);
+		tempAmountCP += totalAmountBook;
+		amountCPList.insert(COLUMN_AMOUNT_TOTAL, tempAmountCP);
 
+		tempAmountCP = amountCPList.value(COLUMN_AMOUNT_CALC);
+		tempAmountCP += calcAmountBook;
+		amountCPList.insert(COLUMN_AMOUNT_CALC, tempAmountCP);
+
+		tempAmountCP = amountCPList.value(COLUMN_AMOUNT_AUTHOR);
+		tempAmountCP += authorAmountBook;
+		amountCPList.insert(COLUMN_AMOUNT_AUTHOR, tempAmountCP);
 
 		row++; bookHash++;
 	}
 
-	//// if column is not zero, add amount.
-	//if (column) {
-	//	//m_TotalAmount += total.replace(",", "").toDouble();
-	//	//m_CalcAmount += calc.replace(",", "").toDouble();
-	//	//m_AuthorAmount += author.replace(",", "").toDouble();
-	//	m_TotalAmount += total.replace(",", "").toDouble();
-	//	m_CalcAmount += calc.replace(",", "").toDouble();
-	//	m_AuthorAmount += author.replace(",", "").toDouble();
-	//	m_RankAmount.insert(total.toDouble(), column);
-	//}
+	// Total List by CP & Total Sum
+	for (int i = COLUMN_AMOUNT_TOTAL; i < COLUMN_MAX; i++) {
+		m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT, i), QString("%L1").arg(amountCPList.value(i), 0, 'f', 0) );
+	}
 }
 
 // todo
@@ -223,7 +243,7 @@ void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_KYOBO; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -288,7 +308,7 @@ void CSVTotalBook::MakeBookNaver(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_NAVER; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -359,7 +379,7 @@ void CSVTotalBook::MakeBookRidi(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_RIDI; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -428,7 +448,7 @@ void CSVTotalBook::MakeBookMunpia(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_MUNPIA; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -495,7 +515,7 @@ void CSVTotalBook::MakeBookMrblue(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_MRBLUE; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -560,7 +580,7 @@ void CSVTotalBook::MakeBookBarobook(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_BAROBOOK; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -627,7 +647,7 @@ void CSVTotalBook::MakeBookBookcube(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_BOOKCUBE; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -693,7 +713,7 @@ void CSVTotalBook::MakeBookEpyrus(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_EPYRUS; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -759,7 +779,7 @@ void CSVTotalBook::MakeBookOebook(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_OEBOOK; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -824,7 +844,7 @@ void CSVTotalBook::MakeBookOnestore(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_ONESTORE; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -891,7 +911,7 @@ void CSVTotalBook::MakeBookKakao(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_KAKAO; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -958,7 +978,7 @@ void CSVTotalBook::MakeBookComico(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_COMICO; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -1028,7 +1048,7 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_TOCSODA; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -1095,7 +1115,7 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_KEPUB; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -1107,7 +1127,6 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 		// case ridi, comico, kepub
 		total += item->data(item->index(row, headerTotal.at(0))).toString().replace(",", "").toDouble();
 		total -= item->data(item->index(row, headerTotal.at(1))).toString().replace(",", "").toDouble();
-
 
 		calc = item->data(item->index(row, headerCalc)).toString().replace(",", "").toDouble();
 		author = calc * 0.7;

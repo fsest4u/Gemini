@@ -14,8 +14,8 @@
 
 #include "CSVKyobo.h"
 
-const int CSV_HEADER_ROW = 0;
-const int CSV_START_ROW = 1;
+const int CSV_HEADER_ROW_KYOBO = 0;
+const int CSV_START_ROW_KYOBO = 1;
 
 CSVKyobo::CSVKyobo() :
 	m_CSVModel(NULL)
@@ -36,7 +36,7 @@ CSVKyobo::~CSVKyobo()
 bool CSVKyobo::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KYOBO_MAX) {
+	if (m_CSVData.at(CSV_START_ROW_KYOBO).size() == HEADER_KYOBO_MAX) {
 		return true;
 	}
 	return false;
@@ -64,15 +64,15 @@ void CSVKyobo::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_KYOBO).value(j));
 	}
 
-	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW_KYOBO; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_KYOBO, j), m_CSVData.at(i).value(j));
 		}
 
 		totalAmount += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();

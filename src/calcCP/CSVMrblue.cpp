@@ -14,8 +14,8 @@
 
 #include "CSVMrblue.h"
 
-const int CSV_HEADER_ROW = 4;
-const int CSV_START_ROW = 5;
+const int CSV_HEADER_ROW_MRBLUE = 4;
+const int CSV_START_ROW_MRBLUE = 5;
 
 CSVMrblue::CSVMrblue() :
 	m_CSVModel(NULL)
@@ -36,7 +36,7 @@ CSVMrblue::~CSVMrblue()
 bool CSVMrblue::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_MRBLUE_MAX) {
+	if (m_CSVData.at(CSV_START_ROW_MRBLUE).size() == HEADER_MRBLUE_MAX) {
 		return true;
 	}
 	return false;
@@ -56,16 +56,16 @@ void CSVMrblue::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_MRBLUE).value(j));
 	}
 
 	// because of last row is sum data, -1
-	for (int i = CSV_START_ROW; i < m_CSVData.size() - 1; i++) {
+	for (int i = CSV_START_ROW_MRBLUE; i < m_CSVData.size() - 1; i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_MRBLUE, j), m_CSVData.at(i).value(j));
 		}
 
 		m_TotalAmount += m_CSVData.at(i).value(HEADER_MRBLUE_TOTAL_AMOUNT).replace(",", "").toDouble();

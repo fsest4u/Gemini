@@ -14,8 +14,8 @@
 
 #include "CSVTocsoda.h"
 
-const int CSV_HEADER_ROW = 1;
-const int CSV_START_ROW = 5;
+const int CSV_HEADER_ROW_TOCSODA = 1;
+const int CSV_START_ROW_TOCSODA = 5;
 
 CSVTocsoda::CSVTocsoda() :
 	m_CSVModel(NULL)
@@ -37,7 +37,7 @@ CSVTocsoda::~CSVTocsoda()
 bool CSVTocsoda::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_TOCSODA_MAX) {
+	if (m_CSVData.at(CSV_START_ROW_TOCSODA).size() == HEADER_TOCSODA_MAX) {
 		return true;
 	}
 	return false;
@@ -57,15 +57,15 @@ void CSVTocsoda::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_TOCSODA).value(j));
 	}
 
-	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW_TOCSODA; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_TOCSODA, j), m_CSVData.at(i).value(j));
 		}
 
 		m_TotalAmount += m_CSVData.at(i).value(HEADER_TOCSODA_TOTAL_AMOUNT).replace(",", "").toDouble();

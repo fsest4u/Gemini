@@ -14,8 +14,8 @@
 
 #include "CSVComico.h"
 
-const int CSV_HEADER_ROW = 1;
-const int CSV_START_ROW = 2;
+const int CSV_HEADER_ROW_COMICO = 1;
+const int CSV_START_ROW_COMICO = 2;
 
 CSVComico::CSVComico() :
 	m_CSVModel(NULL)
@@ -36,7 +36,7 @@ CSVComico::~CSVComico()
 bool CSVComico::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_COMICO_MAX + 3) {
+	if (m_CSVData.at(CSV_START_ROW_COMICO).size() == HEADER_COMICO_MAX + 3) {
 		return true;
 	}
 	return false;
@@ -56,15 +56,15 @@ void CSVComico::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_COMICO).value(j));
 	}
 
-	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW_COMICO; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_COMICO, j), m_CSVData.at(i).value(j));
 		}
 
 		m_TotalAmount += m_CSVData.at(i).value(HEADER_COMICO_IOS_TOTAL_AMOUNT).replace(",", "").toDouble();

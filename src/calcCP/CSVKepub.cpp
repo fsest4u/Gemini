@@ -14,8 +14,8 @@
 
 #include "CSVKepub.h"
 
-const int CSV_HEADER_ROW = 0;
-const int CSV_START_ROW = 1;
+const int CSV_HEADER_ROW_KEPUB = 0;
+const int CSV_START_ROW_KEPUB = 1;
 
 CSVKepub::CSVKepub() :
 	m_CSVModel(NULL)
@@ -36,7 +36,7 @@ CSVKepub::~CSVKepub()
 bool CSVKepub::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KEPUB_MAX) {
+	if (m_CSVData.at(CSV_START_ROW_KEPUB).size() == HEADER_KEPUB_MAX) {
 		return true;
 	}
 	return false;
@@ -68,15 +68,15 @@ void CSVKepub::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_KEPUB).value(j));
 	}
 
-	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW_KEPUB; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_KEPUB, j), m_CSVData.at(i).value(j));
 		}
 
 		totalAmount += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
