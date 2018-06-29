@@ -343,7 +343,8 @@ void CSVTotalSeries::MakeSeriesNaver(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_NAVER; row < item->rowCount(); row++) {
+	// because of last row is sum data, -1
+	for (int row = CSV_START_ROW_NAVER; row < item->rowCount() - 1; row++) {
 
 		total = 0;
 		calc = 0;
@@ -483,7 +484,7 @@ void CSVTotalSeries::MakeSeriesMunpia(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_MUNPIA; row < item->rowCount(); row++) {
+	for (int row = CSV_START_ROW_MUNPIA; row < item->rowCount() - 1; row++) {
 
 		total = 0;
 		calc = 0;
@@ -550,7 +551,8 @@ void CSVTotalSeries::MakeSeriesMrblue(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_MRBLUE; row < item->rowCount(); row++) {
+	// because of last row is sum data, -1
+	for (int row = CSV_START_ROW_MRBLUE; row < item->rowCount() - 1; row++) {
 
 		total = 0;
 		calc = 0;
@@ -814,7 +816,8 @@ void CSVTotalSeries::MakeSeriesOebook(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_OEBOOK; row < item->rowCount(); row++) {
+	// because of last row is sum data, -1
+	for (int row = CSV_START_ROW_OEBOOK; row < item->rowCount() - 1; row++) {
 
 		total = 0;
 		calc = 0;
