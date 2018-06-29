@@ -35,9 +35,9 @@ CSVTotalSeries::~CSVTotalSeries()
 
 void CSVTotalSeries::InitSeriesData()
 {
-	m_TotalAmount.clear();
-	m_CalcAmount.clear();
-	m_AuthorAmount.clear();
+	//m_TotalAmount.clear();
+	//m_CalcAmount.clear();
+	//m_AuthorAmount.clear();
 
 	// table data
 	if (m_CSVModel) {
@@ -278,7 +278,7 @@ void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_KYOBO; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -343,8 +343,7 @@ void CSVTotalSeries::MakeSeriesNaver(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	// because of last row is sum data, -1
-	for (int row = CSV_START_ROW_NAVER; row < item->rowCount() - 1; row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -415,7 +414,7 @@ void CSVTotalSeries::MakeSeriesRidi(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_RIDI; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -484,7 +483,7 @@ void CSVTotalSeries::MakeSeriesMunpia(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_MUNPIA; row < item->rowCount() - 1; row++) {
+	for (int row = 0; row < item->rowCount() - 1; row++) {
 
 		total = 0;
 		calc = 0;
@@ -551,8 +550,7 @@ void CSVTotalSeries::MakeSeriesMrblue(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	// because of last row is sum data, -1
-	for (int row = CSV_START_ROW_MRBLUE; row < item->rowCount() - 1; row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -617,7 +615,7 @@ void CSVTotalSeries::MakeSeriesBarobook(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_BAROBOOK; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -684,7 +682,7 @@ void CSVTotalSeries::MakeSeriesBookcube(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_BOOKCUBE; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -750,7 +748,7 @@ void CSVTotalSeries::MakeSeriesEpyrus(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_EPYRUS; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -816,8 +814,7 @@ void CSVTotalSeries::MakeSeriesOebook(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	// because of last row is sum data, -1
-	for (int row = CSV_START_ROW_OEBOOK; row < item->rowCount() - 1; row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -882,7 +879,7 @@ void CSVTotalSeries::MakeSeriesOnestore(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_ONESTORE; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -949,7 +946,7 @@ void CSVTotalSeries::MakeSeriesKakao(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_KAKAO; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -1016,7 +1013,7 @@ void CSVTotalSeries::MakeSeriesComico(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_COMICO; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -1086,7 +1083,7 @@ void CSVTotalSeries::MakeSeriesTocsoda(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_TOCSODA; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;
@@ -1153,7 +1150,7 @@ void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 	QMap<int, double> amountList;
 	amountList.clear();
 
-	for (int row = CSV_START_ROW_KEPUB; row < item->rowCount(); row++) {
+	for (int row = 0; row < item->rowCount(); row++) {
 
 		total = 0;
 		calc = 0;

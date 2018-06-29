@@ -137,9 +137,9 @@ private:
 	QMap<QString, QMap<int, double>>		m_SeriesList;
 	//QHash<int, double>						m_AmountList;
 
-	QList<double>		m_TotalAmount;
-	QList<double>		m_CalcAmount;
-	QList<double>		m_AuthorAmount;
+	//QList<double>		m_TotalAmount;
+	//QList<double>		m_CalcAmount;
+	//QList<double>		m_AuthorAmount;
 
 	QMap<double, int>	m_RankAmount;
 
