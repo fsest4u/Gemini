@@ -149,7 +149,7 @@ bool ReaderPrivate::read(QIODevice& ioDevice,
 
     QTextStream stream(&ioDevice);
     stream.setCodec(codec);
-	qDebug() << "codec name is " << codec->name();
+	//qDebug() << "codec name is " << codec->name();
 
     // This list will contain elements of the row if its elements
     // are located on several lines

@@ -109,7 +109,7 @@ void CalcCPDlg::Prev()
 
 void CalcCPDlg::ReCalcCP()
 {
-	qDebug() << "[ReCalcCP] -----";
+	//qDebug() << "[ReCalcCP] -----";
 	// Delete and draw new
 	ui.tabCP->clear();
 
@@ -123,7 +123,7 @@ void CalcCPDlg::Next()
 
 bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 {
-	qDebug() << "[SetCP]";
+	//qDebug() << "[SetCP]";
 	m_CPFileList = cpFileList;
 	// for debug
 	//foreach(const int key, m_CPFileList.keys()) {
@@ -690,7 +690,7 @@ void CalcCPDlg::DeleteKepub()
 
 void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, double calculator, double author)
 {
-	qDebug() << "[CalcCPDlg AddTab] - " << cpName;
+	//qDebug() << "[CalcCPDlg AddTab] - " << cpName;
 	// Draw Widget
 	QLabel* totalLabel = new QLabel(QString("Total Amount : %L1").arg(total, 0, 'f', 0));
 	QLabel* calcLabel = new QLabel(QString("Calculate Amount : %L1").arg(calculator, 0, 'f', 0));
@@ -711,7 +711,7 @@ void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, do
 
 void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author)
 {
-	qDebug() << "[CalcCPDlg AddTab4List] - " << cpName;
+	//qDebug() << "[CalcCPDlg AddTab4List] - " << cpName;
 	QGridLayout* defalutLayout = new QGridLayout();
 	QHBoxLayout* totalLayout = new QHBoxLayout();
 	QHBoxLayout* calcLayout = new QHBoxLayout();

@@ -51,6 +51,7 @@ bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
 		switch (status)
 		{
 		case STEP_CALC_CP_PREV:
+			qDebug() << "Goto Main UI Prev";
 			if (m_CalcCP) {
 				delete m_CalcCP;
 				m_CalcCP = 0;
@@ -58,32 +59,25 @@ bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
 			status = STEP_CALC_CANCEL;
 			break;
 		case STEP_CALC_MAIN_NEXT:
-			//qDebug() << "go to calculate cp dialog";
-			status = ExecuteCP(cpFileList, true);
-			break;
 		case STEP_CALC_CP:
-			//qDebug() << "go to calculate cp dialog";
+			qDebug() << "Goto Calc CP UI";
 			status = ExecuteCP(cpFileList, true);
-			break;
-		case STEP_CALC_CP_NEXT:
-			//qDebug() << "go to calculate total dialog";
-			status = ExecuteTotal(true);
-			break;
-		case STEP_CALC_TOTAL:
-			//qDebug() << "go to calculate total dialog";
-			status = ExecuteTotal(true);
 			break;
 		case STEP_CALC_TOTAL_PREV:
-			//qDebug() << "go to calculate cp dialog";
+			qDebug() << "Goto Calc CP UI Prev";
 			if (m_CalcTotal) {
 				delete m_CalcTotal;
 				m_CalcTotal = 0;
 			}
 			status = ExecuteCP(cpFileList, false);
 			break;
+		case STEP_CALC_CP_NEXT:
+		case STEP_CALC_TOTAL:
+			qDebug() << "Goto Calc Total UI";
+			status = ExecuteTotal(true);
 			break;
 		case STEP_CALC_TOTAL_NEXT:
-			//qDebug() << "calculate total data";
+			qDebug() << "Extract CSV Files";
 			if (m_CalcCP) {
 				delete m_CalcCP;
 				m_CalcCP = 0;

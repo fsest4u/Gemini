@@ -98,7 +98,7 @@ void CalcTotalDlg::Prev()
 
 void CalcTotalDlg::ReCalcTotal()
 {
-	qDebug() << "[ReCalcTotal] -----";
+	//qDebug() << "[ReCalcTotal] -----";
 	// Delete and draw new
 	ui.tabTotal->clear();
 
@@ -158,8 +158,7 @@ void CalcTotalDlg::SetSeriesData(CalcCPDlg* cpData)
 
 void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 {
-	qDebug() << "[SetTotal]";
-
+	//qDebug() << "[SetTotal]";
 	if (m_Progress) {
 		delete m_Progress;
 		m_Progress = NULL;
@@ -190,7 +189,7 @@ void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 
 void CalcTotalDlg::AddTab(QTableView* table, const QString cpName)
 {
-	qDebug() << "[CalcCPDlg AddTab] - " << cpName;
+	//qDebug() << "[CalcCPDlg AddTab] - " << cpName;
 
 	QGridLayout* defalutLayout = new QGridLayout();
 	defalutLayout->addWidget(table);
