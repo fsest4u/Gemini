@@ -65,7 +65,7 @@ void CSVTotalCP::SetCPTable(int column, QString total, QString calc, QString aut
 	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, column), rank);
 
 	// if column is not zero, add amount.
-	if (column) {
+	if (0 < column && column <= (CalcCPDlg::CP_KEPUB + 1)) {
 		m_TotalAmount += total.replace(",", "").toDouble();
 		m_CalcAmount += calc.replace(",", "").toDouble();
 		m_AuthorAmount += author.replace(",", "").toDouble();
