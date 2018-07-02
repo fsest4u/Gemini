@@ -15,8 +15,9 @@
 
 #include "CSVKyobo.h"
 
-const int CSV_HEADER_ROW_KYOBO = 0;
-const int CSV_START_ROW_KYOBO = 1;
+const int CSV_HEADER_ROW = 0;
+const int CSV_START_ROW = 1;
+const int CSV_TOTAL_ROW = 4;
 
 CSVKyobo::CSVKyobo() :
 	m_CSVModel(NULL)
@@ -37,7 +38,7 @@ CSVKyobo::~CSVKyobo()
 bool CSVKyobo::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW_KYOBO).size() == HEADER_KYOBO_MAX) {
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KYOBO_MAX) {
 		return true;
 	}
 	return false;
@@ -66,19 +67,19 @@ void CSVKyobo::SetItem()
 		delete m_CSVModel;
 		m_CSVModel = 0;
 	}
-	m_CSVModel = new QStandardItemModel(m_CSVData.size(), m_CSVData.at(0).size() + 1);
+	m_CSVModel = new QStandardItemModel(m_CSVData.size() + CSV_TOTAL_ROW, m_CSVData.at(0).size() + 1);
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_KYOBO).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
 	}
 
-	for (int i = CSV_START_ROW_KYOBO; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_KYOBO, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW + CSV_TOTAL_ROW, j), m_CSVData.at(i).value(j));
 		}
 
 		totalAmount += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();
@@ -123,6 +124,27 @@ void CSVKyobo::SetItem()
 	m_AuthorAmount.append(authorAmount);
 	m_AuthorAmount.append(authorAmountB2C);
 	m_AuthorAmount.append(authorAmountB2BC);
+
+	m_CSVModel->setData(m_CSVModel->index(0, 0), QString::fromLocal8Bit("Total Amount"));
+	m_CSVModel->setData(m_CSVModel->index(0, 1), QString("%L1").arg(totalAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 2), QString::fromLocal8Bit("Total B2C"));
+	m_CSVModel->setData(m_CSVModel->index(0, 3), QString("%L1").arg(totalAmountB2C, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 4), QString::fromLocal8Bit("Total B2BC"));
+	m_CSVModel->setData(m_CSVModel->index(0, 5), QString("%L1").arg(totalAmountB2BC, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(1, 0), QString::fromLocal8Bit("Calculate Amount"));
+	m_CSVModel->setData(m_CSVModel->index(1, 1), QString("%L1").arg(calcAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 2), QString::fromLocal8Bit("Calculate B2C"));
+	m_CSVModel->setData(m_CSVModel->index(1, 3), QString("%L1").arg(calcAmountB2C, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 4), QString::fromLocal8Bit("Calculate B2BC"));
+	m_CSVModel->setData(m_CSVModel->index(1, 5), QString("%L1").arg(calcAmountB2BC, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
+	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(authorAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 2), QString::fromLocal8Bit("Author B2C"));
+	m_CSVModel->setData(m_CSVModel->index(2, 3), QString("%L1").arg(authorAmountB2C, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 4), QString::fromLocal8Bit("Author B2BC"));
+	m_CSVModel->setData(m_CSVModel->index(2, 5), QString("%L1").arg(authorAmountB2BC, 0, 'f', 0));
 
 }
 

@@ -299,7 +299,9 @@ bool CalcCPDlg::CalcKyobo()
 	QList<double> author = m_Kyobo->GetAuthorAmount();
 
 	QTableView* view = m_Kyobo->GetView();
-	AddTab4List(view, CP_NAME.at(CP_KYOBO), total, calculator, author);
+	//AddTab4ListLabel(view, CP_NAME.at(CP_KYOBO), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_KYOBO));
+
 	return true;
 }
 
@@ -320,7 +322,9 @@ bool CalcCPDlg::CalcNaver()
 	double author = m_Naver->GetAuthorAmount();
 
 	QTableView* view = m_Naver->GetView();
-	AddTab(view, CP_NAME.at(CP_NAVER), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_NAVER), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_NAVER));
+
 	return true;
 }
 
@@ -341,7 +345,9 @@ bool CalcCPDlg::CalcRidi()
 	double author = m_Ridi->GetAuthorAmount();
 
 	QTableView* view = m_Ridi->GetView();
-	AddTab(view, CP_NAME.at(CP_RIDI), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_RIDI), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_RIDI));
+
 	return true;
 }
 
@@ -362,7 +368,9 @@ bool CalcCPDlg::CalcMunpia()
 	double author = m_Munpia->GetAuthorAmount();
 
 	QTableView* view = m_Munpia->GetView();
-	AddTab(view, CP_NAME.at(CP_MUNPIA), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_MUNPIA), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_MUNPIA));
+
 	return true;
 }
 
@@ -383,7 +391,9 @@ bool CalcCPDlg::CalcMrblue()
 	double author = m_Mrblue->GetAuthorAmount();
 
 	QTableView* view = m_Mrblue->GetView();
-	AddTab(view, CP_NAME.at(CP_MRBLUE), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_MRBLUE), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_MRBLUE));
+
 	return true;
 }
 
@@ -404,7 +414,9 @@ bool CalcCPDlg::CalcBarobook()
 	double author = m_Barobook->GetAuthorAmount();
 
 	QTableView* view = m_Barobook->GetView();
-	AddTab(view, CP_NAME.at(CP_BAROBOOK), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_BAROBOOK), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_BAROBOOK));
+
 	return true;
 }
 
@@ -425,7 +437,9 @@ bool CalcCPDlg::CalcBookcube()
 	double author = m_Bookcube->GetAuthorAmount();
 
 	QTableView* view = m_Bookcube->GetView();
-	AddTab(view, CP_NAME.at(CP_BOOKCUBE), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_BOOKCUBE), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_BOOKCUBE));
+
 	return true;
 }
 
@@ -446,7 +460,9 @@ bool CalcCPDlg::CalcEpyrus()
 	double author = m_Epyrus->GetAuthorAmount();
 
 	QTableView* view = m_Epyrus->GetView();
-	AddTab(view, CP_NAME.at(CP_EPYRUS), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_EPYRUS), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_EPYRUS));
+
 	return true;
 }
 
@@ -467,7 +483,9 @@ bool CalcCPDlg::CalcOebook()
 	QList<double> author = m_Oebook->GetAuthorAmount();
 
 	QTableView* view = m_Oebook->GetView();
-	AddTab4List(view, CP_NAME.at(CP_OEBOOK), total, calculator, author);
+	//AddTab4ListLabel(view, CP_NAME.at(CP_OEBOOK), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_OEBOOK));
+
 	return true;
 }
 
@@ -488,7 +506,9 @@ bool CalcCPDlg::CalcOnestore()
 	double author = m_Onestore->GetAuthorAmount();
 
 	QTableView* view = m_Onestore->GetView();
-	AddTab(view, CP_NAME.at(CP_ONESTORE), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_ONESTORE), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_ONESTORE));
+
 	return true;
 }
 
@@ -509,7 +529,9 @@ bool CalcCPDlg::CalcKakao()
 	double author = m_Kakao->GetAuthorAmount();
 
 	QTableView* view = m_Kakao->GetView();
-	AddTab(view, CP_NAME.at(CP_KAKAO), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_KAKAO), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_KAKAO));
+
 	return true;
 }
 
@@ -530,7 +552,9 @@ bool CalcCPDlg::CalcComico()
 	double author = m_Comico->GetAuthorAmount();
 
 	QTableView* view = m_Comico->GetView();
-	AddTab(view, CP_NAME.at(CP_COMICO), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_COMICO), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_COMICO));
+
 	return true;
 }
 
@@ -551,7 +575,9 @@ bool CalcCPDlg::CalcTocsoda()
 	double author = m_Tocsoda->GetAuthorAmount();
 
 	QTableView* view = m_Tocsoda->GetView();
-	AddTab(view, CP_NAME.at(CP_TOCSODA), total, calculator, author);
+	//AddTabLabel(view, CP_NAME.at(CP_TOCSODA), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_TOCSODA));
+
 	return true;
 }
 
@@ -572,7 +598,9 @@ bool CalcCPDlg::CalcKepub()
 	QList<double> author = m_Kepub->GetAuthorAmount();
 
 	QTableView* view = m_Kepub->GetView();
-	AddTab4List(view, CP_NAME.at(CP_KEPUB), total, calculator, author);
+	//AddTab4ListLabel(view, CP_NAME.at(CP_KEPUB), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_KEPUB));
+
 	return true;
 }
 
@@ -688,9 +716,24 @@ void CalcCPDlg::DeleteKepub()
 	}
 }
 
-void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, double calculator, double author)
+void CalcCPDlg::AddTab(QTableView* table, const QString cpName)
 {
 	//qDebug() << "[CalcCPDlg AddTab] - " << cpName;
+	// Draw Widget
+	QGridLayout* defalutLayout = new QGridLayout();
+	defalutLayout->addWidget(table);
+
+	QWidget* defaultWidget = new QWidget();
+	defaultWidget->setLayout(defalutLayout);
+
+	ui.tabCP->addTab(defaultWidget, cpName);
+
+}
+
+// no_use
+void CalcCPDlg::AddTabLabel(QTableView* table, const QString cpName, double total, double calculator, double author)
+{
+	//qDebug() << "[CalcCPDlg AddTabLabel] - " << cpName;
 	// Draw Widget
 	QLabel* totalLabel = new QLabel(QString("Total Amount : %L1").arg(total, 0, 'f', 0));
 	QLabel* calcLabel = new QLabel(QString("Calculate Amount : %L1").arg(calculator, 0, 'f', 0));
@@ -708,10 +751,10 @@ void CalcCPDlg::AddTab(QTableView* table, const QString cpName, double total, do
 	ui.tabCP->addTab(defaultWidget, cpName);
 
 }
-
-void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author)
+// no_use
+void CalcCPDlg::AddTab4ListLabel(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author)
 {
-	//qDebug() << "[CalcCPDlg AddTab4List] - " << cpName;
+	//qDebug() << "[CalcCPDlg AddTab4ListLabel] - " << cpName;
 	QGridLayout* defalutLayout = new QGridLayout();
 	QHBoxLayout* totalLayout = new QHBoxLayout();
 	QHBoxLayout* calcLayout = new QHBoxLayout();

@@ -14,8 +14,9 @@
 
 #include "CSVKepub.h"
 
-const int CSV_HEADER_ROW_KEPUB = 0;
-const int CSV_START_ROW_KEPUB = 1;
+const int CSV_HEADER_ROW = 0;
+const int CSV_START_ROW = 1;
+const int CSV_TOTAL_ROW = 4;
 
 CSVKepub::CSVKepub() :
 	m_CSVModel(NULL)
@@ -36,7 +37,7 @@ CSVKepub::~CSVKepub()
 bool CSVKepub::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW_KEPUB).size() == HEADER_KEPUB_MAX) {
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_KEPUB_MAX) {
 		return true;
 	}
 	return false;
@@ -73,15 +74,15 @@ void CSVKepub::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_KEPUB).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
 	}
 
-	for (int i = CSV_START_ROW_KEPUB; i < m_CSVData.size(); i++) {
+	for (int i = CSV_START_ROW; i < m_CSVData.size(); i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_KEPUB, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW + CSV_TOTAL_ROW, j), m_CSVData.at(i).value(j));
 		}
 
 		totalAmount += m_CSVData.at(i).value(HEADER_KEPUB_STORE_PRICE).replace(",", "").toDouble();
@@ -142,6 +143,33 @@ void CSVKepub::SetItem()
 	m_AuthorAmount.append(authorAmountYes24);
 	m_AuthorAmount.append(authorAmountAladdin);
 	m_AuthorAmount.append(authorAmountBandi);
+
+	m_CSVModel->setData(m_CSVModel->index(0, 0), QString::fromLocal8Bit("Total Amount"));
+	m_CSVModel->setData(m_CSVModel->index(0, 1), QString("%L1").arg(totalAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 2), QString::fromLocal8Bit("Total YES24"));
+	m_CSVModel->setData(m_CSVModel->index(0, 3), QString("%L1").arg(totalAmountYes24, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 4), QString::fromLocal8Bit("Total Aladdin"));
+	m_CSVModel->setData(m_CSVModel->index(0, 5), QString("%L1").arg(totalAmountAladdin, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 6), QString::fromLocal8Bit("Total BandinLunis"));
+	m_CSVModel->setData(m_CSVModel->index(0, 7), QString("%L1").arg(totalAmountBandi, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(1, 0), QString::fromLocal8Bit("Calculate Amount"));
+	m_CSVModel->setData(m_CSVModel->index(1, 1), QString("%L1").arg(calcAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 2), QString::fromLocal8Bit("Calculate YES24"));
+	m_CSVModel->setData(m_CSVModel->index(1, 3), QString("%L1").arg(calcAmountYes24, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 4), QString::fromLocal8Bit("Calculate Aladdin"));
+	m_CSVModel->setData(m_CSVModel->index(1, 5), QString("%L1").arg(calcAmountAladdin, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 6), QString::fromLocal8Bit("Calculate BandinLunis"));
+	m_CSVModel->setData(m_CSVModel->index(1, 7), QString("%L1").arg(calcAmountBandi, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
+	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(authorAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 2), QString::fromLocal8Bit("Author YES24"));
+	m_CSVModel->setData(m_CSVModel->index(2, 3), QString("%L1").arg(authorAmountYes24, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 4), QString::fromLocal8Bit("Author Aladdin"));
+	m_CSVModel->setData(m_CSVModel->index(2, 5), QString("%L1").arg(authorAmountAladdin, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 6), QString::fromLocal8Bit("Author BandinLunis"));
+	m_CSVModel->setData(m_CSVModel->index(2, 7), QString("%L1").arg(authorAmountBandi, 0, 'f', 0));
 
 }
 

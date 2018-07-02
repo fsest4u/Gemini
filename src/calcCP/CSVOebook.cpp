@@ -14,8 +14,9 @@
 
 #include "CSVOebook.h"
 
-const int CSV_HEADER_ROW_OEBOOK = 0;
-const int CSV_START_ROW_OEBOOK = 1;
+const int CSV_HEADER_ROW = 0;
+const int CSV_START_ROW = 1;
+const int CSV_TOTAL_ROW = 4;
 
 CSVOebook::CSVOebook() :
 	m_CSVModel(NULL)
@@ -36,7 +37,7 @@ CSVOebook::~CSVOebook()
 bool CSVOebook::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW_OEBOOK).size() == HEADER_OEBOOK_MAX) {
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_OEBOOK_MAX) {
 		return true;
 	}
 	return false;
@@ -77,16 +78,16 @@ void CSVOebook::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_OEBOOK).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
 	}
 
 	// because of last row is sum data, -1
-	for (int i = CSV_START_ROW_OEBOOK; i < m_CSVData.size() - 1; i++) {
+	for (int i = CSV_START_ROW; i < m_CSVData.size() - 1; i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_OEBOOK, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW + CSV_TOTAL_ROW, j), m_CSVData.at(i).value(j));
 		}
 
 		totalAmount += m_CSVData.at(i).value(HEADER_OEBOOK_TOTAL_AMOUNT).replace(",", "").toDouble();
@@ -155,6 +156,40 @@ void CSVOebook::SetItem()
 	m_AuthorAmount.append(authorAmountOebookRomance);
 	m_AuthorAmount.append(authorAmountOebookMurim);
 	m_AuthorAmount.append(authorAmountOebookComic);
+
+	m_CSVModel->setData(m_CSVModel->index(0, 0), QString::fromLocal8Bit("Total Amount"));
+	m_CSVModel->setData(m_CSVModel->index(0, 1), QString("%L1").arg(totalAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 2), QString::fromLocal8Bit("Total Oebook"));
+	m_CSVModel->setData(m_CSVModel->index(0, 3), QString("%L1").arg(totalAmountOebook, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 4), QString::fromLocal8Bit("Total Romance"));
+	m_CSVModel->setData(m_CSVModel->index(0, 5), QString("%L1").arg(totalAmountOebookRomance, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 6), QString::fromLocal8Bit("Total Murim"));
+	m_CSVModel->setData(m_CSVModel->index(0, 7), QString("%L1").arg(totalAmountOebookMurim, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(0, 8), QString::fromLocal8Bit("Total Comic"));
+	m_CSVModel->setData(m_CSVModel->index(0, 9), QString("%L1").arg(totalAmountOebookComic, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(1, 0), QString::fromLocal8Bit("Calculate Amount"));
+	m_CSVModel->setData(m_CSVModel->index(1, 1), QString("%L1").arg(calcAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 2), QString::fromLocal8Bit("Calculate Oebook"));
+	m_CSVModel->setData(m_CSVModel->index(1, 3), QString("%L1").arg(calcAmountOebook, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 4), QString::fromLocal8Bit("Calculate Romance"));
+	m_CSVModel->setData(m_CSVModel->index(1, 5), QString("%L1").arg(calcAmountOebookRomance, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 6), QString::fromLocal8Bit("Calculate Murim"));
+	m_CSVModel->setData(m_CSVModel->index(1, 7), QString("%L1").arg(calcAmountOebookMurim, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(1, 8), QString::fromLocal8Bit("Calculate Comic"));
+	m_CSVModel->setData(m_CSVModel->index(1, 9), QString("%L1").arg(calcAmountOebookComic, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
+	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(authorAmount, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 2), QString::fromLocal8Bit("Author Oebook"));
+	m_CSVModel->setData(m_CSVModel->index(2, 3), QString("%L1").arg(authorAmountOebook, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 4), QString::fromLocal8Bit("Author Romance"));
+	m_CSVModel->setData(m_CSVModel->index(2, 5), QString("%L1").arg(authorAmountOebookRomance, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 6), QString::fromLocal8Bit("Author Murim"));
+	m_CSVModel->setData(m_CSVModel->index(2, 7), QString("%L1").arg(authorAmountOebookMurim, 0, 'f', 0));
+	m_CSVModel->setData(m_CSVModel->index(2, 8), QString::fromLocal8Bit("Author Comic"));
+	m_CSVModel->setData(m_CSVModel->index(2, 9), QString("%L1").arg(authorAmountOebookComic, 0, 'f', 0));
+
 }
 
 QTableView* CSVOebook::GetView()

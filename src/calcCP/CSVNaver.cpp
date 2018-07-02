@@ -14,8 +14,9 @@
 
 #include "CSVNaver.h"
 
-const int CSV_HEADER_ROW_NAVER = 2;
-const int CSV_START_ROW_NAVER = 6;
+const int CSV_HEADER_ROW = 2;
+const int CSV_START_ROW = 6;
+const int CSV_TOTAL_ROW = 4;
 
 CSVNaver::CSVNaver() :
 	m_CSVModel(NULL)
@@ -36,7 +37,7 @@ CSVNaver::~CSVNaver()
 bool CSVNaver::ReadFile(QString filepath)
 {
 	m_CSVData = QtCSV::Reader::readToList(filepath);
-	if (m_CSVData.at(CSV_START_ROW_NAVER).size() == HEADER_NAVER_MAX) {
+	if (m_CSVData.at(CSV_START_ROW).size() == HEADER_NAVER_MAX) {
 		return true;
 	}
 	return false;
@@ -61,16 +62,16 @@ void CSVNaver::SetItem()
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
-		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW_NAVER).value(j));
+		m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
 	}
 
 	// because of last row is sum data, -1
-	for (int i = CSV_START_ROW_NAVER; i < m_CSVData.size() - 1; i++) {
+	for (int i = CSV_START_ROW; i < m_CSVData.size() - 1; i++) {
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
 		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
-			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW_NAVER, j), m_CSVData.at(i).value(j));
+			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW + CSV_TOTAL_ROW, j), m_CSVData.at(i).value(j));
 		}
 
 		m_TotalAmount += m_CSVData.at(i).value(HEADER_NAVER_SALE_AMOUNT).replace(",", "").toDouble();
@@ -84,6 +85,15 @@ void CSVNaver::SetItem()
 	//qDebug() << QString("Total Amount : %L1").arg(m_TotalAmount, 0, 'f', 0);
 	//qDebug() << QString("Calculate Amount : %L1").arg(m_CalcAmount, 0, 'f', 0);
 	//qDebug() << QString("Author Amount : %L1").arg(m_AuthorAmount, 0, 'f', 0);
+
+	m_CSVModel->setData(m_CSVModel->index(0, 0), QString::fromLocal8Bit("Total Amount"));
+	m_CSVModel->setData(m_CSVModel->index(0, 1), QString("%L1").arg(m_TotalAmount, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(1, 0), QString::fromLocal8Bit("Calculate Amount"));
+	m_CSVModel->setData(m_CSVModel->index(1, 1), QString("%L1").arg(m_CalcAmount, 0, 'f', 0));
+
+	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
+	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(m_AuthorAmount, 0, 'f', 0));
 }
 
 QTableView* CSVNaver::GetView()

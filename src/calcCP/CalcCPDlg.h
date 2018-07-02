@@ -109,8 +109,10 @@ private:
 
 
 	void InitUI();
-	void AddTab(QTableView* table, const QString cpName, double total, double calculator, double author);
-	void AddTab4List(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author);
+	void AddTabLabel(QTableView* table, const QString cpName, double total, double calculator, double author);
+	void AddTab4ListLabel(QTableView* table, const QString cpName, QList<double> total, QList<double> calculator, QList<double> author);
+
+	void AddTab(QTableView* table, const QString cpName);
 
 
 	bool CalcKyobo();
