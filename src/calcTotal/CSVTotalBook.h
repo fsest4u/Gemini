@@ -131,7 +131,7 @@ private:
 	///////////////////////////////
 	// PRIVATE MEMBER VARIABLES
 	///////////////////////////////
-	QList<QStringList>	m_CSVData;
+	//QList<QStringList>	m_CSVData;
 	QStandardItemModel*	m_CSVModel;
 	QTableView*			m_CSVView;
 

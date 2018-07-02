@@ -21,7 +21,7 @@ CSVTotalSeries::CSVTotalSeries() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
 {
-	m_CSVData.clear();
+	//m_CSVData.clear();
 	m_SeriesList.clear();
 }
 
@@ -1193,6 +1193,8 @@ void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 
 void CSVTotalSeries::SetItem(CalcCPDlg* cpData)
 {
+	m_SeriesList.clear();
+
 	// make book data
 	if (cpData->GetKyobo()) {
 		MakeSeriesKyobo(cpData->GetKyobo()->GetItem());

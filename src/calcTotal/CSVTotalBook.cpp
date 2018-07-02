@@ -21,7 +21,7 @@ CSVTotalBook::CSVTotalBook() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
 {
-	m_CSVData.clear();
+	//m_CSVData.clear();
 	m_BookList.clear();
 }
 
@@ -1369,6 +1369,8 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 
 void CSVTotalBook::SetItem(CalcCPDlg* cpData)
 {
+	m_BookList.clear();
+
 	// make book data
 	if (cpData->GetKyobo()) {
 		MakeBookKyobo(cpData->GetKyobo()->GetItem());
