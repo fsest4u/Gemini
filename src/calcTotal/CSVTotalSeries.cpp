@@ -223,41 +223,6 @@ void CSVTotalSeries::SetSeriesRank()
 	//}
 }
 
-QString CSVTotalSeries::GetSeriesName(QString titleName)
-{
-	QString retName;
-	int index = 0;
-	//qDebug() << "GetSeriesName before : " << titleName;
-	if (titleName.endsWith(QString::fromLocal8Bit("권"))) {
-		index = titleName.lastIndexOf(" ");
-		//qDebug() << "fine kwon : " << index;
-		retName = titleName.left(index);
-	}
-	else if (titleName.endsWith(QString::fromLocal8Bit("화"))) {
-		index = titleName.lastIndexOf(" ");
-		//qDebug() << "fine hwa : " << index;
-		retName = titleName.left(index);
-	}
-	else if (titleName.endsWith("1") 
-		|| titleName.endsWith("2")
-		|| titleName.endsWith("3")
-		|| titleName.endsWith("4")
-		|| titleName.endsWith("5")
-		|| titleName.endsWith("6")
-		|| titleName.endsWith("7")
-		|| titleName.endsWith("8")
-		|| titleName.endsWith("9")) {
-		index = titleName.lastIndexOf(" ");
-		//qDebug() << "fine number : " << index;
-		retName = titleName.left(index);
-	}
-	else {
-		retName = titleName;
-	}
-	//qDebug() << "GetSeriesName after : " << retName;
-	return retName;
-}
-
 void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
 {
 	int headerTitle = 0;
@@ -1291,4 +1256,39 @@ void CSVTotalSeries::WriteFile(QString filepath)
 	}
 
 	QtCSV::Writer::write(filepath, strData);
+}
+
+QString CSVTotalSeries::GetSeriesName(QString titleName)
+{
+	QString retName;
+	int index = 0;
+	//qDebug() << "GetSeriesName before : " << titleName;
+	if (titleName.endsWith(QString::fromLocal8Bit("권"))) {
+		index = titleName.lastIndexOf(" ");
+		//qDebug() << "fine kwon : " << index;
+		retName = titleName.left(index);
+	}
+	else if (titleName.endsWith(QString::fromLocal8Bit("화"))) {
+		index = titleName.lastIndexOf(" ");
+		//qDebug() << "fine hwa : " << index;
+		retName = titleName.left(index);
+	}
+	else if (titleName.endsWith("1")
+		|| titleName.endsWith("2")
+		|| titleName.endsWith("3")
+		|| titleName.endsWith("4")
+		|| titleName.endsWith("5")
+		|| titleName.endsWith("6")
+		|| titleName.endsWith("7")
+		|| titleName.endsWith("8")
+		|| titleName.endsWith("9")) {
+		index = titleName.lastIndexOf(" ");
+		//qDebug() << "fine number : " << index;
+		retName = titleName.left(index);
+	}
+	else {
+		retName = titleName;
+	}
+	//qDebug() << "GetSeriesName after : " << retName;
+	return retName;
 }
