@@ -38,7 +38,7 @@ public:
 	~CalcTotalDlg();
 
 	void SetTotal(CalcCPDlg*);
-	void ExtractCSV(QString lastFolderOpen);
+	bool ExtractCSV(QString lastFolderOpen);
 
 private slots:
 

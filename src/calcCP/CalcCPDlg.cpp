@@ -880,6 +880,8 @@ void CalcCPDlg::AddTab4ListLabel(QTableView* table, const QString cpName, QList<
 
 bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
 {
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+
 	QString temp;
 	if (m_Kyobo) {
 		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KYOBO) + ".csv";
@@ -938,5 +940,6 @@ bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
 		m_Kepub->WriteFile(temp);
 	}
 
+	QApplication::restoreOverrideCursor();
 	return true;
 }

@@ -201,8 +201,9 @@ void CalcTotalDlg::AddTab(QTableView* table, const QString cpName)
 
 }
 
-void CalcTotalDlg::ExtractCSV(QString lastFolderOpen)
+bool CalcTotalDlg::ExtractCSV(QString lastFolderOpen)
 {
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QString temp;
 	if (m_TotalCP) {
 		temp = lastFolderOpen + "\\TotalCP.csv";
@@ -219,4 +220,7 @@ void CalcTotalDlg::ExtractCSV(QString lastFolderOpen)
 		m_TotalSeries->WriteFile(temp);
 
 	}
+
+	QApplication::restoreOverrideCursor();
+
 }
