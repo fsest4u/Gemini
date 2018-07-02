@@ -252,7 +252,7 @@ void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 
@@ -318,7 +318,7 @@ void CSVTotalBook::MakeBookNaver(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 
@@ -390,7 +390,7 @@ void CSVTotalBook::MakeBookRidi(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 
