@@ -19,7 +19,7 @@
 
 #include "gemini_constants.h"
 
-const int CSV_TOTAL_ROW = 4;
+const int CSV_TOTAL_ROW = 5;
 
 CSVTotalBook::CSVTotalBook() :
 	m_CSVModel(NULL)
@@ -51,15 +51,20 @@ void CSVTotalBook::InitBookData()
 	m_CSVModel = new QStandardItemModel(m_BookList.count() + ROW_MAX, COLUMN_MAX);
 
 	// set header
-	m_CSVModel->setHeaderData(COLUMN_TITLE, Qt::Horizontal, QString::fromLocal8Bit("작품제목"));
-	m_CSVModel->setHeaderData(COLUMN_RANK, Qt::Horizontal, QString::fromLocal8Bit("랭킹"));
+	//m_CSVModel->setHeaderData(COLUMN_TITLE, Qt::Horizontal, QString::fromLocal8Bit("작품제목"));
+	//m_CSVModel->setHeaderData(COLUMN_RANK, Qt::Horizontal, QString::fromLocal8Bit("랭킹"));
+	m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_TITLE), QString::fromLocal8Bit("작품제목"));
+	m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_RANK), QString::fromLocal8Bit("랭킹"));
 	m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT_NAME, new QStandardItem(QString::fromLocal8Bit("구분")));		// total
 	m_CSVModel->setVerticalHeaderItem(ROW_AMOUNT, new QStandardItem(QString::fromLocal8Bit("합계")));		// calculation
 
 	// total amount
-	m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL, Qt::Horizontal, QString::fromLocal8Bit("총계"));
-	m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL + 1, Qt::Horizontal, QString::fromLocal8Bit(""));
-	m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL + 2, Qt::Horizontal, QString::fromLocal8Bit(""));
+	//m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL, Qt::Horizontal, QString::fromLocal8Bit("총계"));
+	//m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL + 1, Qt::Horizontal, QString::fromLocal8Bit(""));
+	//m_CSVModel->setHeaderData(COLUMN_AMOUNT_TOTAL + 2, Qt::Horizontal, QString::fromLocal8Bit(""));
+	m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_AMOUNT_TOTAL), QString::fromLocal8Bit("총계"));
+	m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_AMOUNT_TOTAL + 1), QString::fromLocal8Bit(""));
+	m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_AMOUNT_TOTAL + 2), QString::fromLocal8Bit(""));
 
 	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_AMOUNT_TOTAL), QString::fromLocal8Bit("매출액"));
 	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_AMOUNT_TOTAL + 1), QString::fromLocal8Bit("정산액"));
@@ -67,9 +72,12 @@ void CSVTotalBook::InitBookData()
 
 	// cp total amount, 3 spaces
 	for (int i = 0; i < CalcCPDlg::CP_MAX; i++) {
-		m_CSVModel->setHeaderData(COLUMN_KYOBO_TOTAL + i * 3, Qt::Horizontal, QString::fromLocal8Bit(CP_NAME.at(i).toStdString().c_str()));
-		m_CSVModel->setHeaderData(COLUMN_KYOBO_TOTAL + i * 3 + 1, Qt::Horizontal, QString::fromLocal8Bit(""));
-		m_CSVModel->setHeaderData(COLUMN_KYOBO_TOTAL + i * 3 + 2, Qt::Horizontal, QString::fromLocal8Bit(""));
+		//m_CSVModel->setHeaderData(COLUMN_KYOBO_TOTAL + i * 3, Qt::Horizontal, QString::fromLocal8Bit(CP_NAME.at(i).toStdString().c_str()));
+		//m_CSVModel->setHeaderData(COLUMN_KYOBO_TOTAL + i * 3 + 1, Qt::Horizontal, QString::fromLocal8Bit(""));
+		//m_CSVModel->setHeaderData(COLUMN_KYOBO_TOTAL + i * 3 + 2, Qt::Horizontal, QString::fromLocal8Bit(""));
+		m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_KYOBO_TOTAL + i * 3), QString::fromLocal8Bit(CP_NAME.at(i).toStdString().c_str()));
+		m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_KYOBO_TOTAL + i * 3 + 1), QString::fromLocal8Bit(""));
+		m_CSVModel->setData(m_CSVModel->index(ROW_HEADER, COLUMN_KYOBO_TOTAL + i * 3 + 2), QString::fromLocal8Bit(""));
 
 		m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_KYOBO_TOTAL + i * 3), QString::fromLocal8Bit("매출액"));
 		m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_NAME, COLUMN_KYOBO_TOTAL + i * 3 + 1), QString::fromLocal8Bit("정산액"));

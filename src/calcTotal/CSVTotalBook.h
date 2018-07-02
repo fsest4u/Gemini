@@ -29,7 +29,8 @@ class CSVTotalBook : public QObject
 public:
 
 	enum ROW_TYPE {
-		ROW_AMOUNT_NAME = 0,
+		ROW_HEADER = 0,
+		ROW_AMOUNT_NAME,
 		ROW_AMOUNT,
 		ROW_MAX
 	};
