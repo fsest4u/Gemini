@@ -42,6 +42,11 @@ bool CSVOnestore::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVOnestore::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVOnestore::SetItem()
 {
 	m_TotalAmount = 0;

@@ -42,6 +42,11 @@ bool CSVMrblue::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVMrblue::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVMrblue::SetItem()
 {
 	m_TotalAmount = 0;

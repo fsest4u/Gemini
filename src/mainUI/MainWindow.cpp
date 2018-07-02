@@ -665,7 +665,7 @@ void MainWindow::SetCPFiles()
 	}
 	m_CalcManager = new CalcManager();
 
-	if (!m_CalcManager->ExecuteCalc(cpFileList)) {
+	if (!m_CalcManager->ExecuteCalc(cpFileList, m_LastFolderOpen)) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
 			, tr("Calculation service canceled."));

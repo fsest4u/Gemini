@@ -42,6 +42,11 @@ bool CSVEpyrus::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVEpyrus::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVEpyrus::SetItem()
 {
 	m_TotalAmount = 0;

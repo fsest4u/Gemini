@@ -15,7 +15,7 @@
 #include "calcCP/CalcCpDlg.h"
 #include "CSVTotalBook.h"
 
-#include "../gemini_constants.h"
+#include "gemini_constants.h"
 
 CSVTotalBook::CSVTotalBook() :
 	m_CSVModel(NULL)
@@ -196,7 +196,7 @@ void CSVTotalBook::SetBookTable()
 	}
 }
 
-// todo
+// todo - rank
 void CSVTotalBook::SetBookRank()
 {
 	//int rank = m_RankAmount.count();
@@ -1458,4 +1458,9 @@ QTableView* CSVTotalBook::GetView()
 	m_CSVView->setModel(GetItem());
 
 	return m_CSVView;
+}
+
+void CSVTotalBook::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
 }

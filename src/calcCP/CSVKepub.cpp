@@ -42,6 +42,11 @@ bool CSVKepub::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVKepub::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVKepub::SetItem()
 {
 	double totalAmount = 0;

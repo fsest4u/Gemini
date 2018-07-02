@@ -15,7 +15,7 @@
 #include "calcCP/CalcCpDlg.h"
 #include "CSVTotalCP.h"
 
-#include "../gemini_constants.h"
+#include "gemini_constants.h"
 
 CSVTotalCP::CSVTotalCP() :
 	m_CSVModel(NULL)
@@ -243,4 +243,10 @@ QTableView* CSVTotalCP::GetView()
 	m_CSVView->setModel(GetItem());
 
 	return m_CSVView;
+}
+
+
+void CSVTotalCP::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
 }

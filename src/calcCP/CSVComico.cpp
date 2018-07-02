@@ -42,6 +42,11 @@ bool CSVComico::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVComico::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVComico::SetItem()
 {
 	m_TotalAmount = 0;

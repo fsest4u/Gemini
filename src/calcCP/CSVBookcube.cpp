@@ -42,6 +42,11 @@ bool CSVBookcube::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVBookcube::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVBookcube::SetItem()
 {
 	m_TotalAmount = 0;

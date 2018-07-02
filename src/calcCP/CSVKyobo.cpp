@@ -11,6 +11,7 @@
 #include <QtDebug>
 
 #include "qtcsv/reader.h"
+#include "qtcsv/writer.h"
 
 #include "CSVKyobo.h"
 
@@ -40,6 +41,11 @@ bool CSVKyobo::ReadFile(QString filepath)
 		return true;
 	}
 	return false;
+}
+
+void CSVKyobo::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
 }
 
 void CSVKyobo::SetItem()

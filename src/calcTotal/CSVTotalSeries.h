@@ -119,6 +119,9 @@ public:
 	//double GetTotalAmount() { return m_TotalAmount; };
 	//double GetCalcAmount() { return m_CalcAmount; };
 	//double GetAuthorAmount() { return m_AuthorAmount; };
+	
+	void WriteFile(QString filepath);
+
 
 private slots:
 

@@ -63,6 +63,7 @@ public:
 	~CSVBarobook();
 
 	bool ReadFile(QString filepath);
+	void WriteFile(QString filepath);
 
 	void SetItem();
 	QStandardItemModel* GetItem() { return m_CSVModel; }

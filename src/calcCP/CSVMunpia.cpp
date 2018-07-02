@@ -42,6 +42,11 @@ bool CSVMunpia::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVMunpia::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVMunpia::SetItem()
 {
 	m_TotalAmount = 0;

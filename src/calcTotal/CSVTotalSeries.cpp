@@ -15,7 +15,7 @@
 #include "calcCP/CalcCpDlg.h"
 #include "CSVTotalSeries.h"
 
-#include "../gemini_constants.h"
+#include "gemini_constants.h"
 
 CSVTotalSeries::CSVTotalSeries() :
 	m_CSVModel(NULL)
@@ -198,7 +198,7 @@ void CSVTotalSeries::SetSeriesTable()
 	}
 }
 
-// todo
+// todo - rank
 void CSVTotalSeries::SetSeriesRank()
 {
 	//int rank = m_RankAmount.count();
@@ -1266,4 +1266,9 @@ QTableView* CSVTotalSeries::GetView()
 	m_CSVView->setModel(GetItem());
 
 	return m_CSVView;
+}
+
+void CSVTotalSeries::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
 }

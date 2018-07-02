@@ -10,10 +10,13 @@
 
 #include <QtDebug>
 #include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QFileDialog>
 
 #include "calcTotal/CalcTotalDlg.h"
 
 #include "CalcManager.h"
+
+#include "gemini_constants.h"
 
 
 CalcManager::CalcManager(QWidget *parent) :
@@ -37,12 +40,14 @@ CalcManager::~CalcManager()
 
 }
 
-bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
+bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList, QString lastFolderOpen)
 {
 	// for debug
 	//foreach(const int key, cpFileList.keys()) {
 	//	qDebug() << "[SetCPList] key : " << key << ", value : " << cpFileList.value(key);
 	//}
+
+	m_LastFolderOpen = lastFolderOpen;
 
 	int status = STEP_CALC_MAIN_NEXT;
 	while (STEP_CALC_CANCEL > status 
@@ -78,15 +83,7 @@ bool CalcManager::ExecuteCalc(QHash<int, QString>& cpFileList)
 			break;
 		case STEP_CALC_TOTAL_NEXT:
 			qDebug() << "Extract CSV Files";
-			if (m_CalcCP) {
-				delete m_CalcCP;
-				m_CalcCP = 0;
-			}
-			if (m_CalcTotal) {
-				delete m_CalcTotal;
-				m_CalcTotal = 0;
-			}
-			status = STEP_CALC_MAX;
+			status = ExtractCSV();
 			break;
 		}
 	}
@@ -136,6 +133,35 @@ int CalcManager::ExecuteTotal(bool bRefresh)
 		return STEP_CALC_TOTAL_NEXT;
 	else
 		return STEP_CALC_CANCEL;
+
+}
+
+int CalcManager::ExtractCSV()
+{
+
+	if (!m_CalcCP || !m_CalcTotal) {
+		return STEP_CALC_CANCEL;
+	}
+
+	QString dir = QFileDialog::getExistingDirectory(this, tr("Save CSV File"), m_LastFolderOpen);
+	
+	// CP Data
+	if (m_CalcCP) {
+		m_CalcCP->ExtractCSV(dir);
+
+		delete m_CalcCP;
+		m_CalcCP = 0;
+	}
+
+	// Total Data
+	if (m_CalcTotal) {
+		m_CalcTotal->ExtractCSV(dir);
+	
+		delete m_CalcTotal;
+		m_CalcTotal = 0;
+	}
+
+	return STEP_CALC_MAX;
 
 }
 

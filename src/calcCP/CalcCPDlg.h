@@ -78,13 +78,15 @@ public:
 	~CalcCPDlg();
 
 	bool SetCP(QHash<int, QString>&);
+	bool ExtractCSV(QString lastFolderOpen);
+
 
 	CSVKyobo*			GetKyobo() { return m_Kyobo; }
 	CSVNaver*			GetNaver() { return m_Naver; }
 	CSVRidi*			GetRidi() { return m_Ridi; }
 	CSVMunpia*			GetMunpia() { return m_Munpia; }
 	CSVMrblue*			GetMrblue() { return m_Mrblue; }
-	CSVBarobook*		GetBarobook() { return m_Barabook; }
+	CSVBarobook*		GetBarobook() { return m_Barobook; }
 	CSVBookcube*		GetBookcube() { return m_Bookcube; }
 	CSVEpyrus*			GetEpyrus() { return m_Epyrus; }
 	CSVOebook*			GetOebook() { return m_Oebook; }
@@ -154,7 +156,7 @@ private:
 	CSVRidi*			m_Ridi;
 	CSVMunpia*			m_Munpia;
 	CSVMrblue*			m_Mrblue;
-	CSVBarobook*		m_Barabook;
+	CSVBarobook*		m_Barobook;
 	CSVBookcube*		m_Bookcube;
 	CSVEpyrus*			m_Epyrus;
 	CSVOebook*			m_Oebook;

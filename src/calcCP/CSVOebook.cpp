@@ -42,6 +42,11 @@ bool CSVOebook::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVOebook::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVOebook::SetItem()
 {
 	double totalAmount = 0;

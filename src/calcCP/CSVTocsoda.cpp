@@ -43,6 +43,11 @@ bool CSVTocsoda::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVTocsoda::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVTocsoda::SetItem()
 {
 	m_TotalAmount = 0;

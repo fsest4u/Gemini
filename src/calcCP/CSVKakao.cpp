@@ -49,6 +49,11 @@ bool CSVKakao::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVKakao::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVKakao::SetItem()
 {
 	m_TotalAmount = 0;

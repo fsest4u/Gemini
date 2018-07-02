@@ -42,6 +42,11 @@ bool CSVRidi::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVRidi::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVRidi::SetItem()
 {
 	m_TotalAmount = 0;

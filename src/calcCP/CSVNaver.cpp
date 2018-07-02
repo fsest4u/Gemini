@@ -42,6 +42,11 @@ bool CSVNaver::ReadFile(QString filepath)
 	return false;
 }
 
+void CSVNaver::WriteFile(QString filepath)
+{
+	//QtCSV::Writer::write(filepath, );
+}
+
 void CSVNaver::SetItem()
 {
 	m_TotalAmount = 0;

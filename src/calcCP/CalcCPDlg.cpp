@@ -32,7 +32,7 @@ CalcCPDlg::CalcCPDlg(QDialog *parent) :
 	, m_Ridi(NULL)
 	, m_Munpia(NULL)
 	, m_Mrblue(NULL)
-	, m_Barabook(NULL)
+	, m_Barobook(NULL)
 	, m_Bookcube(NULL)
 	, m_Epyrus(NULL)
 	, m_Oebook(NULL)
@@ -395,15 +395,15 @@ bool CalcCPDlg::CalcBarobook()
 
 	if (m_CPFileList.value(CP_BAROBOOK).isEmpty()) { return true; }
 
-	if (!m_Barabook) { m_Barabook = new CSVBarobook(); }
-	if (!m_Barabook->ReadFile(m_CPFileList.value(CP_BAROBOOK))) { return false; }
-	m_Barabook->SetItem();
+	if (!m_Barobook) { m_Barobook = new CSVBarobook(); }
+	if (!m_Barobook->ReadFile(m_CPFileList.value(CP_BAROBOOK))) { return false; }
+	m_Barobook->SetItem();
 
-	double total = m_Barabook->GetTotalAmount();
-	double calculator = m_Barabook->GetCalcAmount();
-	double author = m_Barabook->GetAuthorAmount();
+	double total = m_Barobook->GetTotalAmount();
+	double calculator = m_Barobook->GetCalcAmount();
+	double author = m_Barobook->GetAuthorAmount();
 
-	QTableView* view = m_Barabook->GetView();
+	QTableView* view = m_Barobook->GetView();
 	AddTab(view, CP_NAME.at(CP_BAROBOOK), total, calculator, author);
 	return true;
 }
@@ -618,9 +618,9 @@ void CalcCPDlg::DeleteMrblue()
 
 void CalcCPDlg::DeleteBarobook()
 {
-	if (m_Barabook) {
-		delete m_Barabook;
-		m_Barabook = 0;
+	if (m_Barobook) {
+		delete m_Barobook;
+		m_Barobook = 0;
 	}
 }
 
@@ -833,4 +833,67 @@ void CalcCPDlg::AddTab4List(QTableView* table, const QString cpName, QList<doubl
 
 	ui.tabCP->addTab(defaultWidget, cpName);
 
+}
+
+bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
+{
+	QString temp;
+	if (m_Kyobo) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KYOBO) + ".csv";
+		m_Kyobo->WriteFile(temp);
+	}
+	if (m_Naver) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_NAVER) + ".csv";
+		m_Naver->WriteFile(temp);
+	}
+	if (m_Ridi) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_RIDI) + ".csv";
+		m_Ridi->WriteFile(temp);
+	}
+	if (m_Munpia) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_MUNPIA) + ".csv";
+		m_Munpia->WriteFile(temp);
+	}
+	if (m_Mrblue) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_MRBLUE) + ".csv";
+		m_Mrblue->WriteFile(temp);
+	}
+	if (m_Barobook) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_BAROBOOK) + ".csv";
+		m_Barobook->WriteFile(temp);
+	}
+	if (m_Bookcube) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_BOOKCUBE) + ".csv";
+		m_Bookcube->WriteFile(temp);
+	}
+	if (m_Epyrus) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_EPYRUS) + ".csv";
+		m_Epyrus->WriteFile(temp);
+	}
+	if (m_Oebook) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_OEBOOK) + ".csv";
+		m_Oebook->WriteFile(temp);
+	}
+	if (m_Onestore) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_ONESTORE) + ".csv";
+		m_Onestore->WriteFile(temp);
+	}
+	if (m_Kakao) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KAKAO) + ".csv";
+		m_Kakao->WriteFile(temp);
+	}
+	if (m_Comico) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_COMICO) + ".csv";
+		m_Comico->WriteFile(temp);
+	}
+	if (m_Tocsoda) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_TOCSODA) + ".csv";
+		m_Tocsoda->WriteFile(temp);
+	}
+	if (m_Kepub) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KEPUB) + ".csv";
+		m_Kepub->WriteFile(temp);
+	}
+
+	return true;
 }

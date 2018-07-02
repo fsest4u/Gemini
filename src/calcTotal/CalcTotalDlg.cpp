@@ -19,7 +19,7 @@
 #include "calcTotal/CSVTotalSeries.h"
 #include "CalcTotalDlg.h"
 
-#include "../gemini_constants.h"
+#include "gemini_constants.h"
 
 const int PROGRESS_BAR_MINIMUM_DURATION = 50;
 
@@ -176,9 +176,9 @@ void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	SetCPData(cpData);
-	// todo 
+
 	SetBookData(cpData);
-	// todo 
+
 	SetSeriesData(cpData);
 	// todo - send notes
 
@@ -199,4 +199,24 @@ void CalcTotalDlg::AddTab(QTableView* table, const QString cpName)
 
 	ui.tabTotal->addTab(defaultWidget, cpName);
 
+}
+
+void CalcTotalDlg::ExtractCSV(QString lastFolderOpen)
+{
+	QString temp;
+	if (m_TotalCP) {
+		temp = lastFolderOpen + "\\TotalCP.csv";
+		m_TotalCP->WriteFile(temp);
+
+	}
+	if (m_TotalBook) {
+		temp = lastFolderOpen + "\\TotalBook.csv";
+		m_TotalBook->WriteFile(temp);
+
+	}
+	if (m_TotalSeries) {
+		temp = lastFolderOpen + "\\TotalSeries.csv";
+		m_TotalSeries->WriteFile(temp);
+
+	}
 }

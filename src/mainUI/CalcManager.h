@@ -44,9 +44,10 @@ public:
 	CalcManager(QWidget *parent = 0);
 	~CalcManager();
 
-	bool ExecuteCalc(QHash<int, QString>&);
+	bool ExecuteCalc(QHash<int, QString>&, QString lastFolderOpen);
 	int ExecuteCP(QHash<int, QString>&, bool bRefresh);
 	int ExecuteTotal(bool bRefresh);
+	int ExtractCSV();
 
 private slots:
 
@@ -61,6 +62,7 @@ private:
 	CalcCPDlg*			m_CalcCP;
 	CalcTotalDlg*		m_CalcTotal;
 
+	QString				m_LastFolderOpen;
 
 };
 
