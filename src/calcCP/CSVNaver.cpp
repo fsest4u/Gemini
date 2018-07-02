@@ -15,10 +15,10 @@
 #include "qtcsv/stringdata.h"
 
 #include "CSVNaver.h"
+#include "gemini_constants.h"
 
 const int CSV_HEADER_ROW = 2;
 const int CSV_START_ROW = 6;
-const int CSV_TOTAL_ROW = 4;
 
 CSVNaver::CSVNaver() :
 	m_CSVModel(NULL)
@@ -72,7 +72,7 @@ void CSVNaver::SetItem()
 		delete m_CSVModel;
 		m_CSVModel = 0;
 	}
-	m_CSVModel = new QStandardItemModel(m_CSVData.size(), m_CSVData.at(0).size() + 1);
+	m_CSVModel = new QStandardItemModel(m_CSVData.size() + CSV_TOTAL_ROW, m_CSVData.at(0).size() + 1);
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {

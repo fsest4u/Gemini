@@ -15,10 +15,10 @@
 #include "qtcsv/stringdata.h"
 
 #include "CSVKyobo.h"
+#include "gemini_constants.h"
 
 const int CSV_HEADER_ROW = 0;
 const int CSV_START_ROW = 1;
-const int CSV_TOTAL_ROW = 4;
 
 CSVKyobo::CSVKyobo() :
 	m_CSVModel(NULL)

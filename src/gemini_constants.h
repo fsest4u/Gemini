@@ -19,5 +19,6 @@ class QStringList;
 // in one CPP file to be used in another
 extern const QStringList CP_NAME;
 
+extern const int CSV_TOTAL_ROW;
 
 #endif // GEMINI_CONSTANTS_H

@@ -19,6 +19,8 @@
 
 #include "gemini_constants.h"
 
+const int CSV_TOTAL_ROW = 4;
+
 CSVTotalBook::CSVTotalBook() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
@@ -450,7 +452,7 @@ void CSVTotalBook::MakeBookMunpia(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -518,7 +520,7 @@ void CSVTotalBook::MakeBookMrblue(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -584,7 +586,7 @@ void CSVTotalBook::MakeBookBarobook(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 
@@ -653,7 +655,7 @@ void CSVTotalBook::MakeBookBookcube(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -720,7 +722,7 @@ void CSVTotalBook::MakeBookEpyrus(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -787,7 +789,7 @@ void CSVTotalBook::MakeBookOebook(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -853,7 +855,7 @@ void CSVTotalBook::MakeBookOnestore(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -921,7 +923,7 @@ void CSVTotalBook::MakeBookKakao(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -989,7 +991,7 @@ void CSVTotalBook::MakeBookComico(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -1060,7 +1062,7 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 
@@ -1141,7 +1143,7 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -1334,7 +1336,7 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 //
 //	QMap<int, double> amountList;
 //
-//	for (int row = 0; row < item->rowCount(); row++) {
+//	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 //
 //		amountList.clear();
 //

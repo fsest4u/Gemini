@@ -279,7 +279,7 @@ void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 
@@ -345,7 +345,7 @@ void CSVTotalSeries::MakeSeriesNaver(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -417,7 +417,7 @@ void CSVTotalSeries::MakeSeriesRidi(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -487,7 +487,7 @@ void CSVTotalSeries::MakeSeriesMunpia(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount() - 1; row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount() - 1; row++) {
 
 		amountList.clear();
 		
@@ -555,7 +555,7 @@ void CSVTotalSeries::MakeSeriesMrblue(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -621,7 +621,7 @@ void CSVTotalSeries::MakeSeriesBarobook(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -689,7 +689,7 @@ void CSVTotalSeries::MakeSeriesBookcube(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -756,7 +756,7 @@ void CSVTotalSeries::MakeSeriesEpyrus(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -823,7 +823,7 @@ void CSVTotalSeries::MakeSeriesOebook(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -889,7 +889,7 @@ void CSVTotalSeries::MakeSeriesOnestore(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -957,7 +957,7 @@ void CSVTotalSeries::MakeSeriesKakao(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -1025,7 +1025,7 @@ void CSVTotalSeries::MakeSeriesComico(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -1096,7 +1096,7 @@ void CSVTotalSeries::MakeSeriesTocsoda(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		
@@ -1164,7 +1164,7 @@ void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 
 	QMap<int, double> amountList;
 	
-	for (int row = 0; row < item->rowCount(); row++) {
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
 
 		amountList.clear();
 		

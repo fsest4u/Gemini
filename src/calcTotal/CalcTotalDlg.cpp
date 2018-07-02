@@ -222,5 +222,5 @@ bool CalcTotalDlg::ExtractCSV(QString lastFolderOpen)
 	}
 
 	QApplication::restoreOverrideCursor();
-
+	return true;
 }
