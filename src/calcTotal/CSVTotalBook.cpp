@@ -105,12 +105,13 @@ void CSVTotalBook::SetBookTable()
 		QMap<int, double>::const_iterator amountHash = bookHash.value().constBegin();
 		while (amountHash != bookHash.value().constEnd()) {
 
-			//qDebug() << amountHash.key() << ": " << amountHash.value();
+			//qDebug() << amountHash.key() << ": " << QString("%L1").arg(amountHash.value(), 0, 'f', 0);
 			// Amount by CP
 			m_CSVModel->setData(m_CSVModel->index(row, amountHash.key()), QString("%L1").arg(amountHash.value(), 0, 'f', 0));
 
 			// Total by CP
 			tempAmountCP = amountCPList.value(amountHash.key());
+			//qDebug() << "tempAmountCP : " << QString("%L1").arg(tempAmountCP, 0, 'f', 0);
 			tempAmountCP += amountHash.value();
 			amountCPList.insert(amountHash.key(), tempAmountCP);
 
@@ -603,6 +604,7 @@ void CSVTotalBook::MakeBookBarobook(QStandardItemModel* item)
 		//for debug
 		//qDebug() << "[MakeBookBarobook]-----------------------------";
 		//qDebug() << "Title : " << title;
+		//qDebug() << "Calc : " << item->data(item->index(row, headerCalc)).toString();
 		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
 		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
 		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
@@ -1081,6 +1083,18 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 		// update book
 		m_BookList.insert(title, amountList);	// replace item
 	}
+
+	// for debug
+	//QMap<QString, QMap<int, double>>::const_iterator bookHash = m_BookList.constBegin();
+	//while (bookHash != m_BookList.constEnd()) {
+	//	QMap<int, double>::const_iterator amountHash = bookHash.value().constBegin();
+	//	while (amountHash != bookHash.value().constEnd()) {
+	//		qDebug() << "## key=" << amountHash.key() << QString(", value=%L1").arg(amountHash.value(), 0, 'f', 0);
+	//		amountHash++;
+	//	}
+	//	bookHash++;
+	//}
+
 }
 
 void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)

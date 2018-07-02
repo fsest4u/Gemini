@@ -53,7 +53,7 @@ void CSVTocsoda::SetItem()
 		delete m_CSVModel;
 		m_CSVModel = 0;
 	}
-	m_CSVModel = new QStandardItemModel(m_CSVData.size(), m_CSVData.at(0).size() + 1);
+	m_CSVModel = new QStandardItemModel(m_CSVData.size(), m_CSVData.at(CSV_START_ROW_TOCSODA).size() + 1);
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
