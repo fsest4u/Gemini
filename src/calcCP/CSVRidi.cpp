@@ -11,6 +11,8 @@
 #include <QtDebug>
 
 #include "qtcsv/reader.h"
+#include "qtcsv/writer.h"
+#include "qtcsv/stringdata.h"
 
 #include "CSVRidi.h"
 
@@ -45,7 +47,19 @@ bool CSVRidi::ReadFile(QString filepath)
 
 void CSVRidi::WriteFile(QString filepath)
 {
-	//QtCSV::Writer::write(filepath, );
+	QStringList rowData;
+	QtCSV::StringData strData;
+	strData.clear();
+	for (int row = 0; row < m_CSVModel->rowCount(); row++) {
+		rowData.clear();
+		for (int col = 0; col < m_CSVModel->columnCount(); col++) {
+			rowData << m_CSVModel->index(row, col).data().toString();
+		}
+		//qDebug() << rowData;
+		strData.addRow(rowData);
+	}
+
+	QtCSV::Writer::write(filepath, strData);
 }
 
 void CSVRidi::SetItem()

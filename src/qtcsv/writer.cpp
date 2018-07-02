@@ -234,6 +234,8 @@ bool Writer::write(const QString& filePath,
     }
 
     ContentIterator content(data, separator, textDelimiter, header, footer);
+	// force euc-kr
+	codec = QTextCodec::codecForName("eucKR");
 
     bool result = false;
     switch (mode)
