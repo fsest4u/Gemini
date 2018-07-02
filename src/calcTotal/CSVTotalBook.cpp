@@ -239,9 +239,10 @@ void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		amountList.clear();
 
 		total = 0;
 		calc = 0;
@@ -304,9 +305,10 @@ void CSVTotalBook::MakeBookNaver(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		amountList.clear();
 
 		total = 0;
 		calc = 0;
@@ -375,9 +377,10 @@ void CSVTotalBook::MakeBookRidi(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		amountList.clear();
 
 		total = 0;
 		calc = 0;
@@ -444,10 +447,11 @@ void CSVTotalBook::MakeBookMunpia(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -511,10 +515,11 @@ void CSVTotalBook::MakeBookMrblue(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -576,9 +581,10 @@ void CSVTotalBook::MakeBookBarobook(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		amountList.clear();
 
 		total = 0;
 		calc = 0;
@@ -644,10 +650,11 @@ void CSVTotalBook::MakeBookBookcube(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -710,10 +717,11 @@ void CSVTotalBook::MakeBookEpyrus(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -776,10 +784,11 @@ void CSVTotalBook::MakeBookOebook(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -841,10 +850,11 @@ void CSVTotalBook::MakeBookOnestore(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -908,10 +918,11 @@ void CSVTotalBook::MakeBookKakao(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -975,10 +986,11 @@ void CSVTotalBook::MakeBookComico(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -1045,9 +1057,10 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		amountList.clear();
 
 		total = 0;
 		calc = 0;
@@ -1080,6 +1093,7 @@ void CSVTotalBook::MakeBookTocsoda(QStandardItemModel* item)
 		amountList.insert(bookCalc, calc);
 		amountList.insert(bookAuthor, author);
 
+		//qDebug() << "amountList : " << amountList;
 		// update book
 		m_BookList.insert(title, amountList);	// replace item
 	}
@@ -1124,10 +1138,11 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -1316,9 +1331,10 @@ void CSVTotalBook::MakeBookKepub(QStandardItemModel* item)
 //	double author = 0;
 //
 //	QMap<int, double> amountList;
-//	amountList.clear();
 //
 //	for (int row = 0; row < item->rowCount(); row++) {
+//
+//		amountList.clear();
 //
 //		total = 0;
 //		calc = 0;

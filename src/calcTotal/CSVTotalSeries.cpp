@@ -276,9 +276,10 @@ void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
 
 	for (int row = 0; row < item->rowCount(); row++) {
+
+		amountList.clear();
 
 		total = 0;
 		calc = 0;
@@ -341,10 +342,11 @@ void CSVTotalSeries::MakeSeriesNaver(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -412,10 +414,11 @@ void CSVTotalSeries::MakeSeriesRidi(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -481,10 +484,11 @@ void CSVTotalSeries::MakeSeriesMunpia(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount() - 1; row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -548,10 +552,11 @@ void CSVTotalSeries::MakeSeriesMrblue(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -613,10 +618,11 @@ void CSVTotalSeries::MakeSeriesBarobook(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -680,10 +686,11 @@ void CSVTotalSeries::MakeSeriesBookcube(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -746,10 +753,11 @@ void CSVTotalSeries::MakeSeriesEpyrus(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -812,10 +820,11 @@ void CSVTotalSeries::MakeSeriesOebook(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -877,10 +886,11 @@ void CSVTotalSeries::MakeSeriesOnestore(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -944,10 +954,11 @@ void CSVTotalSeries::MakeSeriesKakao(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -1011,10 +1022,11 @@ void CSVTotalSeries::MakeSeriesComico(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -1081,10 +1093,11 @@ void CSVTotalSeries::MakeSeriesTocsoda(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
@@ -1148,10 +1161,11 @@ void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 	double author = 0;
 
 	QMap<int, double> amountList;
-	amountList.clear();
-
+	
 	for (int row = 0; row < item->rowCount(); row++) {
 
+		amountList.clear();
+		
 		total = 0;
 		calc = 0;
 		author = 0;
