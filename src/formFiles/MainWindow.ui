@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
-    <height>712</height>
+    <width>488</width>
+    <height>542</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,46 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="2">
+     <layout class="QGridLayout" name="KyoboLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="KyoboCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>교보문고</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="KyoboFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="KyoboFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="1" column="0" colspan="2">
      <layout class="QGridLayout" name="NaverLayout">
       <item row="0" column="0">
@@ -95,206 +135,6 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0" colspan="2">
-     <layout class="QGridLayout" name="BarobookLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="BarobookCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>바로북</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="BarobookFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="BarobookFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="9" column="0" colspan="2">
-     <layout class="QGridLayout" name="OnestoreLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="OnestoreCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>원스토어</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="OnestoreFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="OnestoreFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="12" column="0" colspan="2">
-     <layout class="QGridLayout" name="TocsodaLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="TocsodaCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>톡소다</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="TocsodaFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="TocsodaFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="13" column="0" colspan="2">
-     <layout class="QGridLayout" name="KepubLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="KepubCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>한국이퍼브</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="KepubFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="KepubFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="6" column="0" colspan="2">
-     <layout class="QGridLayout" name="BookcubeLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="BookcubeCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>북큐브</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="BookcubeFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="BookcubeFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="3" column="0" colspan="2">
      <layout class="QGridLayout" name="MunpiaLayout">
       <item row="0" column="0">
@@ -335,46 +175,6 @@
       </item>
      </layout>
     </item>
-    <item row="11" column="0" colspan="2">
-     <layout class="QGridLayout" name="ComicoLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="ComicoCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>코미코</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="ComicoFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="ComicoFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="4" column="0" colspan="2">
      <layout class="QGridLayout" name="MrblueLayout">
       <item row="0" column="0">
@@ -405,6 +205,86 @@
       </item>
       <item row="0" column="2">
        <widget class="QToolButton" name="MrblueFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <layout class="QGridLayout" name="BarobookLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="BarobookCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>바로북</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="BarobookFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="BarobookFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <layout class="QGridLayout" name="BookcubeLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="BookcubeCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>북큐브</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="BookcubeFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="BookcubeFileButton">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -495,6 +375,46 @@
       </item>
      </layout>
     </item>
+    <item row="9" column="0" colspan="2">
+     <layout class="QGridLayout" name="OnestoreLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="OnestoreCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>원스토어</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="OnestoreFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="OnestoreFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="10" column="0" colspan="2">
      <layout class="QGridLayout" name="KakaoLayout">
       <item row="0" column="0">
@@ -535,10 +455,10 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0" colspan="2">
-     <layout class="QGridLayout" name="KyoboLayout">
+    <item row="11" column="0" colspan="2">
+     <layout class="QGridLayout" name="ComicoLayout">
       <item row="0" column="0">
-       <widget class="QCheckBox" name="KyoboCheckBox">
+       <widget class="QCheckBox" name="ComicoCheckBox">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -546,7 +466,7 @@
          </size>
         </property>
         <property name="text">
-         <string>교보문고</string>
+         <string>코미코</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -554,7 +474,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="KyoboFilepath">
+       <widget class="QLineEdit" name="ComicoFilepath">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -564,7 +484,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QToolButton" name="KyoboFileButton">
+       <widget class="QToolButton" name="ComicoFileButton">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -575,7 +495,180 @@
       </item>
      </layout>
     </item>
-    <item row="14" column="1">
+    <item row="12" column="0" colspan="2">
+     <layout class="QGridLayout" name="TocsodaLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="TocsodaCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>톡소다</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="TocsodaFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="TocsodaFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="13" column="0" colspan="2">
+     <layout class="QGridLayout" name="KepubLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="KepubCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>한국이퍼브</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="KepubFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="KepubFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="14" column="0" colspan="2">
+     <layout class="QGridLayout" name="JustoonLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="JustoonCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>저스툰</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="JustoonFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="JustoonFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="15" column="0" colspan="2">
+     <layout class="QGridLayout" name="GoogleLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="GoogleCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>구글북스</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="GoogleFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="GoogleFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="16" column="0">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>222</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="16" column="1">
      <widget class="QDialogButtonBox" name="buttonBox">
       <property name="enabled">
        <bool>true</bool>
@@ -591,19 +684,6 @@
       </property>
      </widget>
     </item>
-    <item row="14" column="0">
-     <spacer name="horizontalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>222</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -611,7 +691,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>482</width>
+     <width>488</width>
      <height>21</height>
     </rect>
    </property>

@@ -60,6 +60,8 @@ set( CALC_CP_FILES
 	calcCP/CSVTocsoda.cpp
 	calcCP/CSVKepub.h
 	calcCP/CSVKepub.cpp
+	calcCP/CSVJustoon.h
+	calcCP/CSVJustoon.cpp
 )
 
 set( CALC_TOTAL_FILES 

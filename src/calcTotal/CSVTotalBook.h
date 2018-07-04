@@ -83,6 +83,9 @@ public:
 		COLUMN_KEPUB_TOTAL,
 		COLUMN_KEPUB_CALC,
 		COLUMN_KEPUB_AUTHOR,
+		COLUMN_JUSTOON_TOTAL,
+		COLUMN_JUSTOON_CALC,
+		COLUMN_JUSTOON_AUTHOR,
 		COLUMN_MAX
 	};
 
@@ -111,6 +114,8 @@ public:
 	void MakeBookComico(QStandardItemModel* item);
 	void MakeBookTocsoda(QStandardItemModel* item);
 	void MakeBookKepub(QStandardItemModel* item);
+	void MakeBookJustoon(QStandardItemModel* item);
+
 	// no use
 	//void MakeBookList(QStandardItemModel* item, int cp_type);
 

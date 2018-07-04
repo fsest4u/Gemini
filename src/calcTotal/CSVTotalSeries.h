@@ -83,6 +83,9 @@ public:
 		COLUMN_KEPUB_TOTAL,
 		COLUMN_KEPUB_CALC,
 		COLUMN_KEPUB_AUTHOR,
+		COLUMN_JUSTOON_TOTAL,
+		COLUMN_JUSTOON_CALC,
+		COLUMN_JUSTOON_AUTHOR,
 		COLUMN_MAX
 	};
 
@@ -112,6 +115,7 @@ public:
 	void MakeSeriesComico(QStandardItemModel* item);
 	void MakeSeriesTocsoda(QStandardItemModel* item);
 	void MakeSeriesKepub(QStandardItemModel* item);
+	void MakeSeriesJustoon(QStandardItemModel* item);
 
 	void SetItem(CalcCPDlg* cpData);
 	QStandardItemModel* GetItem() { return m_CSVModel; }

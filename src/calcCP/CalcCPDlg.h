@@ -29,6 +29,7 @@
 #include "CSVComico.h"
 #include "CSVTocsoda.h"
 #include "CSVKepub.h"
+#include "CSVJustoon.h"
 
 #include "ui_CalcCPDlg.h"
 
@@ -68,6 +69,7 @@ public:
 		CP_COMICO,
 		CP_TOCSODA,
 		CP_KEPUB,
+		CP_JUSTOON,
 		CP_MAX
 	};
 
@@ -95,6 +97,7 @@ public:
 	CSVComico*			GetComico() { return m_Comico; }
 	CSVTocsoda*			GetTocsoda() { return m_Tocsoda; }
 	CSVKepub*			GetKepub() { return m_Kepub; }
+	CSVJustoon*			GetJustoon() { return m_Justoon; }
 
 private slots:
 
@@ -129,6 +132,7 @@ private:
 	bool CalcComico();
 	bool CalcTocsoda();
 	bool CalcKepub();
+	bool CalcJustoon();
 
 	void DeleteKyobo();
 	void DeleteNaver();
@@ -144,6 +148,7 @@ private:
 	void DeleteComico();
 	void DeleteTocsoda();
 	void DeleteKepub();
+	void DeleteJustoon();
 
 	
 
@@ -167,6 +172,7 @@ private:
 	CSVComico*			m_Comico;
 	CSVTocsoda*			m_Tocsoda;
 	CSVKepub*			m_Kepub;
+	CSVJustoon*			m_Justoon;
 
 	QProgressDialog*	m_Progress;
 

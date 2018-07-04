@@ -67,7 +67,7 @@ void CSVTotalCP::SetCPTable(int column, QString total, QString calc, QString aut
 	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, column), rank);
 
 	// if column is not zero, add amount.
-	if (0 < column && column <= (CalcCPDlg::CP_KEPUB + 1)) {
+	if (0 < column && column <= (CalcCPDlg::CP_MAX)) {
 		m_TotalAmount += total.replace(",", "").toDouble();
 		m_CalcAmount += calc.replace(",", "").toDouble();
 		m_AuthorAmount += author.replace(",", "").toDouble();
@@ -82,9 +82,9 @@ void CSVTotalCP::SetCPRank()
 	QMapIterator<double, int> i(m_RankAmount);
 	while (i.hasNext()) {
 		i.next();
-		if (CalcCPDlg::CP_KEPUB + 2 != i.value()
-			&& CalcCPDlg::CP_KEPUB + 3 != i.value()
-			&& CalcCPDlg::CP_KEPUB + 4 != i.value()) {
+		if (CalcCPDlg::CP_MAX - 3 != i.value()
+			&& CalcCPDlg::CP_MAX - 2 != i.value()
+			&& CalcCPDlg::CP_MAX - 1 != i.value()) {
 
 			// for debug
 			QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
@@ -225,6 +225,13 @@ void CSVTotalCP::SetItem(CalcCPDlg* cpData)
 			, QString("%L1").arg(cpData->GetKepub()->GetTotalAmount().at(CSVKepub::STORE_BANDI), 0, 'f', 0)
 			, QString("%L1").arg(cpData->GetKepub()->GetCalcAmount().at(CSVKepub::STORE_BANDI), 0, 'f', 0)
 			, QString("%L1").arg(cpData->GetKepub()->GetAuthorAmount().at(CSVKepub::STORE_BANDI), 0, 'f', 0));
+	}
+	if (cpData->GetJustoon()) {
+		m_CSVModel->setHeaderData(CalcCPDlg::CP_JUSTOON + 1, Qt::Horizontal, QString::fromLocal8Bit(CP_NAME.at(CalcCPDlg::CP_JUSTOON).toStdString().c_str()));
+		SetCPTable(CalcCPDlg::CP_JUSTOON + 1
+			, QString("%L1").arg(cpData->GetJustoon()->GetTotalAmount(), 0, 'f', 0)
+			, QString("%L1").arg(cpData->GetJustoon()->GetCalcAmount(), 0, 'f', 0)
+			, QString("%L1").arg(cpData->GetJustoon()->GetAuthorAmount(), 0, 'f', 0));
 	}
 
 	// total amount

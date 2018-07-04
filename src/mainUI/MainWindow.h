@@ -67,6 +67,7 @@ private slots:
 	void on_ComicoFileButton_clicked();
 	void on_TocsodaFileButton_clicked();
 	void on_KepubFileButton_clicked();
+	void on_JustoonFileButton_clicked();
 
 
 	void SetCPFiles();

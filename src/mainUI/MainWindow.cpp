@@ -76,6 +76,7 @@ void MainWindow::InitUI()
 	ui->ComicoFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_COMICO]);
 	ui->TocsodaFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_TOCSODA]);
 	ui->KepubFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
+	ui->JustoonFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_JUSTOON]);
 
 }
 
@@ -107,6 +108,7 @@ void MainWindow::ReadSettings()
 	m_CSVFileNames[CalcCPDlg::CP_COMICO] = settings.value("lastcsvcomico", QDir::homePath()).toString();
 	m_CSVFileNames[CalcCPDlg::CP_TOCSODA] = settings.value("lastcsvtocsoda", QDir::homePath()).toString();
 	m_CSVFileNames[CalcCPDlg::CP_KEPUB] = settings.value("lastcsvkepub", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_JUSTOON] = settings.value("lastcsvjustoon", QDir::homePath()).toString();
 
 	settings.endGroup();
 
@@ -136,7 +138,7 @@ void MainWindow::WriteSettings()
 	settings.setValue("lastcsvcomico", m_CSVFileNames[CalcCPDlg::CP_COMICO]);
 	settings.setValue("lastcsvtocsoda", m_CSVFileNames[CalcCPDlg::CP_TOCSODA]);
 	settings.setValue("lastcsvkepub", m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
-
+	settings.setValue("lastcsvjustoon", m_CSVFileNames[CalcCPDlg::CP_JUSTOON]);
 
 	settings.endGroup();
 }
@@ -460,6 +462,9 @@ void MainWindow::SetFilePath(int type)
 	case CalcCPDlg::CP_KEPUB:
 		ui->KepubFilepath->setText(filename);
 		break;
+	case CalcCPDlg::CP_JUSTOON:
+		ui->JustoonFilepath->setText(filename);
+		break;
 	}
 
 	if (!filename.isEmpty())
@@ -520,6 +525,10 @@ void MainWindow::on_TocsodaFileButton_clicked(){
 
 void MainWindow::on_KepubFileButton_clicked(){
 	SetFilePath(CalcCPDlg::CP_KEPUB);
+}
+
+void MainWindow::on_JustoonFileButton_clicked() {
+	SetFilePath(CalcCPDlg::CP_JUSTOON);
 }
 
 void MainWindow::SetCPFiles()
@@ -650,6 +659,15 @@ void MainWindow::SetCPFiles()
 			return;
 		}
 		cpFileList[CalcCPDlg::CP_KEPUB] = ui->KepubFilepath->text();
+	}
+	if (Qt::Checked == ui->JustoonCheckBox->checkState()) {
+		if (ui->JustoonFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Justoon file path is empty."));
+			return;
+		}
+		cpFileList[CalcCPDlg::CP_JUSTOON] = ui->JustoonFilepath->text();
 	}
 
 	// for debug

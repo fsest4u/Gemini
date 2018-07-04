@@ -20,7 +20,7 @@
 // The CP_TYPE and order must match.
 const QStringList CP_NAME = QStringList() << "KYOBO" << "NAVER" << "RIDI" << "MUNPIA" \
 							<< "MRBLUE" << "BAROBOOK" << "BOOKCUBE" << "EPYRUS" << "OEBOOK" \
-							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "KEPUB";
+							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "KEPUB" << "JUSTOON";
 
 const int PROGRESS_BAR_MINIMUM_DURATION = 500;
 
@@ -41,6 +41,7 @@ CalcCPDlg::CalcCPDlg(QDialog *parent) :
 	, m_Comico(NULL)
 	, m_Tocsoda(NULL)
 	, m_Kepub(NULL)
+	, m_Justoon(NULL)
 	, m_Progress(NULL)
 
 {
@@ -137,7 +138,7 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 	m_Progress = new QProgressDialog(this);
 	m_Progress->setMinimumDuration(PROGRESS_BAR_MINIMUM_DURATION);
 	m_Progress->setMinimum(CP_KYOBO);
-	m_Progress->setMaximum(CP_KEPUB);
+	m_Progress->setMaximum(CP_MAX - 1);
 	m_Progress->setValue(0);
 	m_Progress->setAutoClose(true);
 
@@ -270,6 +271,15 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
 			, tr("Check the %1 file.").arg(CP_NAME.at(CP_KEPUB)));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcJustoon()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_JUSTOON)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -604,6 +614,29 @@ bool CalcCPDlg::CalcKepub()
 	return true;
 }
 
+bool CalcCPDlg::CalcJustoon()
+{
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_JUSTOON)));
+	m_Progress->setValue(CP_JUSTOON);
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+
+	if (m_CPFileList.value(CP_JUSTOON).isEmpty()) { return true; }
+
+	if (!m_Justoon) { m_Justoon = new CSVJustoon(); }
+	if (!m_Justoon->ReadFile(m_CPFileList.value(CP_JUSTOON))) { return false; }
+	m_Justoon->SetItem();
+
+	double total = m_Justoon->GetTotalAmount();
+	double calculator = m_Justoon->GetCalcAmount();
+	double author = m_Justoon->GetAuthorAmount();
+
+	QTableView* view = m_Justoon->GetView();
+	AddTab(view, CP_NAME.at(CP_JUSTOON));
+
+	return true;
+}
+
+
 void CalcCPDlg::DeleteKyobo()
 {
 	if (m_Kyobo) {
@@ -713,6 +746,14 @@ void CalcCPDlg::DeleteKepub()
 	if (m_Kepub) {
 		delete m_Kepub;
 		m_Kepub = 0;
+	}
+}
+
+void CalcCPDlg::DeleteJustoon()
+{
+	if (m_Justoon) {
+		delete m_Justoon;
+		m_Justoon = 0;
 	}
 }
 
@@ -939,6 +980,11 @@ bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
 		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KEPUB) + ".csv";
 		m_Kepub->WriteFile(temp);
 	}
+	if (m_Justoon) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_JUSTOON) + ".csv";
+		m_Justoon->WriteFile(temp);
+	}
+
 
 	QApplication::restoreOverrideCursor();
 	return true;

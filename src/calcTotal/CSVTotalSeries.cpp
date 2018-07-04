@@ -116,7 +116,7 @@ void CSVTotalSeries::SetSeriesTable()
 		QMap<int, double>::const_iterator amountHash = bookHash.value().constBegin();
 		while (amountHash != bookHash.value().constEnd()) {
 
-			//qDebug() << amountHash.key() << ": " << amountHash.value();
+			//qDebug() << amountHash.key() << ": " << QString("%L1").arg(amountHash.value(), 0, 'f', 0);
 			// Amount by CP
 			m_CSVModel->setData(m_CSVModel->index(row, amountHash.key()), QString("%L1").arg(amountHash.value(), 0, 'f', 0));
 
@@ -138,7 +138,8 @@ void CSVTotalSeries::SetSeriesTable()
 				|| COLUMN_KAKAO_TOTAL == amountHash.key()
 				|| COLUMN_COMICO_TOTAL == amountHash.key()
 				|| COLUMN_TOCSODA_TOTAL == amountHash.key()
-				|| COLUMN_KEPUB_TOTAL == amountHash.key()) {
+				|| COLUMN_KEPUB_TOTAL == amountHash.key()
+				|| COLUMN_JUSTOON_TOTAL == amountHash.key()) {
 
 				totalAmountSeries += amountHash.value();
 			}
@@ -155,7 +156,8 @@ void CSVTotalSeries::SetSeriesTable()
 				|| COLUMN_KAKAO_CALC == amountHash.key()
 				|| COLUMN_COMICO_CALC == amountHash.key()
 				|| COLUMN_TOCSODA_CALC == amountHash.key()
-				|| COLUMN_KEPUB_CALC == amountHash.key()) {
+				|| COLUMN_KEPUB_CALC == amountHash.key()
+				|| COLUMN_JUSTOON_CALC == amountHash.key()) {
 
 				calcAmountSeries += amountHash.value();
 
@@ -173,7 +175,8 @@ void CSVTotalSeries::SetSeriesTable()
 				|| COLUMN_KAKAO_AUTHOR == amountHash.key()
 				|| COLUMN_COMICO_AUTHOR == amountHash.key()
 				|| COLUMN_TOCSODA_AUTHOR == amountHash.key()
-				|| COLUMN_KEPUB_AUTHOR == amountHash.key()) {
+				|| COLUMN_KEPUB_AUTHOR == amountHash.key()
+				|| COLUMN_JUSTOON_AUTHOR == amountHash.key()) {
 
 				authorAmountSeries += amountHash.value();
 			}
@@ -1178,6 +1181,73 @@ void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 	}
 }
 
+void CSVTotalSeries::MakeSeriesJustoon(QStandardItemModel* item)
+{
+	int headerTitle = 0;
+	int headerTotal = -1;
+	int headerCalc = -1;
+	int headerAuthor = -1;
+
+	int bookTotal = 0;
+	int bookCalc = 0;
+	int bookAuthor = 0;
+
+	headerTitle = CSVJustoon::HEADER_JUSTOON_TITLE;
+	headerTotal = CSVJustoon::HEADER_JUSTOON_TOTAL_AMOUNT;
+	headerCalc = CSVJustoon::HEADER_JUSTOON_TOTAL_RS_AMOUNT;
+
+	bookTotal = COLUMN_JUSTOON_TOTAL;
+	bookCalc = COLUMN_JUSTOON_CALC;
+	bookAuthor = COLUMN_JUSTOON_AUTHOR;
+
+	QString title;
+
+	double total = 0;
+	double calc = 0;
+	double author = 0;
+
+	QMap<int, double> amountList;
+
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
+
+		amountList.clear();
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
+		title = GetSeriesName(item->data(item->index(row, headerTitle)).toString());
+		if (title.isEmpty()) { continue; }
+
+		total += item->data(item->index(row, headerTotal)).toString().replace(",", "").toDouble();
+		calc = item->data(item->index(row, headerCalc)).toString().replace(",", "").toDouble();
+		author = calc * 0.7;
+
+		// exist
+		if (m_SeriesList.contains(title)) {
+			// find book
+			amountList = m_SeriesList.value(title);
+			// update amount
+			total += amountList.value(bookTotal);
+			calc += amountList.value(bookCalc);
+			author += amountList.value(bookAuthor);
+		}
+		//for debug
+		//qDebug() << "[MakeSeriesTocsoda]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+
+		amountList.insert(bookTotal, total);
+		amountList.insert(bookCalc, calc);
+		amountList.insert(bookAuthor, author);
+
+		// update book
+		m_SeriesList.insert(title, amountList);	// replace item
+	}
+}
+
 void CSVTotalSeries::SetItem(CalcCPDlg* cpData)
 {
 	m_SeriesList.clear();
@@ -1224,6 +1294,9 @@ void CSVTotalSeries::SetItem(CalcCPDlg* cpData)
 	}
 	if (cpData->GetKepub()) {
 		MakeSeriesKepub(cpData->GetKepub()->GetItem());
+	}
+	if (cpData->GetJustoon()) {
+		MakeSeriesJustoon(cpData->GetJustoon()->GetItem());
 	}
 
 	// init book list
