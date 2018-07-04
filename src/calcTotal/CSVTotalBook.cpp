@@ -1236,6 +1236,9 @@ void CSVTotalBook::MakeBookJustoon(QStandardItemModel* item)
 		if (title.isEmpty()) { continue; }
 
 		total += item->data(item->index(row, headerTotal)).toString().replace(",", "").toDouble();
+		total += item->data(item->index(row+1, headerTotal)).toString().replace(",", "").toDouble();	// inapp for google
+		total += item->data(item->index(row+2, headerTotal)).toString().replace(",", "").toDouble();	// inapp for ios
+		total += item->data(item->index(row+3, headerTotal)).toString().replace(",", "").toDouble();	// inapp for onestore
 		calc = item->data(item->index(row, headerCalc)).toString().replace(",", "").toDouble();
 		author = calc * 0.7;
 
