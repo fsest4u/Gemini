@@ -58,12 +58,12 @@ set( CALC_CP_FILES
 	calcCP/CSVComico.cpp
 	calcCP/CSVTocsoda.h
 	calcCP/CSVTocsoda.cpp
-	calcCP/CSVKepub.h
-	calcCP/CSVKepub.cpp
 	calcCP/CSVJustoon.h
 	calcCP/CSVJustoon.cpp
 	calcCP/CSVGoogle.h
 	calcCP/CSVGoogle.cpp
+	calcCP/CSVKepub.h
+	calcCP/CSVKepub.cpp
 )
 
 set( CALC_TOTAL_FILES 

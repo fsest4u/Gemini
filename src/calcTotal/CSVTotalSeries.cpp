@@ -138,9 +138,9 @@ void CSVTotalSeries::SetSeriesTable()
 				|| COLUMN_KAKAO_TOTAL == amountHash.key()
 				|| COLUMN_COMICO_TOTAL == amountHash.key()
 				|| COLUMN_TOCSODA_TOTAL == amountHash.key()
-				|| COLUMN_KEPUB_TOTAL == amountHash.key()
 				|| COLUMN_JUSTOON_TOTAL == amountHash.key()
-				|| COLUMN_GOOGLE_TOTAL == amountHash.key()) {
+				|| COLUMN_GOOGLE_TOTAL == amountHash.key()
+				|| COLUMN_KEPUB_TOTAL == amountHash.key()) {
 
 				totalAmountSeries += amountHash.value();
 			}
@@ -157,9 +157,9 @@ void CSVTotalSeries::SetSeriesTable()
 				|| COLUMN_KAKAO_CALC == amountHash.key()
 				|| COLUMN_COMICO_CALC == amountHash.key()
 				|| COLUMN_TOCSODA_CALC == amountHash.key()
-				|| COLUMN_KEPUB_CALC == amountHash.key()
 				|| COLUMN_JUSTOON_CALC == amountHash.key()
-				|| COLUMN_GOOGLE_CALC == amountHash.key()) {
+				|| COLUMN_GOOGLE_CALC == amountHash.key()
+				|| COLUMN_KEPUB_CALC == amountHash.key()) {
 
 				calcAmountSeries += amountHash.value();
 
@@ -177,9 +177,9 @@ void CSVTotalSeries::SetSeriesTable()
 				|| COLUMN_KAKAO_AUTHOR == amountHash.key()
 				|| COLUMN_COMICO_AUTHOR == amountHash.key()
 				|| COLUMN_TOCSODA_AUTHOR == amountHash.key()
-				|| COLUMN_KEPUB_AUTHOR == amountHash.key()
 				|| COLUMN_JUSTOON_AUTHOR == amountHash.key()
-				|| COLUMN_GOOGLE_AUTHOR == amountHash.key()) {
+				|| COLUMN_GOOGLE_AUTHOR == amountHash.key()
+				|| COLUMN_KEPUB_AUTHOR == amountHash.key()) {
 
 				authorAmountSeries += amountHash.value();
 			}
@@ -1113,77 +1113,6 @@ void CSVTotalSeries::MakeSeriesTocsoda(QStandardItemModel* item)
 	}
 }
 
-void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
-{
-	int headerTitle = 0;
-	QList<int> headerTotal;	headerTotal.clear();
-	int headerCalc = -1;
-	int headerAuthor = -1;
-
-	int bookTotal = 0;
-	int bookCalc = 0;
-	int bookAuthor = 0;
-
-	headerTitle = CSVKepub::HEADER_KEPUB_TITLE;
-	headerTotal.insert(0, CSVKepub::HEADER_KEPUB_STORE_PRICE);
-	headerTotal.insert(1, CSVKepub::HEADER_KEPUB_STORE_REFUND_PRICE);
-	headerCalc = CSVKepub::HEADER_KEPUB_CALCULATOR_AMOUNT;
-
-	bookTotal = COLUMN_KEPUB_TOTAL;
-	bookCalc = COLUMN_KEPUB_CALC;
-	bookAuthor = COLUMN_KEPUB_AUTHOR;
-
-	QString title;
-
-	double total = 0;
-	double calc = 0;
-	double author = 0;
-
-	QMap<int, double> amountList;
-	
-	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
-
-		amountList.clear();
-		
-		total = 0;
-		calc = 0;
-		author = 0;
-
-		title = GetSeriesName(item->data(item->index(row, headerTitle)).toString());
-		if (title.isEmpty()) { continue; }
-
-		// case ridi, comico, kepub
-		total += item->data(item->index(row, headerTotal.at(0))).toString().replace(",", "").toDouble();
-		total -= item->data(item->index(row, headerTotal.at(1))).toString().replace(",", "").toDouble();
-
-		calc = item->data(item->index(row, headerCalc)).toString().replace(",", "").toDouble();
-		author = calc * 0.7;
-
-		// exist
-		if (m_SeriesList.contains(title)) {
-			// find book
-			amountList = m_SeriesList.value(title);
-			// update amount
-			total += amountList.value(bookTotal);
-			calc += amountList.value(bookCalc);
-			author += amountList.value(bookAuthor);
-		}
-		//for debug
-		//qDebug() << "[MakeSeriesKepub]-----------------------------";
-		//qDebug() << "Title : " << title;
-		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
-		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
-		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
-
-		amountList.insert(bookTotal, total);
-		amountList.insert(bookCalc, calc);
-		amountList.insert(bookAuthor, author);
-
-		// update book
-		m_SeriesList.insert(title, amountList);	// replace item
-	}
-}
-
 void CSVTotalSeries::MakeSeriesJustoon(QStandardItemModel* item)
 {
 	int headerTitle = 0;
@@ -1239,7 +1168,7 @@ void CSVTotalSeries::MakeSeriesJustoon(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		//qDebug() << "[MakeSeriesTocsoda]-----------------------------";
+		//qDebug() << "[MakeSeriesJustoon]-----------------------------";
 		//qDebug() << "Title : " << title;
 		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
 		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
@@ -1306,7 +1235,78 @@ void CSVTotalSeries::MakeSeriesGoogle(QStandardItemModel* item)
 			author += amountList.value(bookAuthor);
 		}
 		//for debug
-		//qDebug() << "[MakeSeriesNaver]-----------------------------";
+		//qDebug() << "[MakeSeriesGoogle]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+
+		amountList.insert(bookTotal, total);
+		amountList.insert(bookCalc, calc);
+		amountList.insert(bookAuthor, author);
+
+		// update book
+		m_SeriesList.insert(title, amountList);	// replace item
+	}
+}
+
+void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
+{
+	int headerTitle = 0;
+	QList<int> headerTotal;	headerTotal.clear();
+	int headerCalc = -1;
+	int headerAuthor = -1;
+
+	int bookTotal = 0;
+	int bookCalc = 0;
+	int bookAuthor = 0;
+
+	headerTitle = CSVKepub::HEADER_KEPUB_TITLE;
+	headerTotal.insert(0, CSVKepub::HEADER_KEPUB_STORE_PRICE);
+	headerTotal.insert(1, CSVKepub::HEADER_KEPUB_STORE_REFUND_PRICE);
+	headerCalc = CSVKepub::HEADER_KEPUB_CALCULATOR_AMOUNT;
+
+	bookTotal = COLUMN_KEPUB_TOTAL;
+	bookCalc = COLUMN_KEPUB_CALC;
+	bookAuthor = COLUMN_KEPUB_AUTHOR;
+
+	QString title;
+
+	double total = 0;
+	double calc = 0;
+	double author = 0;
+
+	QMap<int, double> amountList;
+
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
+
+		amountList.clear();
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
+		title = GetSeriesName(item->data(item->index(row, headerTitle)).toString());
+		if (title.isEmpty()) { continue; }
+
+		// case ridi, comico, kepub
+		total += item->data(item->index(row, headerTotal.at(0))).toString().replace(",", "").toDouble();
+		total -= item->data(item->index(row, headerTotal.at(1))).toString().replace(",", "").toDouble();
+
+		calc = item->data(item->index(row, headerCalc)).toString().replace(",", "").toDouble();
+		author = calc * 0.7;
+
+		// exist
+		if (m_SeriesList.contains(title)) {
+			// find book
+			amountList = m_SeriesList.value(title);
+			// update amount
+			total += amountList.value(bookTotal);
+			calc += amountList.value(bookCalc);
+			author += amountList.value(bookAuthor);
+		}
+		//for debug
+		//qDebug() << "[MakeSeriesKepub]-----------------------------";
 		//qDebug() << "Title : " << title;
 		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
 		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
@@ -1365,14 +1365,14 @@ void CSVTotalSeries::SetItem(CalcCPDlg* cpData)
 	if (cpData->GetTocsoda()) {
 		MakeSeriesTocsoda(cpData->GetTocsoda()->GetItem());
 	}
-	if (cpData->GetKepub()) {
-		MakeSeriesKepub(cpData->GetKepub()->GetItem());
-	}
 	if (cpData->GetJustoon()) {
 		MakeSeriesJustoon(cpData->GetJustoon()->GetItem());
 	}
 	if (cpData->GetGoogle()) {
 		MakeSeriesGoogle(cpData->GetGoogle()->GetItem());
+	}
+	if (cpData->GetKepub()) {
+		MakeSeriesKepub(cpData->GetKepub()->GetItem());
 	}
 
 	// init book list

@@ -536,46 +536,6 @@
      </layout>
     </item>
     <item row="13" column="0" colspan="2">
-     <layout class="QGridLayout" name="KepubLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="KepubCheckBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>한국이퍼브</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="KepubFilepath">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="KepubFileButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="14" column="0" colspan="2">
      <layout class="QGridLayout" name="JustoonLayout">
       <item row="0" column="0">
        <widget class="QCheckBox" name="JustoonCheckBox">
@@ -615,7 +575,7 @@
       </item>
      </layout>
     </item>
-    <item row="15" column="0" colspan="2">
+    <item row="14" column="0" colspan="2">
      <layout class="QGridLayout" name="GoogleLayout">
       <item row="0" column="0">
        <widget class="QCheckBox" name="GoogleCheckBox">
@@ -645,6 +605,46 @@
       </item>
       <item row="0" column="2">
        <widget class="QToolButton" name="GoogleFileButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="15" column="0" colspan="2">
+     <layout class="QGridLayout" name="KepubLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="KepubCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>한국이퍼브</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="KepubFilepath">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="KepubFileButton">
         <property name="enabled">
          <bool>true</bool>
         </property>

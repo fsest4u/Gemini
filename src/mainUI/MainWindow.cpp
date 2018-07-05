@@ -75,9 +75,9 @@ void MainWindow::InitUI()
 	ui->KakaoFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KAKAO]);
 	ui->ComicoFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_COMICO]);
 	ui->TocsodaFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_TOCSODA]);
-	ui->KepubFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
 	ui->JustoonFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_JUSTOON]);
 	ui->GoogleFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_GOOGLE]);
+	ui->KepubFilepath->setText(m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
 
 }
 
@@ -108,9 +108,9 @@ void MainWindow::ReadSettings()
 	m_CSVFileNames[CalcCPDlg::CP_KAKAO] = settings.value("lastcsvkakao", QDir::homePath()).toString();
 	m_CSVFileNames[CalcCPDlg::CP_COMICO] = settings.value("lastcsvcomico", QDir::homePath()).toString();
 	m_CSVFileNames[CalcCPDlg::CP_TOCSODA] = settings.value("lastcsvtocsoda", QDir::homePath()).toString();
-	m_CSVFileNames[CalcCPDlg::CP_KEPUB] = settings.value("lastcsvkepub", QDir::homePath()).toString();
 	m_CSVFileNames[CalcCPDlg::CP_JUSTOON] = settings.value("lastcsvjustoon", QDir::homePath()).toString();
 	m_CSVFileNames[CalcCPDlg::CP_GOOGLE] = settings.value("lastcsvgoogle", QDir::homePath()).toString();
+	m_CSVFileNames[CalcCPDlg::CP_KEPUB] = settings.value("lastcsvkepub", QDir::homePath()).toString();
 
 	settings.endGroup();
 
@@ -139,9 +139,9 @@ void MainWindow::WriteSettings()
 	settings.setValue("lastcsvkakao", m_CSVFileNames[CalcCPDlg::CP_KAKAO]);
 	settings.setValue("lastcsvcomico", m_CSVFileNames[CalcCPDlg::CP_COMICO]);
 	settings.setValue("lastcsvtocsoda", m_CSVFileNames[CalcCPDlg::CP_TOCSODA]);
-	settings.setValue("lastcsvkepub", m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
 	settings.setValue("lastcsvjustoon", m_CSVFileNames[CalcCPDlg::CP_JUSTOON]);
 	settings.setValue("lastcsvgoogle", m_CSVFileNames[CalcCPDlg::CP_GOOGLE]);
+	settings.setValue("lastcsvkepub", m_CSVFileNames[CalcCPDlg::CP_KEPUB]);
 
 	settings.endGroup();
 }
@@ -161,9 +161,9 @@ void MainWindow::ConnectSignalsToSlots()
 	connect(ui->KakaoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckKakao(int)));
 	connect(ui->ComicoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckComico(int)));
 	connect(ui->TocsodaCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckTocsoda(int)));
-	connect(ui->KepubCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckKepub(int)));
 	connect(ui->JustoonCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckJustoon(int)));
 	connect(ui->GoogleCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckGoogle(int)));
+	connect(ui->KepubCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckKepub(int)));
 
 	connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(SetCPFiles()));
 
@@ -396,18 +396,6 @@ void MainWindow::SetCheckTocsoda(int state)
 	}
 }
 
-void MainWindow::SetCheckKepub(int state)
-{
-	if (Qt::Checked == state) {
-		ui->KepubFilepath->setEnabled(true);
-		ui->KepubFileButton->setEnabled(true);
-	}
-	else {
-		ui->KepubFilepath->setEnabled(false);
-		ui->KepubFileButton->setEnabled(false);
-	}
-}
-
 void MainWindow::SetCheckJustoon(int state)
 {
 	if (Qt::Checked == state) {
@@ -429,6 +417,18 @@ void MainWindow::SetCheckGoogle(int state)
 	else {
 		ui->GoogleFilepath->setEnabled(false);
 		ui->GoogleFileButton->setEnabled(false);
+	}
+}
+
+void MainWindow::SetCheckKepub(int state)
+{
+	if (Qt::Checked == state) {
+		ui->KepubFilepath->setEnabled(true);
+		ui->KepubFileButton->setEnabled(true);
+	}
+	else {
+		ui->KepubFilepath->setEnabled(false);
+		ui->KepubFileButton->setEnabled(false);
 	}
 }
 
@@ -489,14 +489,14 @@ void MainWindow::SetFilePath(int type)
 	case CalcCPDlg::CP_TOCSODA:
 		ui->TocsodaFilepath->setText(filename);
 		break;
-	case CalcCPDlg::CP_KEPUB:
-		ui->KepubFilepath->setText(filename);
-		break;
 	case CalcCPDlg::CP_JUSTOON:
 		ui->JustoonFilepath->setText(filename);
 		break;
 	case CalcCPDlg::CP_GOOGLE:
 		ui->GoogleFilepath->setText(filename);
+		break;
+	case CalcCPDlg::CP_KEPUB:
+		ui->KepubFilepath->setText(filename);
 		break;
 	}
 
@@ -556,16 +556,16 @@ void MainWindow::on_TocsodaFileButton_clicked(){
 	SetFilePath(CalcCPDlg::CP_TOCSODA);
 }
 
-void MainWindow::on_KepubFileButton_clicked(){
-	SetFilePath(CalcCPDlg::CP_KEPUB);
-}
-
 void MainWindow::on_JustoonFileButton_clicked() {
 	SetFilePath(CalcCPDlg::CP_JUSTOON);
 }
 
 void MainWindow::on_GoogleFileButton_clicked() {
 	SetFilePath(CalcCPDlg::CP_GOOGLE);
+}
+
+void MainWindow::on_KepubFileButton_clicked() {
+	SetFilePath(CalcCPDlg::CP_KEPUB);
 }
 
 void MainWindow::SetCPFiles()
@@ -688,15 +688,6 @@ void MainWindow::SetCPFiles()
 		}
 		cpFileList[CalcCPDlg::CP_TOCSODA] = ui->TocsodaFilepath->text();
 	}
-	if (Qt::Checked == ui->KepubCheckBox->checkState()) {
-		if (ui->KepubFilepath->text().isEmpty()) {
-			QMessageBox::warning(this
-				, tr(QCoreApplication::applicationName().toStdString().c_str())
-				, tr("Kepub file path is empty."));
-			return;
-		}
-		cpFileList[CalcCPDlg::CP_KEPUB] = ui->KepubFilepath->text();
-	}
 	if (Qt::Checked == ui->JustoonCheckBox->checkState()) {
 		if (ui->JustoonFilepath->text().isEmpty()) {
 			QMessageBox::warning(this
@@ -714,6 +705,15 @@ void MainWindow::SetCPFiles()
 			return;
 		}
 		cpFileList[CalcCPDlg::CP_GOOGLE] = ui->GoogleFilepath->text();
+	}
+	if (Qt::Checked == ui->KepubCheckBox->checkState()) {
+		if (ui->KepubFilepath->text().isEmpty()) {
+			QMessageBox::warning(this
+				, tr(QCoreApplication::applicationName().toStdString().c_str())
+				, tr("Kepub file path is empty."));
+			return;
+		}
+		cpFileList[CalcCPDlg::CP_KEPUB] = ui->KepubFilepath->text();
 	}
 
 	// for debug

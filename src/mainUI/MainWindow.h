@@ -51,9 +51,9 @@ private slots:
 	void SetCheckKakao(int);
 	void SetCheckComico(int);
 	void SetCheckTocsoda(int);
-	void SetCheckKepub(int);
 	void SetCheckJustoon(int);
 	void SetCheckGoogle(int);
+	void SetCheckKepub(int);
 
 	void on_KyoboFileButton_clicked();
 	void on_NaverFileButton_clicked();
@@ -68,9 +68,9 @@ private slots:
 	void on_KakaoFileButton_clicked();
 	void on_ComicoFileButton_clicked();
 	void on_TocsodaFileButton_clicked();
-	void on_KepubFileButton_clicked();
 	void on_JustoonFileButton_clicked();
 	void on_GoogleFileButton_clicked();
+	void on_KepubFileButton_clicked();
 
 
 	void SetCPFiles();

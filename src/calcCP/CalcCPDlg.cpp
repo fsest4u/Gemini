@@ -20,8 +20,8 @@
 // The CP_TYPE and order must match.
 const QStringList CP_NAME = QStringList() << "KYOBO" << "NAVER" << "RIDI" << "MUNPIA" \
 							<< "MRBLUE" << "BAROBOOK" << "BOOKCUBE" << "EPYRUS" << "OEBOOK" \
-							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "KEPUB"  \
-							<< "JUSTOON" << "GOOGLE";
+							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "JUSTOON"  \
+							<< "GOOGLE" << "KEPUB";
 
 const int PROGRESS_BAR_MINIMUM_DURATION = 500;
 
@@ -41,9 +41,9 @@ CalcCPDlg::CalcCPDlg(QDialog *parent) :
 	, m_Kakao(NULL)
 	, m_Comico(NULL)
 	, m_Tocsoda(NULL)
-	, m_Kepub(NULL)
 	, m_Justoon(NULL)
 	, m_Google(NULL)
+	, m_Kepub(NULL)
 	, m_Progress(NULL)
 
 {
@@ -69,6 +69,8 @@ CalcCPDlg::~CalcCPDlg()
 	DeleteKakao();
 	DeleteComico();
 	DeleteTocsoda();
+	DeleteJustoon();
+	DeleteGoogle();
 	DeleteKepub();
 
 	if (m_Progress) {
@@ -269,15 +271,6 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 		QApplication::restoreOverrideCursor();
 		return false;
 	}
-	if (!CalcKepub()) {
-		QMessageBox::warning(this
-			, tr(QCoreApplication::applicationName().toStdString().c_str())
-			, tr("Check the %1 file.").arg(CP_NAME.at(CP_KEPUB)));
-
-		m_Progress->accept();
-		QApplication::restoreOverrideCursor();
-		return false;
-	}
 	if (!CalcJustoon()) {
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
@@ -291,6 +284,15 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
 			, tr("Check the %1 file.").arg(CP_NAME.at(CP_GOOGLE)));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcKepub()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_KEPUB)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -602,29 +604,6 @@ bool CalcCPDlg::CalcTocsoda()
 	return true;
 }
 
-bool CalcCPDlg::CalcKepub()
-{
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_KEPUB)));
-	m_Progress->setValue(CP_KEPUB);
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-
-	if (m_CPFileList.value(CP_KEPUB).isEmpty()) { return true; }
-
-	if (!m_Kepub) { m_Kepub = new CSVKepub(); }
-	if (!m_Kepub->ReadFile(m_CPFileList.value(CP_KEPUB))) { return false; }
-	m_Kepub->SetItem();
-
-	QList<double> total = m_Kepub->GetTotalAmount();
-	QList<double> calculator = m_Kepub->GetCalcAmount();
-	QList<double> author = m_Kepub->GetAuthorAmount();
-
-	QTableView* view = m_Kepub->GetView();
-	//AddTab4ListLabel(view, CP_NAME.at(CP_KEPUB), total, calculator, author);
-	AddTab(view, CP_NAME.at(CP_KEPUB));
-
-	return true;
-}
-
 bool CalcCPDlg::CalcJustoon()
 {
 	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_JUSTOON)));
@@ -665,6 +644,29 @@ bool CalcCPDlg::CalcGoogle()
 
 	QTableView* view = m_Google->GetView();
 	AddTab(view, CP_NAME.at(CP_GOOGLE));
+
+	return true;
+}
+
+bool CalcCPDlg::CalcKepub()
+{
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_KEPUB)));
+	m_Progress->setValue(CP_KEPUB);
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+
+	if (m_CPFileList.value(CP_KEPUB).isEmpty()) { return true; }
+
+	if (!m_Kepub) { m_Kepub = new CSVKepub(); }
+	if (!m_Kepub->ReadFile(m_CPFileList.value(CP_KEPUB))) { return false; }
+	m_Kepub->SetItem();
+
+	QList<double> total = m_Kepub->GetTotalAmount();
+	QList<double> calculator = m_Kepub->GetCalcAmount();
+	QList<double> author = m_Kepub->GetAuthorAmount();
+
+	QTableView* view = m_Kepub->GetView();
+	//AddTab4ListLabel(view, CP_NAME.at(CP_KEPUB), total, calculator, author);
+	AddTab(view, CP_NAME.at(CP_KEPUB));
 
 	return true;
 }
@@ -773,14 +775,6 @@ void CalcCPDlg::DeleteTocsoda()
 	}
 }
 
-void CalcCPDlg::DeleteKepub()
-{
-	if (m_Kepub) {
-		delete m_Kepub;
-		m_Kepub = 0;
-	}
-}
-
 void CalcCPDlg::DeleteJustoon()
 {
 	if (m_Justoon) {
@@ -794,6 +788,14 @@ void CalcCPDlg::DeleteGoogle()
 	if (m_Google) {
 		delete m_Google;
 		m_Google = 0;
+	}
+}
+
+void CalcCPDlg::DeleteKepub()
+{
+	if (m_Kepub) {
+		delete m_Kepub;
+		m_Kepub = 0;
 	}
 }
 
@@ -1016,10 +1018,6 @@ bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
 		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_TOCSODA) + ".csv";
 		m_Tocsoda->WriteFile(temp);
 	}
-	if (m_Kepub) {
-		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KEPUB) + ".csv";
-		m_Kepub->WriteFile(temp);
-	}
 	if (m_Justoon) {
 		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_JUSTOON) + ".csv";
 		m_Justoon->WriteFile(temp);
@@ -1028,7 +1026,10 @@ bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
 		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_GOOGLE) + ".csv";
 		m_Google->WriteFile(temp);
 	}
-
+	if (m_Kepub) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_KEPUB) + ".csv";
+		m_Kepub->WriteFile(temp);
+	}
 
 	QApplication::restoreOverrideCursor();
 	return true;

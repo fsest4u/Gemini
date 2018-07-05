@@ -28,9 +28,9 @@
 #include "CSVKakao.h"
 #include "CSVComico.h"
 #include "CSVTocsoda.h"
-#include "CSVKepub.h"
 #include "CSVJustoon.h"
 #include "CSVGoogle.h"
+#include "CSVKepub.h"
 
 #include "ui_CalcCPDlg.h"
 
@@ -54,9 +54,9 @@ public:
 		CP_KAKAO,
 		CP_COMICO,
 		CP_TOCSODA,
-		CP_KEPUB,
 		CP_JUSTOON,
 		CP_GOOGLE,
+		CP_KEPUB,
 		CP_MAX
 	};
 
@@ -83,9 +83,9 @@ public:
 	CSVKakao*			GetKakao() { return m_Kakao; }
 	CSVComico*			GetComico() { return m_Comico; }
 	CSVTocsoda*			GetTocsoda() { return m_Tocsoda; }
-	CSVKepub*			GetKepub() { return m_Kepub; }
 	CSVJustoon*			GetJustoon() { return m_Justoon; }
 	CSVGoogle*			GetGoogle() { return m_Google; }
+	CSVKepub*			GetKepub() { return m_Kepub; }
 
 private slots:
 
@@ -119,9 +119,9 @@ private:
 	bool CalcKakao();
 	bool CalcComico();
 	bool CalcTocsoda();
-	bool CalcKepub();
 	bool CalcJustoon();
 	bool CalcGoogle();
+	bool CalcKepub();
 
 	void DeleteKyobo();
 	void DeleteNaver();
@@ -136,9 +136,9 @@ private:
 	void DeleteKakao();
 	void DeleteComico();
 	void DeleteTocsoda();
-	void DeleteKepub();
 	void DeleteJustoon();
 	void DeleteGoogle();
+	void DeleteKepub();
 
 	
 
@@ -161,9 +161,9 @@ private:
 	CSVKakao*			m_Kakao;
 	CSVComico*			m_Comico;
 	CSVTocsoda*			m_Tocsoda;
-	CSVKepub*			m_Kepub;
 	CSVJustoon*			m_Justoon;
 	CSVGoogle*			m_Google;
+	CSVKepub*			m_Kepub;
 
 	QProgressDialog*	m_Progress;
 

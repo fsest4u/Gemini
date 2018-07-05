@@ -80,15 +80,15 @@ public:
 		COLUMN_TOCSODA_TOTAL,
 		COLUMN_TOCSODA_CALC,
 		COLUMN_TOCSODA_AUTHOR,
-		COLUMN_KEPUB_TOTAL,
-		COLUMN_KEPUB_CALC,
-		COLUMN_KEPUB_AUTHOR,
 		COLUMN_JUSTOON_TOTAL,
 		COLUMN_JUSTOON_CALC,
 		COLUMN_JUSTOON_AUTHOR,
 		COLUMN_GOOGLE_TOTAL,
 		COLUMN_GOOGLE_CALC,
 		COLUMN_GOOGLE_AUTHOR,
+		COLUMN_KEPUB_TOTAL,
+		COLUMN_KEPUB_CALC,
+		COLUMN_KEPUB_AUTHOR,
 		COLUMN_MAX
 	};
 
@@ -117,9 +117,9 @@ public:
 	void MakeSeriesKakao(QStandardItemModel* item);
 	void MakeSeriesComico(QStandardItemModel* item);
 	void MakeSeriesTocsoda(QStandardItemModel* item);
-	void MakeSeriesKepub(QStandardItemModel* item);
 	void MakeSeriesJustoon(QStandardItemModel* item);
 	void MakeSeriesGoogle(QStandardItemModel* item);
+	void MakeSeriesKepub(QStandardItemModel* item);
 
 	void SetItem(CalcCPDlg* cpData);
 	QStandardItemModel* GetItem() { return m_CSVModel; }
