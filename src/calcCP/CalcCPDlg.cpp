@@ -20,7 +20,8 @@
 // The CP_TYPE and order must match.
 const QStringList CP_NAME = QStringList() << "KYOBO" << "NAVER" << "RIDI" << "MUNPIA" \
 							<< "MRBLUE" << "BAROBOOK" << "BOOKCUBE" << "EPYRUS" << "OEBOOK" \
-							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "KEPUB" << "JUSTOON";
+							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "KEPUB"  \
+							<< "JUSTOON" << "GOOGLE";
 
 const int PROGRESS_BAR_MINIMUM_DURATION = 500;
 
@@ -42,6 +43,7 @@ CalcCPDlg::CalcCPDlg(QDialog *parent) :
 	, m_Tocsoda(NULL)
 	, m_Kepub(NULL)
 	, m_Justoon(NULL)
+	, m_Google(NULL)
 	, m_Progress(NULL)
 
 {
@@ -280,6 +282,15 @@ bool CalcCPDlg::SetCP(QHash<int, QString>& cpFileList)
 		QMessageBox::warning(this
 			, tr(QCoreApplication::applicationName().toStdString().c_str())
 			, tr("Check the %1 file.").arg(CP_NAME.at(CP_JUSTOON)));
+
+		m_Progress->accept();
+		QApplication::restoreOverrideCursor();
+		return false;
+	}
+	if (!CalcGoogle()) {
+		QMessageBox::warning(this
+			, tr(QCoreApplication::applicationName().toStdString().c_str())
+			, tr("Check the %1 file.").arg(CP_NAME.at(CP_GOOGLE)));
 
 		m_Progress->accept();
 		QApplication::restoreOverrideCursor();
@@ -636,6 +647,27 @@ bool CalcCPDlg::CalcJustoon()
 	return true;
 }
 
+bool CalcCPDlg::CalcGoogle()
+{
+	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg(CP_NAME.at(CalcCPDlg::CP_GOOGLE)));
+	m_Progress->setValue(CP_GOOGLE);
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+
+	if (m_CPFileList.value(CP_GOOGLE).isEmpty()) { return true; }
+
+	if (!m_Google) { m_Google = new CSVGoogle(); }
+	if (!m_Google->ReadFile(m_CPFileList.value(CP_GOOGLE))) { return false; }
+	m_Google->SetItem();
+
+	double total = m_Google->GetTotalAmount();
+	double calculator = m_Google->GetCalcAmount();
+	double author = m_Google->GetAuthorAmount();
+
+	QTableView* view = m_Google->GetView();
+	AddTab(view, CP_NAME.at(CP_GOOGLE));
+
+	return true;
+}
 
 void CalcCPDlg::DeleteKyobo()
 {
@@ -754,6 +786,14 @@ void CalcCPDlg::DeleteJustoon()
 	if (m_Justoon) {
 		delete m_Justoon;
 		m_Justoon = 0;
+	}
+}
+
+void CalcCPDlg::DeleteGoogle()
+{
+	if (m_Google) {
+		delete m_Google;
+		m_Google = 0;
 	}
 }
 
@@ -983,6 +1023,10 @@ bool CalcCPDlg::ExtractCSV(QString lastFolderOpen)
 	if (m_Justoon) {
 		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_JUSTOON) + ".csv";
 		m_Justoon->WriteFile(temp);
+	}
+	if (m_Google) {
+		temp = lastFolderOpen + "\\" + CP_NAME.at(CalcCPDlg::CP_GOOGLE) + ".csv";
+		m_Google->WriteFile(temp);
 	}
 
 

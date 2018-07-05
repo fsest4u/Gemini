@@ -233,6 +233,13 @@ void CSVTotalCP::SetItem(CalcCPDlg* cpData)
 			, QString("%L1").arg(cpData->GetJustoon()->GetCalcAmount(), 0, 'f', 0)
 			, QString("%L1").arg(cpData->GetJustoon()->GetAuthorAmount(), 0, 'f', 0));
 	}
+	if (cpData->GetGoogle()) {
+		m_CSVModel->setHeaderData(CalcCPDlg::CP_GOOGLE + 1, Qt::Horizontal, QString::fromLocal8Bit(CP_NAME.at(CalcCPDlg::CP_GOOGLE).toStdString().c_str()));
+		SetCPTable(CalcCPDlg::CP_GOOGLE + 1
+			, QString("%L1").arg(cpData->GetGoogle()->GetTotalAmount(), 0, 'f', 0)
+			, QString("%L1").arg(cpData->GetGoogle()->GetCalcAmount(), 0, 'f', 0)
+			, QString("%L1").arg(cpData->GetGoogle()->GetAuthorAmount(), 0, 'f', 0));
+	}
 
 	// total amount
 	SetCPTable(0

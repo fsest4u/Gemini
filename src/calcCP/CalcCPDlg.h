@@ -30,23 +30,9 @@
 #include "CSVTocsoda.h"
 #include "CSVKepub.h"
 #include "CSVJustoon.h"
+#include "CSVGoogle.h"
 
 #include "ui_CalcCPDlg.h"
-
-class CSVKyobo;		
-class CSVNaver;		
-class CSVRidi;		
-class CSVMunpia;		
-class CSVMrblue;		
-class CSVBarobook;	
-class CSVBookcube;	
-class CSVEpyrus;		
-class CSVOebook;		
-class CSVOnestore;	
-class CSVKakao;		
-class CSVComico;		
-class CSVTocsoda;		
-class CSVKepub;		
 
 class CalcCPDlg : public QDialog
 {
@@ -70,6 +56,7 @@ public:
 		CP_TOCSODA,
 		CP_KEPUB,
 		CP_JUSTOON,
+		CP_GOOGLE,
 		CP_MAX
 	};
 
@@ -98,6 +85,7 @@ public:
 	CSVTocsoda*			GetTocsoda() { return m_Tocsoda; }
 	CSVKepub*			GetKepub() { return m_Kepub; }
 	CSVJustoon*			GetJustoon() { return m_Justoon; }
+	CSVGoogle*			GetGoogle() { return m_Google; }
 
 private slots:
 
@@ -133,6 +121,7 @@ private:
 	bool CalcTocsoda();
 	bool CalcKepub();
 	bool CalcJustoon();
+	bool CalcGoogle();
 
 	void DeleteKyobo();
 	void DeleteNaver();
@@ -149,6 +138,7 @@ private:
 	void DeleteTocsoda();
 	void DeleteKepub();
 	void DeleteJustoon();
+	void DeleteGoogle();
 
 	
 
@@ -173,6 +163,7 @@ private:
 	CSVTocsoda*			m_Tocsoda;
 	CSVKepub*			m_Kepub;
 	CSVJustoon*			m_Justoon;
+	CSVGoogle*			m_Google;
 
 	QProgressDialog*	m_Progress;
 

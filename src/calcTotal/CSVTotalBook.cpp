@@ -141,7 +141,8 @@ void CSVTotalBook::SetBookTable()
 				|| COLUMN_COMICO_TOTAL == amountHash.key()
 				|| COLUMN_TOCSODA_TOTAL == amountHash.key()
 				|| COLUMN_KEPUB_TOTAL == amountHash.key()
-				|| COLUMN_JUSTOON_TOTAL == amountHash.key()) {
+				|| COLUMN_JUSTOON_TOTAL == amountHash.key()
+				|| COLUMN_GOOGLE_TOTAL == amountHash.key()) {
 
 				totalAmountBook += amountHash.value();
 			}
@@ -159,7 +160,8 @@ void CSVTotalBook::SetBookTable()
 				|| COLUMN_COMICO_CALC == amountHash.key()
 				|| COLUMN_TOCSODA_CALC == amountHash.key()
 				|| COLUMN_KEPUB_CALC == amountHash.key()
-				|| COLUMN_JUSTOON_CALC == amountHash.key()) {
+				|| COLUMN_JUSTOON_CALC == amountHash.key()
+				|| COLUMN_GOOGLE_CALC == amountHash.key()) {
 
 				calcAmountBook += amountHash.value();
 
@@ -178,7 +180,8 @@ void CSVTotalBook::SetBookTable()
 				|| COLUMN_COMICO_AUTHOR == amountHash.key()
 				|| COLUMN_TOCSODA_AUTHOR == amountHash.key()
 				|| COLUMN_KEPUB_AUTHOR == amountHash.key()
-				|| COLUMN_JUSTOON_AUTHOR == amountHash.key()) {
+				|| COLUMN_JUSTOON_AUTHOR == amountHash.key()
+				|| COLUMN_GOOGLE_AUTHOR == amountHash.key()) {
 
 				authorAmountBook += amountHash.value();
 			}
@@ -333,7 +336,7 @@ void CSVTotalBook::MakeBookNaver(QStandardItemModel* item)
 		if (title.isEmpty()) { continue; }
 
 		total += item->data(item->index(row, headerTotal)).toString().replace(",", "").toDouble();
-		// case naver, munpia, onestore
+		// case naver, munpia, onestore, google
 		calc = total * 0.7;
 		author = calc * 0.7;
 
@@ -475,7 +478,7 @@ void CSVTotalBook::MakeBookMunpia(QStandardItemModel* item)
 		if (title.isEmpty()) { continue; }
 
 		total += item->data(item->index(row, headerTotal)).toString().replace(",", "").toDouble();
-		// case naver, munpia, onestore
+		// case naver, munpia, onestore, google
 		calc = total * 0.7;
 		author = calc * 0.7;
 
@@ -878,7 +881,7 @@ void CSVTotalBook::MakeBookOnestore(QStandardItemModel* item)
 		if (title.isEmpty()) { continue; }
 
 		total += item->data(item->index(row, headerTotal)).toString().replace(",", "").toDouble();
-		// case naver, munpia, onestore
+		// case naver, munpia, onestore, google
 		calc = total * 0.7;
 		author = calc * 0.7;
 
@@ -1269,6 +1272,73 @@ void CSVTotalBook::MakeBookJustoon(QStandardItemModel* item)
 
 }
 
+void CSVTotalBook::MakeBookGoogle(QStandardItemModel* item)
+{
+	int headerTitle = 0;
+	int headerTotal = -1;
+	int headerCalc = -1;
+	int headerAuthor = -1;
+
+	int bookTotal = 0;
+	int bookCalc = 0;
+	int bookAuthor = 0;
+
+	headerTitle = CSVGoogle::HEADER_GOOGLE_TITLE;
+	headerTotal = CSVGoogle::HEADER_GOOGLE_TOTAL_AMOUNT;
+
+	bookTotal = COLUMN_GOOGLE_TOTAL;
+	bookCalc = COLUMN_GOOGLE_CALC;
+	bookAuthor = COLUMN_GOOGLE_AUTHOR;
+
+	QString title;
+
+	double total = 0;
+	double calc = 0;
+	double author = 0;
+
+	QMap<int, double> amountList;
+
+	for (int row = CSV_TOTAL_ROW; row < item->rowCount(); row++) {
+
+		amountList.clear();
+
+		total = 0;
+		calc = 0;
+		author = 0;
+
+		title = item->data(item->index(row, headerTitle)).toString();
+		if (title.isEmpty()) { continue; }
+
+		total += item->data(item->index(row, headerTotal)).toString().replace(",", "").toDouble();
+		// case naver, munpia, onestore, google
+		calc = total * 0.7;
+		author = calc * 0.7;
+
+		// exist
+		if (m_BookList.contains(title)) {
+			// find book
+			amountList = m_BookList.value(title);
+			// update amount
+			total += amountList.value(bookTotal);
+			calc += amountList.value(bookCalc);
+			author += amountList.value(bookAuthor);
+		}
+		//for debug
+		//qDebug() << "[MakeBookGoogle]-----------------------------";
+		//qDebug() << "Title : " << title;
+		//qDebug() << QString("Total Amount : %L1").arg(total, 0, 'f', 0);
+		//qDebug() << QString("Calculate Amount : %L1").arg(calc, 0, 'f', 0);
+		//qDebug() << QString("Author Amount : %L1").arg(author, 0, 'f', 0);
+
+		amountList.insert(bookTotal, total);
+		amountList.insert(bookCalc, calc);
+		amountList.insert(bookAuthor, author);
+
+		// update book
+		m_BookList.insert(title, amountList);	// replace item
+	}
+}
+
 // no use
 //void CSVTotalBook::MakeBookList(QStandardItemModel* item, int cp_type)
 //{
@@ -1533,6 +1603,9 @@ void CSVTotalBook::SetItem(CalcCPDlg* cpData)
 	}
 	if (cpData->GetJustoon()) {
 		MakeBookJustoon(cpData->GetJustoon()->GetItem());
+	}
+	if (cpData->GetGoogle()) {
+		MakeBookGoogle(cpData->GetGoogle()->GetItem());
 	}
 
 	// init book list

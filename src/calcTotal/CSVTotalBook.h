@@ -86,6 +86,9 @@ public:
 		COLUMN_JUSTOON_TOTAL,
 		COLUMN_JUSTOON_CALC,
 		COLUMN_JUSTOON_AUTHOR,
+		COLUMN_GOOGLE_TOTAL,
+		COLUMN_GOOGLE_CALC,
+		COLUMN_GOOGLE_AUTHOR,
 		COLUMN_MAX
 	};
 
@@ -115,6 +118,7 @@ public:
 	void MakeBookTocsoda(QStandardItemModel* item);
 	void MakeBookKepub(QStandardItemModel* item);
 	void MakeBookJustoon(QStandardItemModel* item);
+	void MakeBookGoogle(QStandardItemModel* item);
 
 	// no use
 	//void MakeBookList(QStandardItemModel* item, int cp_type);

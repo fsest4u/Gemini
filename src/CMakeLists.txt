@@ -62,6 +62,8 @@ set( CALC_CP_FILES
 	calcCP/CSVKepub.cpp
 	calcCP/CSVJustoon.h
 	calcCP/CSVJustoon.cpp
+	calcCP/CSVGoogle.h
+	calcCP/CSVGoogle.cpp
 )
 
 set( CALC_TOTAL_FILES 

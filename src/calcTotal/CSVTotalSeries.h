@@ -86,6 +86,9 @@ public:
 		COLUMN_JUSTOON_TOTAL,
 		COLUMN_JUSTOON_CALC,
 		COLUMN_JUSTOON_AUTHOR,
+		COLUMN_GOOGLE_TOTAL,
+		COLUMN_GOOGLE_CALC,
+		COLUMN_GOOGLE_AUTHOR,
 		COLUMN_MAX
 	};
 
@@ -116,6 +119,7 @@ public:
 	void MakeSeriesTocsoda(QStandardItemModel* item);
 	void MakeSeriesKepub(QStandardItemModel* item);
 	void MakeSeriesJustoon(QStandardItemModel* item);
+	void MakeSeriesGoogle(QStandardItemModel* item);
 
 	void SetItem(CalcCPDlg* cpData);
 	QStandardItemModel* GetItem() { return m_CSVModel; }
