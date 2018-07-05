@@ -162,6 +162,7 @@ void MainWindow::ConnectSignalsToSlots()
 	connect(ui->ComicoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckComico(int)));
 	connect(ui->TocsodaCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckTocsoda(int)));
 	connect(ui->KepubCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckKepub(int)));
+	connect(ui->JustoonCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckJustoon(int)));
 	connect(ui->GoogleCheckBox, SIGNAL(stateChanged(int)), this, SLOT(SetCheckGoogle(int)));
 
 	connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(SetCPFiles()));
@@ -404,6 +405,18 @@ void MainWindow::SetCheckKepub(int state)
 	else {
 		ui->KepubFilepath->setEnabled(false);
 		ui->KepubFileButton->setEnabled(false);
+	}
+}
+
+void MainWindow::SetCheckJustoon(int state)
+{
+	if (Qt::Checked == state) {
+		ui->JustoonFilepath->setEnabled(true);
+		ui->JustoonFileButton->setEnabled(true);
+	}
+	else {
+		ui->JustoonFilepath->setEnabled(false);
+		ui->JustoonFileButton->setEnabled(false);
 	}
 }
 

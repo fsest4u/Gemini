@@ -52,6 +52,7 @@ private slots:
 	void SetCheckComico(int);
 	void SetCheckTocsoda(int);
 	void SetCheckKepub(int);
+	void SetCheckJustoon(int);
 	void SetCheckGoogle(int);
 
 	void on_KyoboFileButton_clicked();

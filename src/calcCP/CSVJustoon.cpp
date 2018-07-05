@@ -17,8 +17,8 @@
 #include "CSVJustoon.h"
 #include "gemini_constants.h"
 
-const int CSV_HEADER_ROW = 1;
-const int CSV_START_ROW = 5;
+const int CSV_HEADER_ROW = 0;
+const int CSV_START_ROW = 2;
 
 CSVJustoon::CSVJustoon() :
 	m_CSVModel(NULL)
@@ -111,14 +111,6 @@ void CSVJustoon::SetItem()
 	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
 	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(m_AuthorAmount, 0, 'f', 0));
 
-	m_CSVModel->setData(m_CSVModel->index(0, 0), QString::fromLocal8Bit("Total Amount"));
-	m_CSVModel->setData(m_CSVModel->index(0, 1), QString("%L1").arg(m_TotalAmount, 0, 'f', 0));
-
-	m_CSVModel->setData(m_CSVModel->index(1, 0), QString::fromLocal8Bit("Calculate Amount"));
-	m_CSVModel->setData(m_CSVModel->index(1, 1), QString("%L1").arg(m_CalcAmount, 0, 'f', 0));
-
-	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
-	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(m_AuthorAmount, 0, 'f', 0));
 }
 
 QTableView* CSVJustoon::GetView()
