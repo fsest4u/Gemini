@@ -1717,6 +1717,8 @@ QTableView* CSVTotalBook::GetView()
 
 void CSVTotalBook::WriteFile(QString filepath)
 {
+	m_ProgressWidget->InitProgress("Extract Book", 0, m_CSVModel->rowCount(), CalcCPDlg::CP_MAX, CalcCPDlg::CP_MAX);
+
 	QStringList rowData;
 	QtCSV::StringData strData;
 	strData.clear();
@@ -1727,7 +1729,9 @@ void CSVTotalBook::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }

@@ -20,6 +20,7 @@
 #include <QDateTime>
 #include <QtWidgets/QTableView>
 
+class ProgressWidget;
 class CalcCPDlg;
 
 class CSVTotalCP : public QObject
@@ -77,6 +78,7 @@ private:
 	double				m_AuthorAmount;
 	QMap<double, int>	m_RankAmount;
 
+	ProgressWidget* m_ProgressWidget;
 };
 
 #endif // CSV_TOTAL_CP_H

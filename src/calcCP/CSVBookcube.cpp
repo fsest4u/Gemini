@@ -57,6 +57,8 @@ bool CSVBookcube::ReadFile(QString filepath)
 
 void CSVBookcube::WriteFile(QString filepath)
 {
+	m_ProgressWidget->InitProgress("Extract", CSV_START_ROW, m_CSVData.size(), CalcCPDlg::CP_BOOKCUBE, CalcCPDlg::CP_MAX);
+
 	QStringList rowData;
 	QtCSV::StringData strData;
 	strData.clear();
@@ -67,7 +69,9 @@ void CSVBookcube::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }

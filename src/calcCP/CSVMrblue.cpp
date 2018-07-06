@@ -57,6 +57,8 @@ bool CSVMrblue::ReadFile(QString filepath)
 
 void CSVMrblue::WriteFile(QString filepath)
 {
+	m_ProgressWidget->InitProgress("Extract", 0, m_CSVModel->rowCount(), CalcCPDlg::CP_MRBLUE, CalcCPDlg::CP_MAX);
+
 	QStringList rowData;
 	QtCSV::StringData strData;
 	strData.clear();
@@ -67,7 +69,9 @@ void CSVMrblue::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }

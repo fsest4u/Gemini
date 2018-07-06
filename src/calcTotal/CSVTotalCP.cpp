@@ -14,6 +14,7 @@
 #include "qtcsv/writer.h"
 #include "qtcsv/stringdata.h"
 
+#include "misc/ProgressWidget.h"
 #include "calcCP/CalcCpDlg.h"
 #include "CSVTotalCP.h"
 
@@ -22,8 +23,11 @@
 CSVTotalCP::CSVTotalCP() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
+	, m_ProgressWidget(NULL)
 {
 	m_CSVData.clear();
+
+	m_ProgressWidget = new ProgressWidget();
 }
 
 CSVTotalCP::~CSVTotalCP()
@@ -31,6 +35,11 @@ CSVTotalCP::~CSVTotalCP()
 	if (m_CSVModel) {
 		delete m_CSVModel;
 		m_CSVModel = 0;
+	}
+
+	if (m_ProgressWidget) {
+		delete m_ProgressWidget;
+		m_ProgressWidget = NULL;
 	}
 }
 
@@ -284,6 +293,8 @@ QTableView* CSVTotalCP::GetView()
 
 void CSVTotalCP::WriteFile(QString filepath)
 {
+	m_ProgressWidget->InitProgress("Extract CP", 0, m_CSVModel->rowCount(), CalcCPDlg::CP_MAX, CalcCPDlg::CP_MAX);
+
 	QStringList rowData;
 	QtCSV::StringData strData;
 	strData.clear();
@@ -294,7 +305,9 @@ void CSVTotalCP::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }

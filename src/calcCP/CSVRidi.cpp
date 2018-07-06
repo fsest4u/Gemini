@@ -57,7 +57,7 @@ bool CSVRidi::ReadFile(QString filepath)
 
 void CSVRidi::WriteFile(QString filepath)
 {
-	//m_ProgressWidget->InitProgress("Extract", CSV_START_ROW, m_CSVData.size(), CalcCPDlg::CP_RIDI, CalcCPDlg::CP_MAX);
+	m_ProgressWidget->InitProgress("Extract", 0, m_CSVModel->rowCount(), CalcCPDlg::CP_RIDI, CalcCPDlg::CP_MAX);
 
 	QStringList rowData;
 	QtCSV::StringData strData;
@@ -69,9 +69,9 @@ void CSVRidi::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
-		//m_ProgressWidget->SetValue(row);
+		m_ProgressWidget->SetValue(row);
 	}
-	//m_ProgressWidget->Accept();
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }

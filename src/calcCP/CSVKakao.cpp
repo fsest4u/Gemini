@@ -64,6 +64,8 @@ bool CSVKakao::ReadFile(QString filepath)
 
 void CSVKakao::WriteFile(QString filepath)
 {
+	m_ProgressWidget->InitProgress("Extract", 0, m_CSVModel->rowCount(), CalcCPDlg::CP_KAKAO, CalcCPDlg::CP_MAX);
+
 	QStringList rowData;
 	QtCSV::StringData strData;
 	strData.clear();
@@ -74,7 +76,9 @@ void CSVKakao::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }

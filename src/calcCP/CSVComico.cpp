@@ -57,6 +57,8 @@ bool CSVComico::ReadFile(QString filepath)
 
 void CSVComico::WriteFile(QString filepath)
 {
+	m_ProgressWidget->InitProgress("Extract", CSV_START_ROW, m_CSVData.size(), CalcCPDlg::CP_COMICO, CalcCPDlg::CP_MAX);
+
 	QStringList rowData;
 	QtCSV::StringData strData;
 	strData.clear();
@@ -67,7 +69,9 @@ void CSVComico::WriteFile(QString filepath)
 		}
 		//qDebug() << rowData;
 		strData.addRow(rowData);
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
 
 	QtCSV::Writer::write(filepath, strData);
 }
