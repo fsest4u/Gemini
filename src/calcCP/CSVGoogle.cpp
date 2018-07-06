@@ -17,7 +17,7 @@
 #include "CSVGoogle.h"
 #include "gemini_constants.h"
 
-const int CSV_HEADER_ROW = 1;
+const int CSV_HEADER_ROW = 0;
 const int CSV_START_ROW = 1;
 
 CSVGoogle::CSVGoogle() :
