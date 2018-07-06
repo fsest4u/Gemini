@@ -9,11 +9,14 @@
 *************************************************************************/
 
 #include <QtDebug>
+#include <QtWidgets/QProgressDialog>
+#include <QtWidgets/QApplication>
 
 #include "qtcsv/reader.h"
 #include "qtcsv/writer.h"
 #include "qtcsv/stringdata.h"
 
+#include "CalcCPDlg.h"
 #include "CSVOebook.h"
 #include "gemini_constants.h"
 
@@ -23,6 +26,7 @@ const int CSV_START_ROW = 1;
 CSVOebook::CSVOebook() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
+	, m_Progress(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
@@ -33,6 +37,11 @@ CSVOebook::~CSVOebook()
 	if (m_CSVModel) {
 		delete m_CSVModel;
 		m_CSVModel = 0;
+	}
+
+	if (m_Progress) {
+		delete m_Progress;
+		m_Progress = NULL;
 	}
 }
 
@@ -90,6 +99,20 @@ void CSVOebook::SetItem()
 	}
 	m_CSVModel = new QStandardItemModel(m_CSVData.size() + CSV_TOTAL_ROW - CSV_START_ROW, m_CSVData.at(CSV_START_ROW).size());
 
+	if (m_Progress) {
+		delete m_Progress;
+		m_Progress = NULL;
+	}
+	m_Progress = new QProgressDialog();
+	m_Progress->setMinimumDuration(100);
+	m_Progress->setMinimum(CSV_START_ROW);
+	m_Progress->setMaximum(m_CSVData.size());
+	m_Progress->setValue(CSV_START_ROW);
+	m_Progress->setAutoClose(true);
+	QString label = QString("Calculate %1 Data ... ").arg(CP_NAME.at(CalcCPDlg::CP_OEBOOK))
+		+ QString::number(CalcCPDlg::CP_OEBOOK + 1) + " / " + QString::number(CalcCPDlg::CP_MAX);
+	m_Progress->setLabelText(label);
+
 	// set header
 	for (int j = 0; j < m_CSVData.at(CSV_HEADER_ROW).size(); j++) {
 		//m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
@@ -133,6 +156,9 @@ void CSVOebook::SetItem()
 			calcAmountOebookComic += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble();
 			authorAmountOebookComic += m_CSVData.at(i).value(HEADER_OEBOOK_CALCURATE_AMOUNT).replace(",", "").toDouble() * 0.7;
 		}
+
+		m_Progress->setValue(i);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
 
 	//qDebug() << "[OEBOOK]-----------------------------";
@@ -205,6 +231,7 @@ void CSVOebook::SetItem()
 	m_CSVModel->setData(m_CSVModel->index(2, 8), QString::fromLocal8Bit("Author Comic"));
 	m_CSVModel->setData(m_CSVModel->index(2, 9), QString("%L1").arg(authorAmountOebookComic, 0, 'f', 0));
 
+	m_Progress->accept();
 }
 
 QTableView* CSVOebook::GetView()

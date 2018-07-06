@@ -20,6 +20,8 @@
 #include <QDateTime>
 #include <QtWidgets/QTableView>
 
+class QProgressDialog;
+
 class CSVGoogle : public QObject
 {
 	Q_OBJECT
@@ -74,6 +76,8 @@ private:
 	double			m_TotalAmount;
 	double			m_CalcAmount;
 	double			m_AuthorAmount;
+
+	QProgressDialog*	m_Progress;
 
 };
 

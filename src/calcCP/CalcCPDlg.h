@@ -13,7 +13,6 @@
 #define CALC_CP_DLG_H
 
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QProgressDialog>
 
 #include "CSVKyobo.h"
 #include "CSVNaver.h"
@@ -164,9 +163,6 @@ private:
 	CSVJustoon*			m_Justoon;
 	CSVGoogle*			m_Google;
 	CSVKepub*			m_Kepub;
-
-	QProgressDialog*	m_Progress;
-
 
 	Ui::CalcCPDlg ui;
 
