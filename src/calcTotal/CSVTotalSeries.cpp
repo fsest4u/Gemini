@@ -9,6 +9,8 @@
 *************************************************************************/
 
 #include <QtDebug>
+#include <QtWidgets/QProgressDialog>
+#include <QtWidgets/QApplication>
 
 #include "qtcsv/reader.h"
 #include "qtcsv/writer.h"
@@ -22,6 +24,7 @@
 CSVTotalSeries::CSVTotalSeries() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
+	, m_Progress(NULL)
 {
 	//m_CSVData.clear();
 	m_SeriesList.clear();
@@ -32,6 +35,11 @@ CSVTotalSeries::~CSVTotalSeries()
 	if (m_CSVModel) {
 		delete m_CSVModel;
 		m_CSVModel = 0;
+	}
+
+	if (m_Progress) {
+		delete m_Progress;
+		m_Progress = NULL;
 	}
 }
 
@@ -87,6 +95,8 @@ void CSVTotalSeries::InitSeriesData()
 
 void CSVTotalSeries::SetSeriesTable()
 {
+	InitProgress(ROW_AMOUNT, m_SeriesList.count(), CalcCPDlg::CP_MAX);
+
 	QMap<int, double> amountCPList;
 	amountCPList.clear();
 
@@ -204,7 +214,12 @@ void CSVTotalSeries::SetSeriesTable()
 		amountCPList.insert(COLUMN_AMOUNT_AUTHOR, tempAmountCP);
 
 		row++; bookHash++;
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 
 	// Total List by CP & Total Sum
 	for (int i = COLUMN_AMOUNT_TOTAL; i < COLUMN_MAX; i++) {
@@ -231,6 +246,8 @@ void CSVTotalSeries::SetSeriesRank()
 
 void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_KYOBO);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -293,11 +310,18 @@ void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesNaver(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_NAVER);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -360,11 +384,18 @@ void CSVTotalSeries::MakeSeriesNaver(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesRidi(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_RIDI);
+
 	int headerTitle = 0;
 	QList<int> headerTotal;	headerTotal.clear();
 	int headerCalc = -1;
@@ -435,11 +466,18 @@ void CSVTotalSeries::MakeSeriesRidi(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesMunpia(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_MUNPIA);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -502,11 +540,18 @@ void CSVTotalSeries::MakeSeriesMunpia(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesMrblue(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_MRBLUE);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -569,11 +614,18 @@ void CSVTotalSeries::MakeSeriesMrblue(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesBarobook(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_BAROBOOK);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -636,11 +688,18 @@ void CSVTotalSeries::MakeSeriesBarobook(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesBookcube(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_BOOKCUBE);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -703,11 +762,18 @@ void CSVTotalSeries::MakeSeriesBookcube(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesEpyrus(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_EPYRUS);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -770,11 +836,18 @@ void CSVTotalSeries::MakeSeriesEpyrus(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesOebook(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_OEBOOK);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -837,11 +910,18 @@ void CSVTotalSeries::MakeSeriesOebook(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesOnestore(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_ONESTORE);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -904,11 +984,18 @@ void CSVTotalSeries::MakeSeriesOnestore(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesKakao(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_KAKAO);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -971,11 +1058,18 @@ void CSVTotalSeries::MakeSeriesKakao(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesComico(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_COMICO);
+
 	int headerTitle = 0;
 	QList<int> headerTotal;	headerTotal.clear();
 	int headerCalc = -1;
@@ -1043,11 +1137,18 @@ void CSVTotalSeries::MakeSeriesComico(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesTocsoda(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_TOCSODA);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -1110,11 +1211,18 @@ void CSVTotalSeries::MakeSeriesTocsoda(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesJustoon(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_JUSTOON);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -1180,11 +1288,18 @@ void CSVTotalSeries::MakeSeriesJustoon(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesGoogle(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_GOOGLE);
+
 	int headerTitle = 0;
 	int headerTotal = -1;
 	int headerCalc = -1;
@@ -1247,11 +1362,18 @@ void CSVTotalSeries::MakeSeriesGoogle(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 {
+	InitProgress(CSV_TOTAL_ROW, item->rowCount(), CalcCPDlg::CP_KEPUB);
+
 	int headerTitle = 0;
 	QList<int> headerTotal;	headerTotal.clear();
 	int headerCalc = -1;
@@ -1318,7 +1440,12 @@ void CSVTotalSeries::MakeSeriesKepub(QStandardItemModel* item)
 
 		// update book
 		m_SeriesList.insert(title, amountList);	// replace item
+
+		m_Progress->setValue(row);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
+
+	m_Progress->accept();
 }
 
 void CSVTotalSeries::SetItem(CalcCPDlg* cpData)
@@ -1440,4 +1567,21 @@ QString CSVTotalSeries::GetSeriesName(QString titleName)
 	}
 	//qDebug() << "GetSeriesName after : " << retName;
 	return retName;
+}
+
+void CSVTotalSeries::InitProgress(int min, int max, int index)
+{
+	if (m_Progress) {
+		delete m_Progress;
+		m_Progress = NULL;
+	}
+	m_Progress = new QProgressDialog();
+	m_Progress->setMinimumDuration(100);
+	m_Progress->setMinimum(min);
+	m_Progress->setMaximum(max);
+	m_Progress->setValue(0);
+	m_Progress->setAutoClose(true);
+	QString label = QString("Series %1 Data ... ").arg(CP_NAME.at(index))
+		+ QString::number(index) + " / " + QString::number(CalcCPDlg::CP_MAX);
+	m_Progress->setLabelText(label);
 }

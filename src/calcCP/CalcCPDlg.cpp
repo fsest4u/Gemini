@@ -21,7 +21,7 @@
 const QStringList CP_NAME = QStringList() << "KYOBO" << "NAVER" << "RIDI" << "MUNPIA" \
 							<< "MRBLUE" << "BAROBOOK" << "BOOKCUBE" << "EPYRUS" << "OEBOOK" \
 							<< "ONESTORE" << "KAKAO" << "COMICO" << "TOCSODA" << "JUSTOON"  \
-							<< "GOOGLE" << "KEPUB";
+							<< "GOOGLE" << "KEPUB" << "TOTAL";
 
 const int PROGRESS_BAR_MINIMUM_DURATION = 500;
 

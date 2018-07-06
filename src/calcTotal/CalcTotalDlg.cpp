@@ -29,7 +29,6 @@ CalcTotalDlg::CalcTotalDlg(QDialog *parent) :
 	, m_TotalCP(NULL)
 	, m_TotalBook(NULL)
 	, m_TotalSeries(NULL)
-	, m_Progress(NULL)
 
 {
 	ui.setupUi(this);
@@ -53,11 +52,6 @@ CalcTotalDlg::~CalcTotalDlg()
 	if (m_TotalSeries) {
 		delete m_TotalSeries;
 		m_TotalSeries = 0;
-	}
-
-	if (m_Progress) {
-		delete m_Progress;
-		m_Progress = NULL;
 	}
 
 }
@@ -107,17 +101,12 @@ void CalcTotalDlg::ReCalcTotal()
 
 void CalcTotalDlg::Extract()
 {
-	// todo - extract
 	this->done(QDialogButtonBox::NoRole);
 }
 
 
 void CalcTotalDlg::SetCPData(CalcCPDlg* cpData)
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg("CP"));
-	m_Progress->setValue(1);
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-
 	if (!m_TotalCP) { m_TotalCP = new CSVTotalCP(); }
 	m_TotalCP->SetItem(cpData);
 
@@ -129,10 +118,6 @@ void CalcTotalDlg::SetCPData(CalcCPDlg* cpData)
 
 void CalcTotalDlg::SetBookData(CalcCPDlg* cpData)
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg("Book"));
-	m_Progress->setValue(2);
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-
 	if (!m_TotalBook) { m_TotalBook = new CSVTotalBook(); }
 	m_TotalBook->SetItem(cpData);
 
@@ -143,10 +128,6 @@ void CalcTotalDlg::SetBookData(CalcCPDlg* cpData)
 
 void CalcTotalDlg::SetSeriesData(CalcCPDlg* cpData)
 {
-	m_Progress->setLabelText(QString("Calculate %1 Data ...").arg("Series"));
-	m_Progress->setValue(3);
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-
 	if (!m_TotalSeries) { m_TotalSeries = new CSVTotalSeries(); }
 	m_TotalSeries->SetItem(cpData);
 
@@ -159,17 +140,6 @@ void CalcTotalDlg::SetSeriesData(CalcCPDlg* cpData)
 void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 {
 	//qDebug() << "[SetTotal]";
-	if (m_Progress) {
-		delete m_Progress;
-		m_Progress = NULL;
-	}
-	m_Progress = new QProgressDialog(this);
-	m_Progress->setMinimumDuration(PROGRESS_BAR_MINIMUM_DURATION);
-	m_Progress->setMinimum(0);
-	m_Progress->setMaximum(3);
-	m_Progress->setValue(0);
-	m_Progress->setAutoClose(true);
-
 	// Delete and draw new
 	ui.tabTotal->clear();
 
@@ -182,9 +152,7 @@ void CalcTotalDlg::SetTotal(CalcCPDlg* cpData)
 	SetSeriesData(cpData);
 	// todo - send notes
 
-	m_Progress->accept();
 	QApplication::restoreOverrideCursor();
-
 }
 
 void CalcTotalDlg::AddTab(QTableView* table, const QString cpName)

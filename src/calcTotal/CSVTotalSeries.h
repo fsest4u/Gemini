@@ -20,6 +20,7 @@
 #include <QDateTime>
 #include <QtWidgets/QTableView>
 
+class QProgressDialog;
 class CalcCPDlg;
 
 class CSVTotalSeries : public QObject
@@ -137,7 +138,7 @@ private slots:
 
 private:
 
-
+	void InitProgress(int min, int max, int index);
 
 	///////////////////////////////
 	// PRIVATE MEMBER VARIABLES
@@ -155,6 +156,7 @@ private:
 
 	QMap<double, int>	m_RankAmount;
 
+	QProgressDialog*	m_Progress;
 };
 
 #endif // CSV_TOTAL_SERIES_H

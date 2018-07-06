@@ -16,7 +16,6 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QProgressDialog>
 
 #include "ui_CalcTotalDlg.h"
 
@@ -66,8 +65,6 @@ private:
 	CSVTotalCP*			m_TotalCP;
 	CSVTotalBook*		m_TotalBook;
 	CSVTotalSeries*		m_TotalSeries;
-
-	QProgressDialog*	m_Progress;
 
 	Ui::CalcTotalDlg ui;
 
