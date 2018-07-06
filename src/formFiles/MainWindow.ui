@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Gemini Calculator</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../resFiles/resources.qrc">
+    <normaloff>:/gemini.ico</normaloff>:/gemini.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0" colspan="2">
