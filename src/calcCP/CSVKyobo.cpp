@@ -80,10 +80,10 @@ void CSVKyobo::SetItem()
 		delete m_CSVModel;
 		m_CSVModel = 0;
 	}
-	m_CSVModel = new QStandardItemModel(m_CSVData.size() + CSV_TOTAL_ROW, m_CSVData.at(0).size() + 1);
+	m_CSVModel = new QStandardItemModel(m_CSVData.size() + CSV_TOTAL_ROW - CSV_START_ROW, m_CSVData.at(CSV_START_ROW).size());
 
 	// set header
-	for (int j = 0; j < m_CSVData.at(0).size(); j++) {
+	for (int j = 0; j < m_CSVData.at(CSV_HEADER_ROW).size(); j++) {
 		//m_CSVModel->setHeaderData(j, Qt::Horizontal, m_CSVData.at(CSV_HEADER_ROW).value(j));
 		m_CSVModel->setData(m_CSVModel->index(CSV_TOTAL_ROW - 1, j), m_CSVData.at(CSV_HEADER_ROW).value(j));
 	}
@@ -92,12 +92,13 @@ void CSVKyobo::SetItem()
 		// set line number
 		m_CSVModel->setVerticalHeaderItem(i - 1, new QStandardItem(QString("%1").arg(i)));
 
-		for (int j = 0; j < m_CSVData.at(i).size() + 1; j++) {
+		for (int j = 0; j < m_CSVData.at(i).size(); j++) {
 			m_CSVModel->setData(m_CSVModel->index(i - CSV_START_ROW + CSV_TOTAL_ROW, j), m_CSVData.at(i).value(j));
 		}
 
 		totalAmount += m_CSVData.at(i).value(HEADER_KYOBO_SALE_AMOUNT).replace(",", "").toDouble();
 		calcAmount += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble();
+		// todo - 60 ~ 70%
 		authorAmount += m_CSVData.at(i).value(HEADER_KYOBO_CALCULATOR_AMOUNT).replace(",", "").toDouble() * 0.7;
 
 		// b2c

@@ -144,6 +144,7 @@ bool ReaderPrivate::read(QIODevice& ioDevice,
 		else {
 			codec = QTextCodec::codecForName("eucKR");
 		}
+		ioDevice.seek(0);
 	}
 
 
