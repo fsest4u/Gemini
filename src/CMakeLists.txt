@@ -84,6 +84,8 @@ set( MISC_FILES
     misc/SettingData.cpp
 	misc/TinyAES.h
 	misc/TinyAES.cpp
+	misc/ProgressWidget.h
+	misc/ProgressWidget.cpp
 )
 
 set( QTCSV_FILES

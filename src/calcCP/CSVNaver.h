@@ -20,7 +20,7 @@
 #include <QDateTime>
 #include <QtWidgets/QTableView>
 
-class QProgressDialog;
+class ProgressWidget;
 
 class CSVNaver : public QObject
 {
@@ -99,7 +99,7 @@ private:
 	double			m_CalcAmount;
 	double			m_AuthorAmount;
 
-	QProgressDialog*	m_Progress;
+	ProgressWidget* m_ProgressWidget;
 
 };
 

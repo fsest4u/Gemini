@@ -20,7 +20,7 @@
 #include <QDateTime>
 #include <QtWidgets/QTableView>
 
-class QProgressDialog;
+class ProgressWidget;
 
 class CSVKakao : public QObject
 {
@@ -88,7 +88,7 @@ private:
 	double			m_CalcAmount;
 	double			m_AuthorAmount;
 
-	QProgressDialog*	m_Progress;
+	ProgressWidget* m_ProgressWidget;
 
 };
 

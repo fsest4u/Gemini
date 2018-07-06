@@ -9,13 +9,12 @@
 *************************************************************************/
 
 #include <QtDebug>
-#include <QtWidgets/QProgressDialog>
-#include <QtWidgets/QApplication>
 
 #include "qtcsv/reader.h"
 #include "qtcsv/writer.h"
 #include "qtcsv/stringdata.h"
 
+#include "misc/ProgressWidget.h"
 #include "CalcCPDlg.h"
 #include "CSVOnestore.h"
 #include "gemini_constants.h"
@@ -26,10 +25,12 @@ const int CSV_START_ROW = 1;
 CSVOnestore::CSVOnestore() :
 	m_CSVModel(NULL)
 	, m_CSVView(NULL)
-	, m_Progress(NULL)
+	, m_ProgressWidget(NULL)
 {
 	m_CSVData.clear();
 	m_CSVHeader << "";
+
+	m_ProgressWidget = new ProgressWidget();
 }
 
 CSVOnestore::~CSVOnestore()
@@ -39,9 +40,9 @@ CSVOnestore::~CSVOnestore()
 		m_CSVModel = 0;
 	}
 
-	if (m_Progress) {
-		delete m_Progress;
-		m_Progress = NULL;
+	if (m_ProgressWidget) {
+		delete m_ProgressWidget;
+		m_ProgressWidget = NULL;
 	}
 }
 
@@ -73,6 +74,8 @@ void CSVOnestore::WriteFile(QString filepath)
 
 void CSVOnestore::SetItem()
 {
+	m_ProgressWidget->InitProgress("Calculate", CSV_START_ROW, m_CSVData.size(), CalcCPDlg::CP_ONESTORE, CalcCPDlg::CP_MAX);
+
 	m_TotalAmount = 0;
 	m_CalcAmount = 0;
 	m_AuthorAmount = 0;
@@ -82,20 +85,6 @@ void CSVOnestore::SetItem()
 		m_CSVModel = 0;
 	}
 	m_CSVModel = new QStandardItemModel(m_CSVData.size() + CSV_TOTAL_ROW - CSV_START_ROW, m_CSVData.at(CSV_START_ROW).size());
-
-	if (m_Progress) {
-		delete m_Progress;
-		m_Progress = NULL;
-	}
-	m_Progress = new QProgressDialog();
-	m_Progress->setMinimumDuration(100);
-	m_Progress->setMinimum(CSV_START_ROW);
-	m_Progress->setMaximum(m_CSVData.size());
-	m_Progress->setValue(CSV_START_ROW);
-	m_Progress->setAutoClose(true);
-	QString label = QString("Calculate %1 Data ... ").arg(CP_NAME.at(CalcCPDlg::CP_ONESTORE))
-		+ QString::number(CalcCPDlg::CP_ONESTORE + 1) + " / " + QString::number(CalcCPDlg::CP_MAX);
-	m_Progress->setLabelText(label);
 
 	// set header
 	for (int j = 0; j < m_CSVData.at(CSV_HEADER_ROW).size(); j++) {
@@ -115,9 +104,9 @@ void CSVOnestore::SetItem()
 		m_CalcAmount += m_CSVData.at(i).value(HEADER_ONESTORE_CUSTOM_CHARGE).replace(",", "").toDouble() * 0.7;
 		m_AuthorAmount += m_CSVData.at(i).value(HEADER_ONESTORE_CUSTOM_CHARGE).replace(",", "").toDouble() * 0.49;
 
-		m_Progress->setValue(i);
-		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+		m_ProgressWidget->SetValue(i);
 	}
+	m_ProgressWidget->Accept();
 
 	//qDebug() << "[ONESTORE]-----------------------------";
 	//qDebug() << "Row Count : " << m_CSVData.size();
@@ -135,7 +124,6 @@ void CSVOnestore::SetItem()
 	m_CSVModel->setData(m_CSVModel->index(2, 0), QString::fromLocal8Bit("Author Amount"));
 	m_CSVModel->setData(m_CSVModel->index(2, 1), QString("%L1").arg(m_AuthorAmount, 0, 'f', 0));
 
-	m_Progress->accept();
 }
 
 QTableView* CSVOnestore::GetView()
