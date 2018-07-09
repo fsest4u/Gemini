@@ -126,10 +126,6 @@ public:
 	QStandardItemModel* GetItem() { return m_CSVModel; }
 	QTableView* GetView();
 
-	//double GetTotalAmount() { return m_TotalAmount; };
-	//double GetCalcAmount() { return m_CalcAmount; };
-	//double GetAuthorAmount() { return m_AuthorAmount; };
-	
 	void WriteFile(QString filepath);
 
 
@@ -141,18 +137,13 @@ private:
 	///////////////////////////////
 	// PRIVATE MEMBER VARIABLES
 	///////////////////////////////
-	//QList<QStringList>	m_CSVData;
+
 	QStandardItemModel*	m_CSVModel;
 	QTableView*			m_CSVView;
 
 	QMap<QString, QMap<int, double>>		m_SeriesList;
-	//QHash<int, double>						m_AmountList;
 
-	//QList<double>		m_TotalAmount;
-	//QList<double>		m_CalcAmount;
-	//QList<double>		m_AuthorAmount;
-
-	QMap<double, int>	m_RankAmount;
+	QMap<double, QString>	m_RankAmount;
 
 	ProgressWidget* m_ProgressWidget;
 };

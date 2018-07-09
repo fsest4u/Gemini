@@ -45,10 +45,6 @@ CSVTotalSeries::~CSVTotalSeries()
 
 void CSVTotalSeries::InitSeriesData()
 {
-	//m_TotalAmount.clear();
-	//m_CalcAmount.clear();
-	//m_AuthorAmount.clear();
-
 	// table data
 	if (m_CSVModel) {
 		delete m_CSVModel;
@@ -225,21 +221,44 @@ void CSVTotalSeries::SetSeriesTable()
 	}
 }
 
-// todo - rank
 void CSVTotalSeries::SetSeriesRank()
 {
-	//int rank = m_RankAmount.count();
-	//QMapIterator<double, int> i(m_RankAmount);
-	//while (i.hasNext()) {
-	//	i.next();
+	// set rank data
+	for (int row = ROW_MAX; row < m_CSVModel->rowCount(); row++) {
+		// for debug
+		QString amount = QString("%L1").arg(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble(), 0, 'f', 0);
+		qDebug() << "Amount : " <<  amount << ", Title : " << m_CSVModel->index(row, COLUMN_TITLE).data().toString();
 
-	//	// for debug
-	//	QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
-	//	qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Column : " << i.value();
+		m_RankAmount.insert(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble()
+			, m_CSVModel->index(row, COLUMN_TITLE).data().toString());
+	}
 
-	//	m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, i.value()), rank);
-	//	rank--;	// because of ascend order
-	//}
+	int rank = m_CSVModel->rowCount() - ROW_MAX + 1;
+	int rankSame = 0;
+	double oldAmount = -1.0;
+	QMapIterator<double, QString> i(m_RankAmount);
+	while (i.hasNext()) {
+		i.next();
+		for (int row = ROW_MAX; row < m_CSVModel->rowCount(); row++) {
+			if (i.key() == m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble()) {
+
+				if (oldAmount == i.key()) {
+					rankSame++;
+				}
+				else {
+					rank = rank - 1 - rankSame;// because of ascend order
+					rankSame = 0;
+				}
+				// for debug
+				QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+				qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Title : " << m_CSVModel->index(row, COLUMN_TITLE).data().toString();
+
+				m_CSVModel->setData(m_CSVModel->index(row, COLUMN_RANK), rank);
+				oldAmount = i.key();
+			}
+
+		}
+	}
 }
 
 void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)
@@ -1473,6 +1492,10 @@ void CSVTotalSeries::SetItem(CalcCPDlg* cpData)
 
 	// set book list
 	SetSeriesTable();
+
+	// rank
+	SetSeriesRank();
+
 }
 
 QTableView* CSVTotalSeries::GetView()
