@@ -14,7 +14,7 @@
 #define GeminiExeName   "Gemini.exe"
 
 #define GeminiPublisher "Joara, Inc."
-#define GeminiCopyRight "Copyright (C) 2017 " + GeminiPublisher
+#define GeminiCopyRight "Copyright (C) 2018 " + GeminiPublisher
 #define GeminiURL       "http://www.joara.com"
 
 ;#define GeminiLicenseEN "Gemini_license_en.rtf"
