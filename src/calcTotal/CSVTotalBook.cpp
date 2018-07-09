@@ -225,6 +225,7 @@ void CSVTotalBook::SetBookTable()
 
 void CSVTotalBook::SetBookRank()
 {
+	m_ProgressWidget->InitProgressSubtitle("Init Rank", "Book", ROW_MAX, m_CSVModel->rowCount(), 1, 2);
 	// set rank data
 	for (int row = ROW_MAX; row < m_CSVModel->rowCount(); row++) {
 		// for debug
@@ -233,7 +234,12 @@ void CSVTotalBook::SetBookRank()
 
 		m_RankAmount.insert(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble()
 							, m_CSVModel->index(row, COLUMN_TITLE).data().toString());
+
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
+
+	m_ProgressWidget->InitProgressSubtitle("Calc Rank", "Book", ROW_MAX, m_CSVModel->rowCount(), 2, 2);
 
 	int rank = m_CSVModel->rowCount() - ROW_MAX + 1;
 	int rankSame = 0;
@@ -260,7 +266,9 @@ void CSVTotalBook::SetBookRank()
 			}
 
 		}
+		m_ProgressWidget->SetValue(m_CSVModel->rowCount() - rank);
 	}
+	m_ProgressWidget->Accept();
 }
 
 void CSVTotalBook::MakeBookKyobo(QStandardItemModel* item)

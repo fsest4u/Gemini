@@ -129,16 +129,16 @@ void CSVTotalCP::SetCPRank()
 			&& CalcCPDlg::CP_MAX - 1 != i.value()) {
 
 			// for debug
-			QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
-			qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Column : " << i.value();
+			//QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+			//qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Column : " << i.value();
 
 			m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, i.value()), rank);
 			rank--;	// because of ascend order
 		}
 		else {
 			// for debug
-			QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
-			qDebug() << "Kepub Rank : " << rankKepub << ", Amount : " << amount << ", Column : " << i.value();
+			//QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+			//qDebug() << "Kepub Rank : " << rankKepub << ", Amount : " << amount << ", Column : " << i.value();
 
 			m_CSVModel->setData(m_CSVModel->index(ROW_AMOUNT_RANK, i.value()), rankKepub);
 			rankKepub--;	// because of ascend order

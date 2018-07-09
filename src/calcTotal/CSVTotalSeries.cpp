@@ -223,15 +223,21 @@ void CSVTotalSeries::SetSeriesTable()
 
 void CSVTotalSeries::SetSeriesRank()
 {
+	m_ProgressWidget->InitProgressSubtitle("Init Rank", "Series", ROW_MAX, m_CSVModel->rowCount(), 1, 2);
 	// set rank data
 	for (int row = ROW_MAX; row < m_CSVModel->rowCount(); row++) {
 		// for debug
-		QString amount = QString("%L1").arg(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble(), 0, 'f', 0);
-		qDebug() << "Amount : " <<  amount << ", Title : " << m_CSVModel->index(row, COLUMN_TITLE).data().toString();
+		//QString amount = QString("%L1").arg(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble(), 0, 'f', 0);
+		//qDebug() << "Amount : " <<  amount << ", Title : " << m_CSVModel->index(row, COLUMN_TITLE).data().toString();
 
 		m_RankAmount.insert(m_CSVModel->index(row, COLUMN_AMOUNT_TOTAL).data().toString().replace(",", "").toDouble()
 			, m_CSVModel->index(row, COLUMN_TITLE).data().toString());
+
+		m_ProgressWidget->SetValue(row);
 	}
+	m_ProgressWidget->Accept();
+
+	m_ProgressWidget->InitProgressSubtitle("Calc Rank", "Series", ROW_MAX, m_CSVModel->rowCount(), 2, 2);
 
 	int rank = m_CSVModel->rowCount() - ROW_MAX + 1;
 	int rankSame = 0;
@@ -250,15 +256,17 @@ void CSVTotalSeries::SetSeriesRank()
 					rankSame = 0;
 				}
 				// for debug
-				QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
-				qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Title : " << m_CSVModel->index(row, COLUMN_TITLE).data().toString();
+				//QString amount = QString("%L1").arg(i.key(), 0, 'f', 0);
+				//qDebug() << "Rank : " << rank << ", Amount : " << amount << ", Title : " << m_CSVModel->index(row, COLUMN_TITLE).data().toString();
 
 				m_CSVModel->setData(m_CSVModel->index(row, COLUMN_RANK), rank);
 				oldAmount = i.key();
 			}
 
 		}
+		m_ProgressWidget->SetValue(m_CSVModel->rowCount() - rank);
 	}
+	m_ProgressWidget->Accept();
 }
 
 void CSVTotalSeries::MakeSeriesKyobo(QStandardItemModel* item)

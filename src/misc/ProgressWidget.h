@@ -24,6 +24,7 @@ public:
 	virtual ~ProgressWidget();
 
 	void InitProgress(QString title, int min, int max, double curIndex, double totIndex);
+	void InitProgressSubtitle(QString title, QString subtitle, int min, int max, double curIndex, double totIndex);
 	void SetValue(double curIndex);
 	void Accept();
 
